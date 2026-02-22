@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOWBUS — OWN A PIECE</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #F5F0E8;
+    --red: #FF2020;
+    --yellow: #FFE100;
+    --cyan: #00FFFF;
+    --magenta: #FF00FF;
+    --green: #00FF41;
+    --orange: #FF6B00;
+    --pink: #FF69B4;
+    --blue: #0044FF;
+    --dot-red: #FF2020;
+    --dot-yellow: #FFE100;
+    --dot-blue: #0044FF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Press Start 2P', monospace;
+    overflow-x: hidden;
+    cursor: none;
+    min-height: 100vh;
+  }
+
+  /* ══════════════════════════════════
+     CUSTOM CURSOR + TRAILS
+  ══════════════════════════════════ */
+  #cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: var(--yellow);
+    border: 2px solid var(--black);
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    image-rendering: pixelated;
+  }
+
+  .trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    image-rendering: pixelated;
+  }
+
+  /* ══════════════════════════════════
+     SCANLINE OVERLAY
+  ══════════════════════════════════ */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 9000;
+  }
+
+  /* ══════════════════════════════════
+     KUSAMA DOT BACKGROUND
+  ══════════════════════════════════ */
+  .kusama-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .kusama-dot {
+    position: absolute;
+    border-radius: 50%;
+    animation: dotPulse var(--dur, 3s) ease-in-out infinite alternate;
+  }
+
+  @keyframes dotPulse {
+    from { transform: scale(1); opacity: 0.15; }
+    to { transform: scale(1.3); opacity: 0.35; }
+  }
+
+  /* ══════════════════════════════════
+     WARHOL STRIPE HEADER
+  ══════════════════════════════════ */
+  .warhol-header {
+    position: relative;
+    z-index: 10;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .warhol-stripes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 8px;
+  }
+
+  .warhol-stripes div:nth-child(1) { background: var(--red); }
+  .warhol-stripes div:nth-child(2) { background: var(--yellow); }
+  .warhol-stripes div:nth-child(3) { background: var(--cyan); }
+  .warhol-stripes div:nth-child(4) { background: var(--magenta); }
+
+  /* ══════════════════════════════════
+     HERO TITLE — WARHOL SILKSCREEN
+  ══════════════════════════════════ */
+  .hero {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 20px 20px;
+  }
+
+  .title-block {
+    display: inline-block;
+    position: relative;
+  }
+
+  .title-main {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(28px, 5vw, 56px);
+    line-height: 1.4;
+    letter-spacing: -1px;
+    color: var(--white);
+    text-shadow:
+      4px 4px 0 var(--red),
+      8px 8px 0 var(--yellow),
+      -2px -2px 0 var(--cyan);
+    animation: titleGlitch 4s infinite;
+  }
+
+  @keyframes titleGlitch {
+    0%, 90%, 100% {
+      text-shadow:
+        4px 4px 0 var(--red),
+        8px 8px 0 var(--yellow),
+        -2px -2px 0 var(--cyan);
+      transform: translate(0,0);
+    }
+    92% {
+      text-shadow:
+        -4px 4px 0 var(--magenta),
+        8px -4px 0 var(--cyan),
+        2px 2px 0 var(--yellow);
+      transform: translate(2px, -1px);
+    }
+    94% {
+      text-shadow:
+        4px 4px 0 var(--red),
+        8px 8px 0 var(--yellow),
+        -2px -2px 0 var(--green);
+      transform: translate(-1px, 1px);
+    }
+  }
+
+  .title-sub {
+    font-family: 'VT323', monospace;
+    font-size: clamp(16px, 2.5vw, 24px);
+    color: var(--yellow);
+    margin-top: 12px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 var(--orange);
+  }
+
+  /* Warhol color panels behind title */
+  .warhol-panels {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+
+  .warhol-panel {
+    flex: 1;
+    height: 6px;
+  }
+
+  /* ══════════════════════════════════
+     DAY ONE CLUB BANNER
+  ══════════════════════════════════ */
+  .day-one-banner {
+    position: relative;
+    z-index: 10;
+    margin: 0 auto 24px;
+    max-width: 700px;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    padding: 12px 20px;
+    text-align: center;
+    border: 3px solid var(--black);
+    box-shadow: 5px 5px 0 var(--red), 8px 8px 0 var(--black);
+    line-height: 1.8;
+  }
+
+  .day-one-banner .big {
+    font-size: 13px;
+    display: block;
+    margin-bottom: 8px;
+    color: var(--red);
+    text-shadow: 2px 2px 0 var(--black);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  #countdown {
+    font-size: 14px;
+    color: var(--blue);
+    letter-spacing: 2px;
+  }
+
+  /* ══════════════════════════════════
+     TABS
+  ══════════════════════════════════ */
+  .tabs-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+
+  .tab {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 10px 20px;
+    border: 3px solid var(--white);
+    background: var(--black);
+    color: var(--white);
+    cursor: none;
+    transition: none;
+    position: relative;
+    letter-spacing: 1px;
+  }
+
+  .tab:hover {
+    background: var(--white);
+    color: var(--black);
+    box-shadow: 4px 4px 0 var(--cyan);
+  }
+
+  .tab.active {
+    background: var(--yellow);
+    color: var(--black);
+    border-color: var(--black);
+    box-shadow: 4px 4px 0 var(--red), 6px 6px 0 var(--black);
+    transform: translate(-1px, -1px);
+  }
+
+  /* ══════════════════════════════════
+     MAIN LAYOUT
+  ══════════════════════════════════ */
+  .main-layout {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 20px;
+    padding: 0 20px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* ══════════════════════════════════
+     BUS GRID
+  ══════════════════════════════════ */
+  .bus-container {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .bus-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 0 var(--blue);
+  }
+
+  .bus-frame {
+    background: var(--black);
+    border: 3px solid var(--white);
+    box-shadow:
+      0 0 0 1px var(--black),
+      6px 6px 0 var(--cyan),
+      8px 8px 0 var(--magenta),
+      10px 10px 0 var(--black);
+    padding: 8px;
+    overflow: auto;
+    position: relative;
+  }
+
+  .bus-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 29px,
+        rgba(255,255,255,0.04) 29px,
+        rgba(255,255,255,0.04) 30px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 29px,
+        rgba(255,255,255,0.04) 29px,
+        rgba(255,255,255,0.04) 30px
+      );
+    pointer-events: none;
+  }
+
+  .plot-grid {
+    display: grid;
+    gap: 2px;
+    /* 37 cols × 9 rows for side panels, different for front/back */
+  }
+
+  /* Individual plot */
+  .plot {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #111;
+    border: 1px solid #222;
+    position: relative;
+    cursor: none;
+    transition: transform 0.05s;
+    image-rendering: pixelated;
+  }
+
+  /* Kusama-style random inner dot */
+  .plot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .plot:hover {
+    transform: scale(1.15);
+    z-index: 100;
+    border-color: var(--yellow) !important;
+  }
+
+  .plot:hover::after {
+    opacity: 1;
+  }
+
+  .plot.available {
+    background: #0a0a0a;
+    border-color: #1a1a1a;
+  }
+
+  .plot.available:hover {
+    background: #111;
+    border-color: var(--yellow);
+    box-shadow: 0 0 8px var(--yellow), inset 0 0 4px rgba(255,225,0,0.2);
+  }
+
+  /* Warhol color assignments — each plot gets a color class */
+  .plot.selected {
+    animation: plotSelected 0.3s steps(3) forwards;
+  }
+
+  @keyframes plotSelected {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1.1); }
+  }
+
+  /* color-coded by position mod */
+  .plot[data-color="0"] { --plot-color: var(--red); }
+  .plot[data-color="1"] { --plot-color: var(--yellow); }
+  .plot[data-color="2"] { --plot-color: var(--cyan); }
+  .plot[data-color="3"] { --plot-color: var(--magenta); }
+  .plot[data-color="4"] { --plot-color: var(--green); }
+  .plot[data-color="5"] { --plot-color: var(--orange); }
+  .plot[data-color="6"] { --plot-color: var(--pink); }
+  .plot[data-color="7"] { --plot-color: var(--blue); }
+
+  .plot.selected {
+    background: var(--plot-color) !important;
+    border-color: var(--white) !important;
+    box-shadow: 0 0 12px var(--plot-color), inset 0 0 6px rgba(255,255,255,0.3);
+  }
+
+  .plot.selected::after {
+    background: rgba(255,255,255,0.4);
+    opacity: 1;
+  }
+
+  /* Owned/sold plots */
+  .plot.sold {
+    background: #1a0a2a;
+    border-color: #2a1a3a;
+  }
+
+  .plot.team {
+    background: #0a1a0a;
+    border-color: #1a3a1a;
+  }
+
+  /* ══════════════════════════════════
+     PURCHASE PANEL
+  ══════════════════════════════════ */
+  .purchase-panel {
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .panel-box {
+    background: var(--black);
+    border: 3px solid var(--white);
+    box-shadow: 6px 6px 0 var(--magenta), 8px 8px 0 var(--black);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .panel-box h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    text-shadow: 2px 2px 0 var(--blue);
+    border-bottom: 2px solid #222;
+    padding-bottom: 10px;
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .stat-label {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: #888;
+    letter-spacing: 1px;
+  }
+
+  .stat-value {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: var(--white);
+  }
+
+  .stat-value.highlight {
+    color: var(--yellow);
+    text-shadow: 0 0 10px var(--yellow);
+    font-size: 16px;
+  }
+
+  .stat-value.total {
+    color: var(--green);
+    text-shadow: 0 0 10px var(--green);
+    font-size: 18px;
+  }
+
+  /* Buy button */
+  .buy-btn {
+    display: block;
+    width: 100%;
+    background: var(--yellow);
+    color: var(--black);
+    border: 3px solid var(--black);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 14px 10px;
+    cursor: none;
+    text-align: center;
+    box-shadow: 4px 4px 0 var(--red), 6px 6px 0 var(--black);
+    transition: none;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+  .buy-btn:hover:not(:disabled) {
+    background: var(--red);
+    color: var(--white);
+    box-shadow: 4px 4px 0 var(--yellow), 6px 6px 0 var(--black);
+    transform: translate(-1px, -1px);
+  }
+
+  .buy-btn:disabled {
+    background: #222;
+    color: #444;
+    box-shadow: 2px 2px 0 #111;
+    cursor: none;
+  }
+
+  /* Clear button */
+  .clear-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #666;
+    border: 2px solid #333;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 10px;
+    cursor: none;
+    text-align: center;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  .clear-btn:hover {
+    color: var(--red);
+    border-color: var(--red);
+  }
+
+  /* Legend */
+  .legend-box {
+    background: var(--black);
+    border: 3px solid #333;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .legend-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: #555;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #333;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+  }
+
+  .legend-dot.available { background: #0a0a0a; border-color: #333; }
+  .legend-dot.selected-dot { background: var(--yellow); }
+  .legend-dot.sold-dot { background: #1a0a2a; border-color: #2a1a3a; }
+  .legend-dot.team-dot { background: #0a1a0a; border-color: #1a3a1a; }
+
+  .legend-text {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: #666;
+  }
+
+  /* ══════════════════════════════════
+     MARQUEE
+  ══════════════════════════════════ */
+  .marquee-strip {
+    position: relative;
+    z-index: 10;
+    background: var(--red);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 8px 0;
+    margin-bottom: 20px;
+    border-top: 3px solid var(--black);
+    border-bottom: 3px solid var(--black);
+  }
+
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 var(--black);
+    letter-spacing: 3px;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* ══════════════════════════════════
+     TOOLTIP
+  ══════════════════════════════════ */
+  #tooltip {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99000;
+    background: var(--black);
+    border: 2px solid var(--yellow);
+    box-shadow: 3px 3px 0 var(--red);
+    padding: 8px 12px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--white);
+    line-height: 1.8;
+    display: none;
+    max-width: 180px;
+    image-rendering: pixelated;
+  }
+
+  /* ══════════════════════════════════
+     STATS BAR
+  ══════════════════════════════════ */
+  .stats-bar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    flex-wrap: wrap;
+    padding: 0 20px 20px;
+  }
+
+  .stat-pill {
+    background: var(--black);
+    border: 2px solid #333;
+    padding: 8px 16px;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .stat-pill span {
+    color: var(--cyan);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+  }
+
+  /* ══════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════ */
+  @media (max-width: 768px) {
+    .title-main { font-size: 20px; }
+    .purchase-panel { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- KUSAMA DOT BACKGROUND -->
+<div class="kusama-bg" id="kusamaBg"></div>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="tooltip"></div>
+
+<!-- WARHOL HEADER STRIPES -->
+<div class="warhol-header">
+  <div class="warhol-stripes">
+    <div></div><div></div><div></div><div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="title-block">
+    <div class="title-main">OWN A PIECE<br>OF THE<br>SHOWBUS</div>
+  </div>
+  <div class="warhol-panels">
+    <div class="warhol-panel" style="background:var(--red)"></div>
+    <div class="warhol-panel" style="background:var(--yellow)"></div>
+    <div class="warhol-panel" style="background:var(--cyan)"></div>
+    <div class="warhol-panel" style="background:var(--magenta)"></div>
+    <div class="warhol-panel" style="background:var(--green)"></div>
+    <div class="warhol-panel" style="background:var(--orange)"></div>
+  </div>
+  <div class="title-sub">BUY PLOTS WITH ETH ON BASE · EACH PLOT IS AN NFT<br>OWN A SECTION · PUT YOUR ART ON THE BUS</div>
+</div>
+
+<!-- DAY ONE CLUB BANNER -->
+<div class="day-one-banner">
+  <span class="big">★ DAY ONE CLUB ★</span>
+  PURCHASE BEFORE APRIL 1, 2026 · FOUNDING MEMBER STATUS · PERMANENT ON-CHAIN<br><br>
+  <div id="countdown">CALCULATING...</div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    ★ THE MOST ALIVE THING ON WHEELS ★ &nbsp;&nbsp;&nbsp; OWN THE BLOCK. LITERALLY. ★ &nbsp;&nbsp;&nbsp; 333 PLOTS PER SIDE ★ &nbsp;&nbsp;&nbsp; NASHVILLE MUSIC ON-CHAIN ★ &nbsp;&nbsp;&nbsp; BASE NETWORK · LOW FEES ★ &nbsp;&nbsp;&nbsp; YOUR ART. NASHVILLE STREETS. FOREVER. ★ &nbsp;&nbsp;&nbsp; DAY ONE CLUB — BE FIRST ★ &nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-pill">AVAILABLE <span id="availableCount">—</span></div>
+  <div class="stat-pill">SOLD <span id="soldCount">0</span></div>
+  <div class="stat-pill">PRICE <span>0.01 ETH</span></div>
+  <div class="stat-pill">SIDE <span id="currentSide">FRONT</span></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-container">
+  <button class="tab active" onclick="switchSide('FRONT', this)">FRONT</button>
+  <button class="tab" onclick="switchSide('BACK', this)">BACK</button>
+  <button class="tab" onclick="switchSide('LEFT', this)">LEFT (37×9)</button>
+  <button class="tab" onclick="switchSide('RIGHT', this)">RIGHT (37×9)</button>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+  <div class="bus-container">
+    <div class="bus-label" id="busLabel">▶ FRONT OF BUS</div>
+    <div class="bus-frame">
+      <div class="plot-grid" id="plotGrid"></div>
+    </div>
+  </div>
+
+  <div class="purchase-panel">
+    <div class="panel-box">
+      <h3>► CHECKOUT</h3>
+      <div class="stat-row">
+        <span class="stat-label">PLOTS SELECTED</span>
+        <span class="stat-value highlight" id="plotsSelected">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">PRICE / PLOT</span>
+        <span class="stat-value">0.01 ETH</span>
+      </div>
+      <div class="stat-row" style="border-bottom: none; margin-bottom: 0;">
+        <span class="stat-label">TOTAL</span>
+        <span class="stat-value total" id="totalEth">0.00 ETH</span>
+      </div>
+      <button class="buy-btn" id="buyBtn" disabled>
+        ▶ CONNECT WALLET<br>TO PURCHASE
+      </button>
+      <button class="clear-btn" onclick="clearSelection()">✕ CLEAR SELECTION</button>
+    </div>
+
+    <div class="legend-box">
+      <div class="legend-title">// LEGEND //</div>
+      <div class="legend-item">
+        <div class="legend-dot available"></div>
+        <span class="legend-text">AVAILABLE (90%)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot selected-dot"></div>
+        <span class="legend-text">SELECTED</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot sold-dot"></div>
+        <span class="legend-text">MINED / SOLD</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot team-dot"></div>
+        <span class="legend-text">TEAM BLOCK (10%)</span>
+      </div>
+    </div>
+
+    <div class="panel-box" style="border-color: #333; box-shadow: none;">
+      <h3 style="color: #555;">► DAY ONE PERKS</h3>
+      <div style="font-family: 'VT323', monospace; font-size: 15px; color: #666; line-height: 1.8;">
+        ★ FOUNDING MEMBER STATUS<br>
+        ★ ON-CHAIN FOREVER<br>
+        ★ PRIORITY PLOT SELECTION<br>
+        ★ NAME IN LAUNCH VIDEO<br>
+        ★ IRL NASHVILLE EVENT<br>
+        ★ DIRECT FOUNDER ACCESS<br>
+        ★ PRESALE PRICING
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// BUS DIMENSIONS
+// 370" wide × 90" tall sides = 37 cols × 9 rows = 333 plots
+// Front/back are narrower — bus width ~98" = ~10 cols × 9 rows = 90 plots
+// ═══════════════════════════════════════════
+const SIDES = {
+  FRONT: { cols: 10, rows: 9, label: '▶ FRONT OF BUS' },
+  BACK:  { cols: 10, rows: 9, label: '▶ BACK OF BUS' },
+  LEFT:  { cols: 37, rows: 9, label: '▶ LEFT SIDE (37 × 9 = 333 PLOTS)' },
+  RIGHT: { cols: 37, rows: 9, label: '▶ RIGHT SIDE (37 × 9 = 333 PLOTS)' }
+};
+
+const PRICE_ETH = 0.01;
+let currentSide = 'FRONT';
+let selectedPlots = new Set();
+// Simulate some sold plots and team blocks
+const soldPlots = new Set();
+const teamPlots = new Set();
+
+// Pre-seed some sold/team plots
+function seedPlots(side) {
+  const { cols, rows } = SIDES[side];
+  const total = cols * rows;
+  const teamCount = Math.floor(total * 0.1);
+  const soldCount = Math.floor(total * 0.05);
+  const key = (r, c) => `${side}_${r}_${c}`;
+
+  // Team blocks (10%) — distributed somewhat evenly
+  let t = 0;
+  for (let r = 0; r < rows && t < teamCount; r++) {
+    for (let c = 0; c < cols && t < teamCount; c += Math.floor(cols / Math.max(1, teamCount / rows))) {
+      teamPlots.add(key(r, c));
+      t++;
+    }
+  }
+
+  // Sold blocks (~5%)
+  let s = 0;
+  const rng = (n) => Math.floor(Math.random() * n);
+  while (s < soldCount) {
+    const r = rng(rows);
+    const c = rng(cols);
+    const k = key(r, c);
+    if (!teamPlots.has(k)) { soldPlots.add(k); s++; }
+  }
+}
+
+Object.keys(SIDES).forEach(seedPlots);
+
+// ═══════════════════════════════════════════
+// RENDER GRID
+// ═══════════════════════════════════════════
+function renderGrid(side) {
+  const { cols, rows } = SIDES[side];
+  const grid = document.getElementById('plotGrid');
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+  // Make plots smaller for 37-col views
+  const plotSize = cols > 15 ? '18px' : '36px';
+  grid.style.gridAutoRows = plotSize;
+  grid.innerHTML = '';
+
+  const total = cols * rows;
+  let available = 0;
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const key = `${side}_${r}_${c}`;
+      const idx = r * cols + c;
+      const colorIdx = (r + c + Math.floor(idx * 1.618)) % 8;
+
+      const plot = document.createElement('div');
+      plot.className = 'plot';
+      plot.dataset.key = key;
+      plot.dataset.color = colorIdx;
+      plot.dataset.row = r;
+      plot.dataset.col = c;
+
+      if (teamPlots.has(key)) {
+        plot.classList.add('team');
+        plot.title = `TEAM BLOCK · R${r+1}C${c+1}`;
+      } else if (soldPlots.has(key)) {
+        plot.classList.add('sold');
+      } else {
+        plot.classList.add('available');
+        available++;
+        if (selectedPlots.has(key)) {
+          plot.classList.add('selected');
+        }
+        plot.addEventListener('click', () => togglePlot(key, plot));
+        plot.addEventListener('mouseenter', (e) => showTooltip(e, r, c, side));
+        plot.addEventListener('mouseleave', hideTooltip);
+      }
+
+      grid.appendChild(plot);
+    }
+  }
+
+  document.getElementById('availableCount').textContent = available;
+  document.getElementById('busLabel').textContent = SIDES[side].label;
+  document.getElementById('currentSide').textContent = side;
+}
+
+function togglePlot(key, el) {
+  if (selectedPlots.has(key)) {
+    selectedPlots.delete(key);
+    el.classList.remove('selected');
+  } else {
+    selectedPlots.add(key);
+    el.classList.add('selected');
+    // Sparkle effect
+    spawnSparkle(el);
+  }
+  updateCheckout();
+}
+
+function clearSelection() {
+  selectedPlots.clear();
+  document.querySelectorAll('.plot.selected').forEach(p => p.classList.remove('selected'));
+  updateCheckout();
+}
+
+function updateCheckout() {
+  const count = selectedPlots.size;
+  const total = (count * PRICE_ETH).toFixed(2);
+  document.getElementById('plotsSelected').textContent = count;
+  document.getElementById('totalEth').textContent = `${total} ETH`;
+  const btn = document.getElementById('buyBtn');
+  if (count > 0) {
+    btn.disabled = false;
+    btn.textContent = `▶ BUY ${count} PLOT${count > 1 ? 'S' : ''}\n${total} ETH`;
+    btn.style.background = 'var(--yellow)';
+  } else {
+    btn.disabled = true;
+    btn.textContent = '▶ CONNECT WALLET\nTO PURCHASE';
+  }
+}
+
+function switchSide(side, btn) {
+  currentSide = side;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(side);
+}
+
+// ═══════════════════════════════════════════
+// TOOLTIP
+// ═══════════════════════════════════════════
+function showTooltip(e, r, c, side) {
+  const tip = document.getElementById('tooltip');
+  tip.innerHTML = `PLOT R${r+1} · C${c+1}<br>${side} SIDE<br>0.01 ETH<br><span style="color:var(--yellow)">CLICK TO SELECT</span>`;
+  tip.style.display = 'block';
+}
+
+function hideTooltip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+document.addEventListener('mousemove', (e) => {
+  const tip = document.getElementById('tooltip');
+  if (tip.style.display === 'block') {
+    tip.style.left = (e.clientX + 16) + 'px';
+    tip.style.top = (e.clientY - 10) + 'px';
+  }
+});
+
+// ═══════════════════════════════════════════
+// CUSTOM CURSOR + PIXEL TRAILS
+// ═══════════════════════════════════════════
+const cursor = document.getElementById('cursor');
+const TRAIL_COLORS = ['#FF2020','#FFE100','#00FFFF','#FF00FF','#00FF41','#FF6B00','#FF69B4','#0044FF'];
+const TRAIL_SHAPES = ['■', '●', '▲', '★', '♦', '+'];
+let trailIdx = 0;
+const trails = [];
+const MAX_TRAILS = 18;
+
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  cursor.style.background = TRAIL_COLORS[trailIdx % TRAIL_COLORS.length];
+
+  spawnTrail(e.clientX, e.clientY);
+  trailIdx++;
+});
+
+function spawnTrail(x, y) {
+  const trail = document.createElement('div');
+  trail.className = 'trail';
+  const color = TRAIL_COLORS[trailIdx % TRAIL_COLORS.length];
+  const size = Math.floor(Math.random() * 8) + 4;
+  trail.style.cssText = `
+    left: ${x}px;
+    top: ${y}px;
+    width: ${size}px;
+    height: ${size}px;
+    background: ${color};
+    border: 1px solid rgba(0,0,0,0.5);
+    opacity: 1;
+    transition: opacity 0.4s linear, transform 0.4s linear;
+  `;
+  document.body.appendChild(trail);
+  trails.push(trail);
+
+  // Animate out
+  requestAnimationFrame(() => {
+    trail.style.opacity = '0';
+    trail.style.transform = `translate(-50%, -50%) scale(0.1) translate(${(Math.random()-0.5)*20}px, ${(Math.random()-0.5)*20}px)`;
+  });
+
+  setTimeout(() => {
+    trail.remove();
+    const i = trails.indexOf(trail);
+    if (i > -1) trails.splice(i, 1);
+  }, 450);
+
+  // Limit
+  while (trails.length > MAX_TRAILS) {
+    const old = trails.shift();
+    if (old && old.parentNode) old.remove();
+  }
+}
+
+// ═══════════════════════════════════════════
+// SPARKLE ON PLOT CLICK
+// ═══════════════════════════════════════════
+function spawnSparkle(el) {
+  const rect = el.getBoundingClientRect();
+  for (let i = 0; i < 5; i++) {
+    const spark = document.createElement('div');
+    const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
+    const size = Math.floor(Math.random() * 6) + 3;
+    spark.style.cssText = `
+      position: fixed;
+      left: ${rect.left + rect.width/2}px;
+      top: ${rect.top + rect.height/2}px;
+      width: ${size}px; height: ${size}px;
+      background: ${color};
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: all 0.4s ease-out;
+    `;
+    document.body.appendChild(spark);
+    requestAnimationFrame(() => {
+      const angle = (Math.PI * 2 * i) / 5;
+      const dist = 20 + Math.random() * 20;
+      spark.style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(0)`;
+      spark.style.opacity = '0';
+    });
+    setTimeout(() => spark.remove(), 420);
+  }
+}
+
+// ═══════════════════════════════════════════
+// KUSAMA DOT BACKGROUND
+// ═══════════════════════════════════════════
+function buildKusamaBg() {
+  const bg = document.getElementById('kusamaBg');
+  const colors = ['#FF2020','#FFE100','#00FFFF','#FF00FF','#00FF41','#FF6B00'];
+  for (let i = 0; i < 40; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'kusama-dot';
+    const size = Math.floor(Math.random() * 80) + 20;
+    dot.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${colors[i % colors.length]};
+      --dur: ${2 + Math.random() * 4}s;
+      animation-delay: ${Math.random() * 4}s;
+    `;
+    bg.appendChild(dot);
+  }
+}
+
+// ═══════════════════════════════════════════
+// COUNTDOWN
+// ═══════════════════════════════════════════
+function updateCountdown() {
+  const target = new Date('2026-04-01T00:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('countdown').textContent = 'PRESALE ENDED';
+    return;
+  }
+  const days = Math.floor(diff / 86400000);
+  const hrs = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  document.getElementById('countdown').textContent =
+    `${String(days).padStart(2,'0')}D ${String(hrs).padStart(2,'0')}H ${String(mins).padStart(2,'0')}M ${String(secs).padStart(2,'0')}S`;
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+buildKusamaBg();
+renderGrid('FRONT');
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Buy button handler
+document.getElementById('buyBtn').addEventListener('click', () => {
+  if (selectedPlots.size > 0) {
+    alert(`WALLET CONNECTION COMING SOON\n\n${selectedPlots.size} plot(s) selected\nTotal: ${(selectedPlots.size * PRICE_ETH).toFixed(2)} ETH\n\nSmart contract deploys next week.`);
+  }
+});
+</script>
+</body>
+</html>
