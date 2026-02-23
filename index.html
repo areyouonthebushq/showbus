@@ -56,28 +56,6 @@
     image-rendering: pixelated;
   }
 
-  /* Touch ripple burst — mobile only (pixel-art style) */
-  .touch-ripple {
-    position: fixed;
-    pointer-events: none;
-    z-index: 99998;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .touch-ripple__pixel {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 6px;
-    height: 6px;
-    image-rendering: pixelated;
-    border: 1px solid rgba(0,0,0,0.3);
-    will-change: transform, opacity;
-  }
-
   /* ══════════════════════════════════
      SCANLINE OVERLAY
   ══════════════════════════════════ */
@@ -1015,10 +993,10 @@ document.addEventListener('mousemove', (e) => {
   trailIdx++;
 });
 
-function spawnTrail(x, y) {
+function spawnTrailDot(x, y, colorIdx) {
   const trail = document.createElement('div');
   trail.className = 'trail';
-  const color = TRAIL_COLORS[trailIdx % TRAIL_COLORS.length];
+  const color = TRAIL_COLORS[colorIdx % TRAIL_COLORS.length];
   const size = Math.floor(Math.random() * 8) + 4;
   trail.style.cssText = `
     left: ${x}px;
@@ -1033,7 +1011,6 @@ function spawnTrail(x, y) {
   document.body.appendChild(trail);
   trails.push(trail);
 
-  // Animate out
   requestAnimationFrame(() => {
     trail.style.opacity = '0';
     trail.style.transform = `translate(-50%, -50%) scale(0.1) translate(${(Math.random()-0.5)*20}px, ${(Math.random()-0.5)*20}px)`;
@@ -1045,63 +1022,52 @@ function spawnTrail(x, y) {
     if (i > -1) trails.splice(i, 1);
   }, 450);
 
-  // Limit
   while (trails.length > MAX_TRAILS) {
     const old = trails.shift();
     if (old && old.parentNode) old.remove();
   }
 }
 
+function spawnTrail(x, y) {
+  spawnTrailDot(x, y, trailIdx);
+}
+
 // ═══════════════════════════════════════════
-// TOUCH RIPPLE (mobile) — pixel-art burst on tap
+// TOUCH TRAIL (mobile) — trail from previous tap to new tap, same style as desktop
 // ═══════════════════════════════════════════
-const TOUCH_RIPPLE_COLORS = ['#FF2020','#FFE100','#00FFFF','#FF00FF','#00FF41','#FF6B00'];
+let lastTouchX = null;
+let lastTouchY = null;
+let touchTrailIdx = 0;
+const TOUCH_TRAIL_STAGGER_MS = 28;
+const TOUCH_TRAIL_NUM_DOTS = 24;
 
-function spawnTouchRipple(clientX, clientY) {
-  const ripple = document.createElement('div');
-  ripple.className = 'touch-ripple';
-  ripple.style.left = clientX + 'px';
-  ripple.style.top = clientY + 'px';
-
-  const numRays = 12;
-  const pixelsPerRay = 4;
-  const baseDist = 28;
-  const spread = 18;
-
-  for (let r = 0; r < numRays; r++) {
-    const angle = (Math.PI * 2 * r) / numRays + Math.random() * 0.2;
-    for (let p = 0; p < pixelsPerRay; p++) {
-      const pixel = document.createElement('div');
-      pixel.className = 'touch-ripple__pixel';
-      const color = TOUCH_RIPPLE_COLORS[(r + p) % TOUCH_RIPPLE_COLORS.length];
-      pixel.style.background = color;
-      const dist = baseDist + p * 12 + Math.random() * spread;
-      const delay = 20 * p + Math.random() * 30;
-      const dx = Math.cos(angle) * dist + (Math.random() - 0.5) * 8;
-      const dy = Math.sin(angle) * dist + (Math.random() - 0.5) * 8;
-      pixel.style.transform = 'translate(-50%, -50%) translate(0, 0) scale(1)';
-      pixel.style.opacity = '1';
-      pixel.style.transition = `transform 0.35s ease-out ${delay}ms, opacity 0.3s ease-out ${delay + 50}ms`;
-      ripple.appendChild(pixel);
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          pixel.style.transform = `translate(-50%, -50%) translate(${dx}px, ${dy}px) scale(0.4)`;
-          pixel.style.opacity = '0';
-        });
-      });
-    }
+function spawnTouchTrailFromTo(x0, y0, x1, y1) {
+  for (let i = 0; i <= TOUCH_TRAIL_NUM_DOTS; i++) {
+    const t = i / TOUCH_TRAIL_NUM_DOTS;
+    const x = x0 + (x1 - x0) * t;
+    const y = y0 + (y1 - y0) * t;
+    const delay = i * TOUCH_TRAIL_STAGGER_MS;
+    setTimeout(() => {
+      spawnTrailDot(x, y, touchTrailIdx);
+      touchTrailIdx++;
+    }, delay);
   }
-
-  document.body.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 550);
 }
 
 document.addEventListener('touchend', (e) => {
-  if (e.changedTouches && e.changedTouches.length) {
-    const t = e.changedTouches[0];
-    spawnTouchRipple(t.clientX, t.clientY);
+  if (!e.changedTouches || !e.changedTouches.length) return;
+  const t = e.changedTouches[0];
+  const newX = t.clientX;
+  const newY = t.clientY;
+
+  if (lastTouchX !== null && lastTouchY !== null) {
+    spawnTouchTrailFromTo(lastTouchX, lastTouchY, newX, newY);
+  } else {
+    spawnTrailDot(newX, newY, touchTrailIdx++);
   }
+
+  lastTouchX = newX;
+  lastTouchY = newY;
 }, { passive: true });
 
 // ═══════════════════════════════════════════
