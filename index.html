@@ -272,6 +272,40 @@
     transform: translate(-1px, -1px);
   }
 
+  /* Currency toggle in checkout — same pixel/retro as tabs */
+  .currency-toggle {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .currency-tab {
+    flex: 1;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 8px 12px;
+    border: 3px solid var(--white);
+    background: var(--black);
+    color: var(--white);
+    cursor: none;
+    transition: none;
+    letter-spacing: 1px;
+  }
+
+  .currency-tab:hover {
+    background: var(--white);
+    color: var(--black);
+    box-shadow: 4px 4px 0 var(--cyan);
+  }
+
+  .currency-tab.active {
+    background: var(--yellow);
+    color: var(--black);
+    border-color: var(--black);
+    box-shadow: 4px 4px 0 var(--red), 6px 6px 0 var(--black);
+    transform: translate(-1px, -1px);
+  }
+
   /* ══════════════════════════════════
      MAIN LAYOUT
   ══════════════════════════════════ */
@@ -730,7 +764,7 @@
 <div class="stats-bar">
   <div class="stat-pill">AVAILABLE <span id="availableCount">—</span></div>
   <div class="stat-pill">SOLD <span id="soldCount">0</span></div>
-  <div class="stat-pill">PRICE <span>0.01 ETH</span></div>
+  <div class="stat-pill">PRICE <span>$100</span></div>
   <div class="stat-pill">SIDE <span id="currentSide">FRONT</span></div>
 </div>
 
@@ -754,17 +788,21 @@
   <div class="purchase-panel">
     <div class="panel-box">
       <h3>► CHECKOUT</h3>
+      <div class="currency-toggle">
+        <button type="button" class="currency-tab" id="currencyEth" aria-pressed="false">ETH</button>
+        <button type="button" class="currency-tab active" id="currencyUsdc" aria-pressed="true">USDC</button>
+      </div>
       <div class="stat-row">
         <span class="stat-label">PLOTS SELECTED</span>
         <span class="stat-value highlight" id="plotsSelected">0</span>
       </div>
       <div class="stat-row">
         <span class="stat-label">PRICE / PLOT</span>
-        <span class="stat-value">0.01 ETH</span>
+        <span class="stat-value" id="pricePerPlot">$100.00 USDC</span>
       </div>
       <div class="stat-row" style="border-bottom: none; margin-bottom: 0;">
         <span class="stat-label">TOTAL</span>
-        <span class="stat-value total" id="totalEth">0.00 ETH</span>
+        <span class="stat-value total" id="totalDisplay">0.00 USDC</span>
       </div>
       <button class="buy-btn" id="buyBtn" disabled>
         ▶ CONNECT WALLET<br>TO PURCHASE
@@ -820,9 +858,13 @@ const SIDES = {
   RIGHT: { cols: 37, rows: 9, label: '▶ RIGHT SIDE (37 × 9 = 333 PLOTS)' }
 };
 
-const PRICE_ETH = 0.01;
+const PRICE_USD_PER_PLOT = 100;
+const ETH_PRICE_USD = 3500; // placeholder — make dynamic later
+const PRICE_ETH_PER_PLOT = PRICE_USD_PER_PLOT / ETH_PRICE_USD;
+
 let currentSide = 'FRONT';
 let selectedPlots = new Set();
+let checkoutCurrency = 'usdc'; // 'usdc' | 'eth'
 // Simulate some sold plots and team blocks
 const soldPlots = new Set();
 const teamPlots = new Set();
@@ -930,20 +972,54 @@ function clearSelection() {
   updateCheckout();
 }
 
+function formatCheckoutCurrency() {
+  const pricePerPlotEl = document.getElementById('pricePerPlot');
+  if (checkoutCurrency === 'usdc') {
+    pricePerPlotEl.textContent = '$100.00 USDC';
+  } else {
+    const ethPerPlot = PRICE_ETH_PER_PLOT;
+    pricePerPlotEl.textContent = `~${ethPerPlot.toFixed(4)} ETH`;
+  }
+}
+
 function updateCheckout() {
   const count = selectedPlots.size;
-  const total = (count * PRICE_ETH).toFixed(2);
+  const totalUsdc = (count * PRICE_USD_PER_PLOT).toFixed(2);
+  const totalEth = (count * PRICE_ETH_PER_PLOT).toFixed(4);
+
   document.getElementById('plotsSelected').textContent = count;
-  document.getElementById('totalEth').textContent = `${total} ETH`;
+  formatCheckoutCurrency();
+
+  const totalEl = document.getElementById('totalDisplay');
   const btn = document.getElementById('buyBtn');
+
+  if (checkoutCurrency === 'usdc') {
+    totalEl.textContent = `${totalUsdc} USDC`;
+  } else {
+    totalEl.textContent = `${totalEth} ETH`;
+  }
+
   if (count > 0) {
     btn.disabled = false;
-    btn.textContent = `▶ BUY ${count} PLOT${count > 1 ? 'S' : ''}\n${total} ETH`;
+    if (checkoutCurrency === 'usdc') {
+      btn.textContent = `▶ BUY ${count} PLOT${count > 1 ? 'S' : ''}\n— ${totalUsdc} USDC`;
+    } else {
+      btn.textContent = `▶ BUY ${count} PLOT${count > 1 ? 'S' : ''}\n— ${totalEth} ETH`;
+    }
     btn.style.background = 'var(--yellow)';
   } else {
     btn.disabled = true;
     btn.textContent = '▶ CONNECT WALLET\nTO PURCHASE';
   }
+}
+
+function setCheckoutCurrency(currency) {
+  checkoutCurrency = currency;
+  document.getElementById('currencyEth').classList.toggle('active', currency === 'eth');
+  document.getElementById('currencyUsdc').classList.toggle('active', currency === 'usdc');
+  document.getElementById('currencyEth').setAttribute('aria-pressed', currency === 'eth');
+  document.getElementById('currencyUsdc').setAttribute('aria-pressed', currency === 'usdc');
+  updateCheckout();
 }
 
 function switchSide(side, btn) {
@@ -958,7 +1034,7 @@ function switchSide(side, btn) {
 // ═══════════════════════════════════════════
 function showTooltip(e, r, c, side) {
   const tip = document.getElementById('tooltip');
-  tip.innerHTML = `PLOT R${r+1} · C${c+1}<br>${side} SIDE<br>0.01 ETH<br><span style="color:var(--yellow)">CLICK TO SELECT</span>`;
+  tip.innerHTML = `PLOT R${r+1} · C${c+1}<br>${side} SIDE<br>$100<br><span style="color:var(--yellow)">CLICK TO SELECT</span>`;
   tip.style.display = 'block';
 }
 
@@ -1151,10 +1227,18 @@ renderGrid('FRONT');
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+// Currency toggle
+document.getElementById('currencyEth').addEventListener('click', () => setCheckoutCurrency('eth'));
+document.getElementById('currencyUsdc').addEventListener('click', () => setCheckoutCurrency('usdc'));
+
 // Buy button handler
 document.getElementById('buyBtn').addEventListener('click', () => {
   if (selectedPlots.size > 0) {
-    alert(`WALLET CONNECTION COMING SOON\n\n${selectedPlots.size} plot(s) selected\nTotal: ${(selectedPlots.size * PRICE_ETH).toFixed(2)} ETH\n\nSmart contract deploys next week.`);
+    const count = selectedPlots.size;
+    const totalStr = checkoutCurrency === 'usdc'
+      ? `${(count * PRICE_USD_PER_PLOT).toFixed(2)} USDC`
+      : `${(count * PRICE_ETH_PER_PLOT).toFixed(4)} ETH`;
+    alert(`WALLET CONNECTION COMING SOON\n\n${count} plot(s) selected\nTotal: ${totalStr}\n\nSmart contract deploys next week.`);
   }
 });
 </script>
