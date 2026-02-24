@@ -421,6 +421,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   <button class="nav-btn" onclick="go('mine',this)">04 BACK AN ARTIST</button>
   <button class="nav-btn" onclick="go('board',this)">05 RANKS</button>
   <div class="nav-spacer"></div>
+  <button class="nav-btn" id="navWalletBtn" onclick="toggleWallet()">◈ CONNECT WALLET</button>
   <button style="font-family:'Press Start 2P',monospace;font-size:6px;padding:6px 10px;background:rgba(155,0,255,0.12);color:#9B00FF;border:1px solid #9B00FF;cursor:pointer;letter-spacing:1px;margin-left:4px;animation:stPulse 2s ease-in-out infinite;" onclick="showToast('◈ DAO VOTE ACTIVE\nROUTE: EAST NASH vs 12 SOUTH\n3 DAYS REMAINING','')">◈ DAO VOTE LIVE</button>
   <button class="nav-presale" onclick="showToast('◈ DAY ONE PRESALE\nAPRIL 1, 2026\n$100 PER PLOT','green')">◈ DAY ONE PRESALE</button>
 </div>
@@ -497,23 +498,24 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         <div class="stat-row" style="border:none;padding-bottom:0;margin-bottom:4px;"><span class="stat-label">LIVE ETH</span><span class="stat-value" id="ethPriceDisplay" style="font-size:9px;color:rgba(255,255,255,0.5);">—</span></div>
         <div class="stat-row" style="border:none;margin:0;"><span class="stat-label">TOTAL</span><span class="stat-value tot" id="totalEth">0.00 USDC</span></div>
         <button class="buy-btn" id="buyBtn" disabled>▶ CONNECT WALLET<br>TO PURCHASE</button>
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;" id="buyWalletHint">Connect wallet to buy</div>
         <button class="buy-btn" style="background:transparent;color:#555;border-color:#333;box-shadow:none;margin-top:6px;font-size:7px;" onclick="clearSel()">✕ CLEAR SELECTION</button>
       </div>
       <div style="background:#000;border:2px solid #1a1a1a;padding:12px;margin-bottom:12px;">
         <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#FF6B00;letter-spacing:2px;margin-bottom:10px;">▸ ZONE YIELD RATES</div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(255,45,155,0.25);background:rgba(255,45,155,0.03);">
           <div style="width:8px;height:8px;background:rgba(255,45,155,0.4);border:1px solid #FF2D9B;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#FF2D9B;letter-spacing:1px;">CAMERA ZONE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">14 $BUS/day · Stage-facing · Max exposure</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#FF2D9B;letter-spacing:1px;">CAMERA ZONE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;"><span id="zoneRateCamera">—</span> $BUS/day · Stage-facing · Max exposure</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(57,255,20,0.2);background:rgba(57,255,20,0.02);">
           <div style="width:8px;height:8px;background:rgba(57,255,20,0.3);border:1px solid #39FF14;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">STREET LEVEL</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">10 $BUS/day · Eye-level · High foot traffic</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">STREET LEVEL</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;"><span id="zoneRateStreet">—</span> $BUS/day · Eye-level · High foot traffic</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid #111;">
           <div style="width:8px;height:8px;background:#111;border:1px solid #333;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#444;letter-spacing:1px;">ROOFLINE</div><div style="font-size:12px;color:rgba(255,255,255,0.2);margin-top:2px;">8 $BUS/day · Upper panels</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#444;letter-spacing:1px;">ROOFLINE</div><div style="font-size:12px;color:rgba(255,255,255,0.2);margin-top:2px;"><span id="zoneRateRoofline">—</span> $BUS/day · Upper panels</div></div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.18);margin-top:7px;border-top:1px solid #111;padding-top:7px;line-height:1.6;">Founder bonus +25% all zones<br>Multi-plot +5% per additional</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.18);margin-top:7px;border-top:1px solid #111;padding-top:7px;line-height:1.6;">Rates scale with total stake (60% of daily emission). Unclaimed = burn.<br>Founder +25% · Multi-plot +5%</div>
       </div>
       <div class="legend-box">
         <div class="legend-title">// LEGEND //</div>
@@ -551,7 +553,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;letter-spacing:1px;" id="tokStats">—</div>
     </div>
     <div class="wallet-bar">
-      <div><div class="wb-addr">CONNECTED: <span>0x7F3a...B92c</span></div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;">DAY ONE FOUNDER ★</div></div>
+      <div><div class="wb-addr">CONNECTED: <span id="walletAddr">—</span></div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;" id="walletBadge">CONNECT WALLET</div></div>
       <div><div class="wb-label">$BUS BALANCE</div><div class="wb-bal" id="busBalance">12,847</div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="s-btn g" onclick="stakeAll()">⚡ STAKE ALL</button>
@@ -605,13 +607,13 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
     <!-- staking panel -->
     <div class="sp">
-      <div class="sp-title">⚡ ZONE STAKING RATES</div>
+      <div class="sp-title">⚡ ZONE STAKING RATES (LIVE)</div>
       <div class="sp-body">
         <div style="font-size:14px;color:rgba(255,255,255,0.5);line-height:2.4;">
-          CAMERA ZONE: <span style="color:var(--pink);">14 $BUS/day</span><br>
-          STREET LEVEL: <span style="color:#39FF14;">10 $BUS/day</span><br>
-          ROOFLINE: <span style="color:rgba(255,255,255,0.35);">8 $BUS/day</span><br>
-          FRONT/BACK: <span style="color:var(--yellow);">14 $BUS/day</span><br>
+          CAMERA ZONE: <span style="color:var(--pink);" id="stakeZoneCamera">—</span><br>
+          STREET LEVEL: <span style="color:#39FF14;" id="stakeZoneStreet">—</span><br>
+          ROOFLINE: <span style="color:rgba(255,255,255,0.35);" id="stakeZoneRoofline">—</span><br>
+          FRONT/BACK: <span style="color:var(--yellow);" id="stakeZoneFront">—</span><br>
           FOUNDER BONUS: <span style="color:var(--pink);">+25%</span><br>
           MULTI-PLOT: <span style="color:var(--green);">+5% PER EXTRA</span>
         </div>
@@ -1017,6 +1019,76 @@ function go(screen, btn){
   window.scrollTo(0,0);
 }
 
+// ══ WALLET (EIP-1193 / MetaMask, Base) ══
+const BASE_CHAIN_ID=8453;
+const BASE_CHAIN_ID_HEX='0x'+BASE_CHAIN_ID.toString(16);
+let walletAccount=null;
+let walletChainId=null;
+
+function shortAddr(a){if(!a)return '—';return a.slice(0,6)+'...'+a.slice(-4);}
+function updateWalletUI(){
+  const addrEl=document.getElementById('walletAddr');
+  const badgeEl=document.getElementById('walletBadge');
+  const navBtn=document.getElementById('navWalletBtn');
+  const buyBtn=document.getElementById('buyBtn');
+  const hintEl=document.getElementById('buyWalletHint');
+  if(addrEl) addrEl.textContent=walletAccount?shortAddr(walletAccount):'—';
+  if(badgeEl) badgeEl.textContent=walletAccount?(walletChainId===BASE_CHAIN_ID?'DAY ONE FOUNDER ★':'SWITCH TO BASE'):'CONNECT WALLET';
+  if(navBtn){
+    navBtn.textContent=walletAccount?shortAddr(walletAccount):'◈ CONNECT WALLET';
+    navBtn.onclick=walletAccount?disconnectWallet:toggleWallet;
+  }
+  if(hintEl) hintEl.textContent=walletAccount?(walletChainId===BASE_CHAIN_ID?'Ready to purchase on Base':'Switch to Base to buy'):'Connect wallet to buy';
+  const n=document.getElementById('plotsSel')?parseInt(document.getElementById('plotsSel').textContent,10):0;
+  if(buyBtn) buyBtn.disabled=n===0||!walletAccount;
+}
+async function ensureBase(){
+  if(walletChainId===BASE_CHAIN_ID) return true;
+  const ethereum=window.ethereum;
+  if(!ethereum) return false;
+  try{
+    await ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:BASE_CHAIN_ID_HEX}]});
+    walletChainId=BASE_CHAIN_ID;
+    return true;
+  }catch(e){
+    if(e.code===4902){
+      try{
+        await ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:BASE_CHAIN_ID_HEX,chainName:'Base Mainnet',nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},rpcUrls:['https://mainnet.base.org']}]});
+        walletChainId=BASE_CHAIN_ID;
+        return true;
+      }catch(_){}
+    }
+    return false;
+  }
+}
+async function toggleWallet(){
+  const ethereum=window.ethereum;
+  if(!ethereum){showToast('◈ NO WALLET FOUND\nINSTALL METAMASK OR\nANOTHER WEB3 WALLET','pink');return;}
+  if(walletAccount){await ensureBase();updateWalletUI();return;}
+  try{
+    const accounts=await ethereum.request({method:'eth_requestAccounts'});
+    walletChainId=parseInt(await ethereum.request({method:'eth_chainId'}),16);
+    walletAccount=accounts[0]||null;
+    if(walletAccount) await ensureBase();
+    updateWalletUI();
+    if(walletAccount){ if(typeof updateBuyCheckout==='function') updateBuyCheckout(); showToast('◈ WALLET CONNECTED\n'+shortAddr(walletAccount)+'\nBASE MAINNET','green'); }
+  }catch(e){
+    showToast('◈ CONNECTION CANCELLED','pink');
+  }
+}
+function disconnectWallet(){
+  walletAccount=null;
+  walletChainId=null;
+  updateWalletUI();
+  if(typeof updateBuyCheckout==='function') updateBuyCheckout();
+  showToast('◈ WALLET DISCONNECTED','');
+}
+if(window.ethereum){
+  window.ethereum.on('accountsChanged',accounts=>{walletAccount=accounts[0]||null;updateWalletUI();});
+  window.ethereum.on('chainChanged',()=>{window.location.reload();});
+}
+updateWalletUI();
+
 // ══ TOAST ══
 let toastT;
 function showToast(msg,type){
@@ -1049,9 +1121,11 @@ function getZone(side,r,c) {
   return 'roofline';
 }
 function getZoneLabel(z){
-  if(z==='camera') return 'CAMERA ZONE · 14 $BUS/DAY';
-  if(z==='street') return 'STREET LEVEL · 10 $BUS/DAY';
-  return 'ROOFLINE · 8 $BUS/DAY';
+  const r=getZoneRates();
+  const fmt=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(1);
+  if(z==='camera') return 'CAMERA ZONE · '+fmt(r.camera)+' $BUS/DAY';
+  if(z==='street') return 'STREET LEVEL · '+fmt(r.street)+' $BUS/DAY';
+  return 'ROOFLINE · '+fmt(r.roofline)+' $BUS/DAY';
 }
 function getZoneColor(z){
   if(z==='camera') return 'var(--pink)';
@@ -1141,7 +1215,7 @@ function updateBuyCheckout(){
   document.getElementById('totalEth').textContent=checkoutCurrency==='usdc'?`${totalUsdc} USDC`:`${totalEthAmt} ETH`;
   const btn=document.getElementById('buyBtn');
   if(n>0){
-    btn.disabled=false;
+    btn.disabled=!walletAccount;
     btn.textContent=checkoutCurrency==='usdc'?`▶ BUY ${n} PLOT${n>1?'S':''}\n$${totalUsdc} USDC`:`▶ BUY ${n} PLOT${n>1?'S':''}\n${totalEthAmt} ETH`;
   } else {btn.disabled=true;btn.textContent='▶ CONNECT WALLET\nTO PURCHASE';}
 }
@@ -1319,6 +1393,8 @@ function getCurrentEmissionRate(){
 const BOOST_FOUNDER=1.25;
 const SIM_TOTAL_PURE_ALLOC=100000;
 const SIM_TOTAL_ARTIST_ALLOC=40000;
+const ZONE_WEIGHTS={camera:14,street:10,roofline:8,frontBack:14};
+
 function getUserPureAllocation(){
   const plotStakeUnits=2*10*BOOST_FOUNDER;
   return plotStakeUnits+(allocs.pure||0);
@@ -1329,14 +1405,35 @@ function getUserArtistAllocation(){
 function getTotalPureAllocation(){ return SIM_TOTAL_PURE_ALLOC+getUserPureAllocation(); }
 function getTotalArtistAllocation(){ return SIM_TOTAL_ARTIST_ALLOC+getUserArtistAllocation(); }
 
-function getUserRewardPerDay(){
+function getDailyDistributedAndBurn(){
   const day=getDaysSinceLaunch();
-  const dailyTotal=getDailyEmissionTotal(day);
-  if(dailyTotal<=0) return 0;
-  const dailyPure=dailyTotal*TOK_PURE_POOL_SHARE;
-  const dailyArtist=dailyTotal*TOK_ARTIST_POOL_SHARE;
+  const E=getDailyEmissionTotal(day);
+  const dailyPure=E*TOK_PURE_POOL_SHARE;
+  const dailyArtist=E*TOK_ARTIST_POOL_SHARE;
   const totalPure=getTotalPureAllocation();
   const totalArtist=getTotalArtistAllocation();
+  const distributedPure=totalPure>0?dailyPure:0;
+  const distributedArtist=totalArtist>0?dailyArtist:0;
+  const distributed=distributedPure+distributedArtist;
+  const burn=E-distributed;
+  return {E,distributed,burn,dailyPure,dailyArtist,totalPure,totalArtist};
+}
+
+function getZoneRates(){
+  const {dailyPure,totalPure}=getDailyDistributedAndBurn();
+  if(totalPure<=0) return {camera:0,street:0,roofline:0,frontBack:0,ratePerPoint:0};
+  const ratePerPoint=dailyPure/totalPure;
+  return {
+    camera:ZONE_WEIGHTS.camera*ratePerPoint,
+    street:ZONE_WEIGHTS.street*ratePerPoint,
+    roofline:ZONE_WEIGHTS.roofline*ratePerPoint,
+    frontBack:ZONE_WEIGHTS.frontBack*ratePerPoint,
+    ratePerPoint
+  };
+}
+
+function getUserRewardPerDay(){
+  const {dailyPure,dailyArtist,totalPure,totalArtist}=getDailyDistributedAndBurn();
   let reward=0;
   if(totalPure>0) reward+=(dailyPure*getUserPureAllocation()*BOOST_FOUNDER)/totalPure;
   if(totalArtist>0) reward+=(dailyArtist*getUserArtistAllocation()*BOOST_FOUNDER)/totalArtist;
@@ -1346,14 +1443,21 @@ function tickTokenomics(){
   const now=Date.now();
   const dt=(now-tokLastRewardTime)/1000;
   tokLastRewardTime=now;
-  const rewardPerSec=getUserRewardPerDay()/86400;
-  const gross=rewardPerSec*dt;
+  const day=getDaysSinceLaunch();
+  const E=getDailyEmissionTotal(day);
+  if(E<=0) return;
+  const emissionThisTick=E*(dt/86400);
   const room=Math.max(0,TOK_MAX_SUPPLY-tokTotalMinted);
-  const actual=Math.min(gross,room);
-  tokPendingReward+=actual;
-  tokTotalMinted+=actual;
-  tokCirculatingSupply+=actual;
-  tokTotalEarnedByUser+=actual;
+  const minted=Math.min(emissionThisTick,room);
+  tokTotalMinted+=minted;
+  const totalPure=getTotalPureAllocation();
+  const totalArtist=getTotalArtistAllocation();
+  const distFrac=(totalPure>0?TOK_PURE_POOL_SHARE:0)+(totalArtist>0?TOK_ARTIST_POOL_SHARE:0);
+  const distributedGlobal=minted*distFrac;
+  const userGets=minted*(getUserRewardPerDay()/E);
+  tokCirculatingSupply+=distributedGlobal;
+  tokPendingReward+=userGets;
+  tokTotalEarnedByUser+=userGets;
 }
 function claimTokenomics(){
   const gross=tokPendingReward;
@@ -1385,20 +1489,29 @@ function updateTokenomicsUI(){
   const dailyM=(daily/1e6).toFixed(2);
   const circB=(tokCirculatingSupply/1e9).toFixed(1);
   const maxB=(TOK_MAX_SUPPLY/1e9).toFixed(0);
+  const {burn}=getDailyDistributedAndBurn();
+  const burnM=(burn/1e6).toFixed(2);
   const tokEl=document.getElementById('tokStats');
-  if(tokEl) tokEl.textContent=`SEASON ${season} · ${dailyM}M $BUS/DAY · CIRC ${circB}B/${maxB}B`;
+  if(tokEl) tokEl.textContent=burn>0?`SEASON ${season} · ${dailyM}M/DAY · ${burnM}M BURN · CIRC ${circB}B/${maxB}B`:`SEASON ${season} · ${dailyM}M $BUS/DAY · CIRC ${circB}B/${maxB}B`;
   document.getElementById('pendingBus').textContent=tokPendingReward.toFixed(4);
   document.getElementById('pendingBig').textContent=tokPendingReward.toFixed(4);
   document.getElementById('earnStake').textContent=tokTotalEarnedByUser.toFixed(1);
   const ratePerHr=getUserRewardPerDay()*24;
   const rateEl=document.getElementById('earnRate');
   if(rateEl) rateEl.textContent='+'+ratePerHr.toFixed(1)+' $BUS/HR';
+  const z=getZoneRates();
+  const fmt=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(1);
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(val);};
+  set('zoneRateCamera',z.camera);set('zoneRateStreet',z.street);set('zoneRateRoofline',z.roofline);
+  const sd=(v)=>fmt(v)+' $BUS/day';
+  ['stakeZoneCamera','stakeZoneStreet','stakeZoneRoofline','stakeZoneFront'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=sd([z.camera,z.street,z.roofline,z.frontBack][i]);});
 }
 setInterval(()=>{
   tickTokenomics();
   updateTokenomicsUI();
 },1000);
 updateTokenomicsUI();
+(function initZoneRates(){const z=getZoneRates();const fmt=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(1);['zoneRateCamera','zoneRateStreet','zoneRateRoofline'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=fmt([z.camera,z.street,z.roofline][i]);});})();
 
 function stakeAll(){showToast('⚡ ALL PLOTS STAKED\nMAX EARNINGS ACTIVE','pink');}
 function claimAll(){claimTokenomics();}
