@@ -255,6 +255,11 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .agent-input{width:100%;margin-bottom:8px;padding:10px 12px;font-size:16px;font-family:'VT323',monospace;color:#fff;background:rgba(0,0,0,0.3);border:1px solid rgba(255,229,0,0.25);outline:none;}
 .agent-input::placeholder{color:rgba(255,255,255,0.25);}
 .agent-input:focus{border-color:var(--yellow);box-shadow:0 0 10px rgba(255,229,0,0.2);}
+.agent-pfp-zone{display:block;min-height:100px;border:2px dashed rgba(255,229,0,0.3);background:rgba(255,229,0,0.04);padding:20px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;margin-top:12px;position:relative;}
+.agent-pfp-zone:hover,.agent-pfp-zone.on{border-color:var(--yellow);background:rgba(255,229,0,0.08);}
+.agent-pfp-placeholder{font-size:13px;color:rgba(255,255,255,0.4);}
+.agent-pfp-preview{max-width:80px;max-height:80px;width:auto;height:auto;object-fit:contain;margin-top:8px;border:2px solid var(--border);}
+.agent-avatar img{width:100%;height:100%;object-fit:cover;display:block;}
 .q-opts{display:flex;flex-direction:column;gap:8px;}
 .q-opt{border:1px solid rgba(255,255,255,0.1);background:transparent;padding:12px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;font-size:17px;color:rgba(255,255,255,0.65);transition:all 0.12s;font-family:'VT323',monospace;}
 .q-opt:hover{border-color:rgba(255,229,0,0.4);color:var(--yellow);background:rgba(255,229,0,0.04);transform:translateX(4px);}
@@ -271,7 +276,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .agent-card-wrap{border:2px solid var(--yellow);background:var(--panel);box-shadow:8px 8px 0 var(--pink),0 0 30px rgba(255,229,0,0.2);margin-bottom:20px;overflow:hidden;animation:cardIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275);}
 @keyframes cardIn{from{transform:scale(0.8) rotate(-2deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
 .agent-card-body{padding:24px;display:grid;grid-template-columns:100px 1fr;gap:20px;align-items:start;}
-.agent-avatar{width:100px;height:100px;border:2px solid var(--yellow);background:rgba(255,229,0,0.05);display:flex;align-items:center;justify-content:center;font-size:48px;animation:avPulse 2s ease-in-out infinite;}
+.agent-avatar{width:100px;height:100px;border:2px solid var(--yellow);background:rgba(255,229,0,0.05);display:flex;align-items:center;justify-content:center;font-size:48px;animation:avPulse 2s ease-in-out infinite;overflow:hidden;}
 @keyframes avPulse{0%,100%{box-shadow:0 0 8px var(--yellow)}50%{box-shadow:0 0 24px var(--yellow),0 0 40px rgba(255,229,0,0.3)}}
 .agent-type{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--pink);letter-spacing:2px;margin-bottom:5px;}
 .agent-name{font-family:'Press Start 2P',monospace;font-size:clamp(12px,2.5vw,19px);color:var(--yellow);text-shadow:2px 2px 0 var(--pink);margin-bottom:8px;line-height:1.4;}
@@ -407,36 +412,32 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .plot.zone-camera:hover{border-color:var(--pink) !important;box-shadow:0 0 8px var(--pink) !important;}
 .plot.zone-street:hover{border-color:#39FF14 !important;box-shadow:0 0 6px #39FF14 !important;}
 
-/* ══ YEARBOOK / LEADERBOARD ══ */
-.lb-yearbook{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
-.yearbook-tile{border:2px solid var(--border);background:var(--surface);padding:10px;cursor:pointer;transition:all 0.2s;position:relative;image-rendering:pixelated;}
-.yearbook-tile:hover{border-color:var(--yellow);box-shadow:0 0 14px rgba(255,229,0,0.25);transform:translateY(-2px);}
-.yearbook-tile.you{border-color:var(--yellow);box-shadow:0 0 8px rgba(255,229,0,0.3);}
-.yearbook-tile .pixel-portrait-wrap{width:64px;height:64px;margin:0 auto 8px;position:relative;image-rendering:pixelated;}
-.pixel-portrait{display:grid;grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(16,1fr);width:64px;height:64px;position:absolute;inset:0;}
-.pixel-portrait .px{width:100%;height:100%;min-width:3px;min-height:3px;}
-.pixel-portrait-wrap.glow .pixel-portrait{animation:lbGlow 1.5s ease-in-out infinite;}
-.pixel-portrait-wrap.fast .pixel-portrait{animation:lbIdle 0.6s steps(2) infinite;}
-@keyframes lbGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
-@keyframes lbIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(1px)}}
-.yearbook-tile .yt-name{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--yellow);text-align:center;margin-bottom:6px;line-height:1.4;letter-spacing:0;}
-.yearbook-tile .yt-meta{font-size:10px;color:rgba(255,255,255,0.5);line-height:1.6;}
-.yearbook-tile .yt-meta span{color:var(--pink);}
-.yearbook-tile .yt-roi{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--green);margin-top:6px;text-align:center;}
-.yearbook-tile .lb-sparkle{position:absolute;top:4px;right:4px;font-size:10px;animation:lbSparkle 0.8s ease-in-out infinite;}
-@keyframes lbSparkle{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.7;transform:scale(1.2)}}
+/* ══ LEADERBOARD TABLE ══ */
 .lb-sort{display:flex;justify-content:center;gap:4px;margin-bottom:16px;flex-wrap:wrap;}
 .lb-sort .tab{font-size:7px;padding:6px 10px;}
-.lb-expand-sheet{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
-.lb-expand-sheet.on{display:flex;}
-.lb-expand-inner{max-width:420px;width:100%;border:3px solid var(--yellow);background:var(--surface);padding:24px;position:relative;box-shadow:0 0 40px rgba(255,229,0,0.2);}
-.lb-expand-inner .pex-portrait-wrap{margin:0 auto 16px;}
-.lb-expand-inner .pixel-portrait-wrap{transform:scale(1.5);transform-origin:center top;margin:0 auto 24px;}
-.lb-expand-close{position:absolute;top:12px;right:12px;background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;cursor:pointer;font-size:14px;padding:4px 10px;}
-.lb-expand-close:hover{background:var(--red);border-color:var(--red);}
-.lb-expand-name{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--yellow);text-align:center;margin-bottom:12px;}
-.lb-expand-section{font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.lb-expand-section b{color:var(--yellow);font-family:'Press Start 2P',monospace;font-size:7px;letter-spacing:1px;}
+.lb-table-wrap{width:100%;overflow-x:auto;}
+.lb-table{width:100%;border-collapse:collapse;}
+.lb-table th{font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,229,0,0.4);letter-spacing:2px;text-align:left;padding:10px 12px;white-space:nowrap;}
+.lb-table td{font-family:'VT323',monospace;font-size:18px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.lb-table tbody tr:hover{background:rgba(255,255,255,0.03);}
+.lb-table tbody tr.you-row{background:rgba(255,229,0,0.04);}
+.lb-table .lb-rank{font-weight:bold;}
+.lb-table .lb-rank.gold{color:#FFD700;}
+.lb-table .lb-rank.silver{color:#C0C0C0;}
+.lb-table .lb-rank.bronze{color:#CD7F32;}
+.lb-table .lb-rank.other{color:rgba(255,255,255,0.5);}
+.lb-table .lb-wallet{font-family:monospace;font-size:16px;}
+.lb-table .lb-you-tag{color:var(--yellow);font-size:14px;margin-left:6px;}
+.lb-table .lb-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-family:'Press Start 2P',monospace;font-size:5px;letter-spacing:1px;}
+.lb-table .lb-pill.miner{background:rgba(255,229,0,0.2);color:var(--yellow);}
+.lb-table .lb-pill.curator{background:rgba(255,105,180,0.2);color:var(--pink);}
+.lb-table .lb-pill.patron{background:rgba(0,255,65,0.2);color:var(--green);}
+.lb-table .lb-pill.collector{background:rgba(0,191,255,0.2);color:#00BFFF;}
+.lb-table .lb-roof{color:var(--pink);}
+.lb-table .lb-bus{color:var(--yellow);}
+.lb-table .lb-roi{font-family:'Press Start 2P',monospace;font-size:7px;}
+.lb-table .lb-roi.positive{color:var(--green);}
+.lb-table .lb-roi.negative{color:var(--red);}
 </style>
 </head>
 <body>
@@ -721,28 +722,50 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   <div class="agent-wrap">
     <div id="agentQuiz">
       <div class="quiz-title" style="margin-top:20px;">◈ MEET YOUR AGENT ◈</div>
-      <div class="quiz-sub">// 3 bands + 3 genres. Your taste shapes your A&amp;R agent. //</div>
+      <div class="quiz-sub">// 3 questions. your agent does the rest. //</div>
 
-      <div class="q-card" style="margin-bottom:20px;">
-        <div class="q-num">STEP 1 — YOUR TASTE</div>
-        <div class="q-text">Pick 3 bands and 3 genres. We use this to build a unique agent (Spotify-style metadata powers personality).</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px;">
-          <div>
-            <div style="font-family:'Press Start 2P',monospace;font-size:5px;color:var(--pink);letter-spacing:1px;margin-bottom:8px;">3 BANDS</div>
-            <input type="text" id="agentBand1" placeholder="e.g. Led Zeppelin" class="agent-input" maxlength="60">
-            <input type="text" id="agentBand2" placeholder="e.g. Fleetwood Mac" class="agent-input" maxlength="60">
-            <input type="text" id="agentBand3" placeholder="e.g. The Black Keys" class="agent-input" maxlength="60">
-          </div>
-          <div>
-            <div style="font-family:'Press Start 2P',monospace;font-size:5px;color:var(--yellow);letter-spacing:1px;margin-bottom:8px;">3 GENRES</div>
-            <input type="text" id="agentGenre1" placeholder="e.g. Blues" class="agent-input" maxlength="40">
-            <input type="text" id="agentGenre2" placeholder="e.g. Classic Rock" class="agent-input" maxlength="40">
-            <input type="text" id="agentGenre3" placeholder="e.g. Americana" class="agent-input" maxlength="40">
-          </div>
+      <div class="q-card" id="aq1">
+        <div class="q-num">QUESTION 01 / 03</div>
+        <div class="q-text">An artist you've never heard of just dropped their SHOWBUS session. Your gut reaction?</div>
+        <div class="q-opts">
+          <button type="button" class="q-opt" onclick="agentAnswer(1,'A',this)"><span class="opt-icon">💸</span><span>Tip them now.<span class="opt-lbl">PATRON</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(1,'B',this)"><span class="opt-icon">👁</span><span>Watch the numbers.<span class="opt-lbl">MINER</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(1,'C',this)"><span class="opt-icon">🗳</span><span>Vote them up.<span class="opt-lbl">CURATOR</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(1,'D',this)"><span class="opt-icon">💎</span><span>Save my $BUS.<span class="opt-lbl">COLLECTOR</span></span></button>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px;">Metadata (energy, BPM, popularity, related artists) maps to risk style, scouting instinct &amp; ROI focus.</div>
       </div>
-      <button class="proceed-btn vis" id="proceedBtn" onclick="generateAndRevealAgent()">◈ GENERATE MY AGENT ◈</button>
+      <div class="q-card" id="aq2">
+        <div class="q-num">QUESTION 02 / 03</div>
+        <div class="q-text">You have 1,000 $BUS. What feels right?</div>
+        <div class="q-opts">
+          <button type="button" class="q-opt" onclick="agentAnswer(2,'A',this)"><span class="opt-icon">🔥</span><span>All in on one artist.<span class="opt-lbl">PATRON</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(2,'B',this)"><span class="opt-icon">⚖</span><span>Split evenly across pools.<span class="opt-lbl">MINER</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(2,'C',this)"><span class="opt-icon">🎯</span><span>Hold and wait for the right signal.<span class="opt-lbl">CURATOR</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(2,'D',this)"><span class="opt-icon">🏆</span><span>Stack artifacts and merch.<span class="opt-lbl">COLLECTOR</span></span></button>
+        </div>
+      </div>
+      <div class="q-card" id="aq3">
+        <div class="q-num">QUESTION 03 / 03</div>
+        <div class="q-text">Owning SHOWBUS means what to you?</div>
+        <div class="q-opts">
+          <button type="button" class="q-opt" onclick="agentAnswer(3,'A',this)"><span class="opt-icon">💰</span><span>Revenue share and yield.<span class="opt-lbl">MINER</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(3,'B',this)"><span class="opt-icon">🎸</span><span>I backed Nashville music early.<span class="opt-lbl">CURATOR</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(3,'C',this)"><span class="opt-icon">🌈</span><span>Both equally.<span class="opt-lbl">PATRON</span></span></button>
+          <button type="button" class="q-opt" onclick="agentAnswer(3,'D',this)"><span class="opt-icon">📜</span><span>Bragging rights on-chain.<span class="opt-lbl">COLLECTOR</span></span></button>
+        </div>
+      </div>
+
+      <div class="q-card" style="margin-bottom:16px;">
+        <div class="q-num">AGENT PORTRAIT</div>
+        <div class="q-text">Drag your pfp or logo here — or click to upload. Shows as your agent avatar.</div>
+        <label class="agent-pfp-zone" id="agentPfpZone">
+          <input type="file" id="agentPfpInput" accept=".png,.jpg,.jpeg,.gif,.svg" style="display:none">
+          <span class="agent-pfp-placeholder" id="agentPfpPlaceholder">PNG, JPG, GIF, SVG</span>
+          <img id="agentPfpPreview" class="agent-pfp-preview" alt="" style="display:none">
+        </label>
+      </div>
+
+      <button class="proceed-btn" id="proceedBtn" onclick="revealAgent()" style="display:none;">◈ DEPLOY MY AGENT ◈</button>
     </div>
 
     <div id="agentReveal">
@@ -755,7 +778,6 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
             <div class="agent-type" id="agentType">AGENT TYPE</div>
             <div class="agent-name" id="agentNameEl">LOADING...</div>
             <div class="agent-tagline" id="agentTagline">Analyzing...</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:8px;line-height:1.5;" id="agentLore"></div>
             <div class="traits" id="agentTraits"></div>
           </div>
         </div>
@@ -983,17 +1005,12 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <button type="button" class="tab" onclick="setLbSort('riskAdjusted',this)">SORT: RISK-ADJ</button>
       <button type="button" class="tab" onclick="setLbSort('cultural',this)">SORT: CULTURAL</button>
     </div>
-    <div id="lbTable" class="lb-yearbook"></div>
-  </div>
-</div>
-<div class="lb-expand-sheet" id="lbExpandSheet" onclick="if(event.target===this)closeLbExpand()">
-  <div class="lb-expand-inner" onclick="event.stopPropagation()">
-    <button type="button" class="lb-expand-close" onclick="closeLbExpand()">✕</button>
-    <div class="pixel-portrait-wrap pex-portrait-wrap" id="lbExpandPortrait"></div>
-    <div class="lb-expand-name" id="lbExpandName"></div>
-    <div class="lb-expand-section" id="lbExpandTraits"></div>
-    <div class="lb-expand-section" id="lbExpandBands"></div>
-    <div class="lb-expand-section" id="lbExpandDecisions"></div>
+    <div class="lb-table-wrap">
+      <table class="lb-table" id="lbTable">
+        <thead><tr><th>RANK</th><th>WALLET</th><th>ARCHETYPE</th><th>ROOF INCHES</th><th>$BUS EARNED</th><th>WEEK ROI</th></tr></thead>
+        <tbody id="lbTableBody"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -1556,100 +1573,54 @@ function stakeAll(){showToast('⚡ ALL PLOTS STAKED\nMAX EARNINGS ACTIVE','pink'
 function claimAll(){claimTokenomics();}
 
 // ══ SCREEN 3: AGENT ══
-// ══ AI A&R AGENT — bands + genres → metadata → personality ══
-const MOCK_BAND_METADATA={
-  'led zeppelin':{genres:['classic rock','hard rock','blues rock','rock'],popularity:85,tempo:98,energy:0.72,valence:0.45,danceability:0.35,loudness:-5.2,relatedCount:28},
-  'fleetwood mac':{genres:['classic rock','soft rock','pop rock','blues'],popularity:82,tempo:112,energy:0.52,valence:0.58,danceability:0.48,loudness:-8.1,relatedCount:32},
-  'the black keys':{genres:['garage rock','blues rock','indie rock','americana'],popularity:72,tempo:118,energy:0.78,valence:0.55,danceability:0.52,loudness:-4.8,relatedCount:24},
-  'taylor swift':{genres:['pop','country','pop country'],popularity:98,tempo:122,energy:0.65,valence:0.68,danceability:0.62,loudness:-5.5,relatedCount:40},
-  'beyonce':{genres:['pop','r&b','dance pop'],popularity:95,tempo:115,energy:0.7,valence:0.6,danceability:0.65,loudness:-4.2,relatedCount:38},
-  'radiohead':{genres:['art rock','alternative rock','electronic'],popularity:78,tempo:95,energy:0.55,valence:0.35,danceability:0.4,loudness:-6.8,relatedCount:30},
-  'dolly parton':{genres:['country','country pop','americana'],popularity:80,tempo:100,energy:0.5,valence:0.7,danceability:0.45,loudness:-7.5,relatedCount:26},
-  'jack white':{genres:['garage rock','blues rock','alternative rock'],popularity:70,tempo:125,energy:0.82,valence:0.5,danceability:0.48,loudness:-4.5,relatedCount:22},
-  'alabama shakes':{genres:['southern rock','blues','soul','americana'],popularity:58,tempo:105,energy:0.68,valence:0.52,danceability:0.45,loudness:-6.2,relatedCount:18},
-  'chris stapleton':{genres:['country','outlaw country','americana','southern rock'],popularity:75,tempo:92,energy:0.55,valence:0.48,danceability:0.42,loudness:-6.5,relatedCount:20},
-};
-function normalizeBand(s){return (s||'').toLowerCase().trim();}
-function getBandMetadata(bandName){
-  const key=normalizeBand(bandName);
-  for(const k of Object.keys(MOCK_BAND_METADATA)) if(k.includes(key)||key.includes(k)) return MOCK_BAND_METADATA[k];
-  const genreHints=(key.length>0?[key]:[]).concat([]);
-  return {genres:genreHints,popularity:50,tempo:110,energy:0.6,valence:0.5,danceability:0.45,loudness:-6,relatedCount:15};
+const agentAnswers={};
+let agentPfpUrl=null;
+
+function agentAnswer(q,choice,btn){
+  btn.closest('.q-opts').querySelectorAll('.q-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('aq'+q).classList.add('answered');
+  agentAnswers[q]=choice;
+  const proceedBtn=document.getElementById('proceedBtn');
+  if(proceedBtn&&Object.keys(agentAnswers).length===3){proceedBtn.style.display='block';proceedBtn.classList.add('vis');}
 }
-function buildAgentProfile(bands,genres){
-  const meta=bands.map(b=>getBandMetadata(b));
-  const allGenres=[...(meta.flatMap(m=>m.genres||[])),...genres].filter(Boolean).map(g=>g.toLowerCase().trim());
-  const uniqueGenres=[...new Set(allGenres)];
-  const avg=(arr)=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0.5;
-  const energy=avg(meta.map(m=>m.energy));
-  const tempo=avg(meta.map(m=>m.tempo));
-  const danceability=avg(meta.map(m=>m.danceability));
-  const popularity=avg(meta.map(m=>m.popularity));
-  const relatedAvg=avg(meta.map(m=>m.relatedCount||15));
-  const versatility=Math.min(1,uniqueGenres.length/8);
-  const riskAppetite=energy*0.7+(tempo/160)*0.3;
-  const trendiness=Math.min(1,danceability*0.6+(tempo/140)*0.4);
-  const roiFocus=popularity/100;
-  const scoutingBias=Math.min(1,relatedAvg/35);
-  const riskStyle=riskAppetite>0.7?'Aggressive':riskAppetite>0.5?'Moderate':'Cautious';
-  const scoutingInstinct=scoutingBias>0.6?'First Mover':scoutingBias>0.4?'Scout-heavy':'Data First';
-  const trendLabel=trendiness>0.6?'High':trendiness>0.4?'Medium':'Low';
-  const roiLabel=roiFocus>0.7?'High':roiFocus>0.4?'Medium':'Low';
-  return {
-    name:null,
-    bands:bands.filter(Boolean),
-    genres:genres.filter(Boolean),
-    risk_style:riskStyle,
-    scouting_instinct:scoutingInstinct,
-    trendiness:trendLabel,
-    roi_focus:roiLabel,
-    energy:Math.round(riskAppetite*100)/100,
-    versatility:Math.round(versatility*100)/100,
-    _raw:{energy,tempo,danceability,popularity,uniqueGenres}
-  };
+
+function getAgentArc(){
+  const a=agentAnswers;
+  const q1Map={A:'PATRON',B:'MINER',C:'CURATOR',D:'COLLECTOR'};
+  const q2Map={A:'PATRON',B:'MINER',C:'CURATOR',D:'COLLECTOR'};
+  const q3Map={A:'MINER',B:'CURATOR',C:'PATRON',D:'COLLECTOR'};
+  const arcs=[q1Map[a[1]],q2Map[a[2]],q3Map[a[3]]].filter(Boolean);
+  const counts={PATRON:0,MINER:0,CURATOR:0,COLLECTOR:0};
+  arcs.forEach(arc=>{counts[arc]=(counts[arc]||0)+1;});
+  let max=0,best='CURATOR';
+  Object.entries(counts).forEach(([k,v])=>{if(v>max){max=v;best=k;}else if(v===max)best='CURATOR';});
+  return best;
 }
-function generateAgentName(profile){
-  const adj=[['Dusty','Rust','Midnight','Steady','Wild','Velvet','Iron','Steel'],['Strings','Tone','Circuit','Pulse','Signal','Echo','Vault','Protocol']];
-  const g=profile.genres[0]||'rock';
-  const seed=g.length+(profile.bands[0]||'').length;
-  const i0=seed%adj[0].length,i1=(seed*7)%adj[1].length;
-  return adj[0][i0]+' '+adj[1][i1];
-}
-function inferArchetypeFromProfile(profile){
-  const {risk_style,scouting_instinct,roi_focus,energy,versatility}=profile;
-  if(risk_style==='Aggressive'&&(scouting_instinct==='Data First'||roi_focus==='High')) return 'MINER';
-  if(scouting_instinct==='First Mover'||(energy>0.7&&roi_focus==='Low')) return 'PATRON';
-  if(scouting_instinct==='Scout-heavy'||versatility>0.6) return 'CURATOR';
-  if(roi_focus==='High'&&versatility<0.5) return 'COLLECTOR';
-  if(energy>0.65) return 'PATRON';
-  if(versatility>0.5) return 'CURATOR';
-  return 'CURATOR';
-}
+
 const archetypes={
   MINER:{emoji:'⛏',type:'THE MINER',name:'BLOCK BREAKER',tagline:'Your agent mines hard. Every $BUS is hashrate. Every hashrate is a roof inch closer.',traits:[{l:'ROOF INCH FOCUSED',c:'y'},{l:'HIGH AGGRESSION',c:'p'},{l:'REVENUE SEEKER',c:'g'},{l:'DAILY MINING',c:'b'}],mine:80,cur:10,tip:10},
   CURATOR:{emoji:'🎧',type:'THE CURATOR',name:'TASTE PROTOCOL',tagline:'Your agent finds them before anyone else does. It votes, signals, and builds your on-chain taste record.',traits:[{l:'TASTEMAKER',c:'p'},{l:'EARLY SIGNAL',c:'y'},{l:'VOTE HEAVY',c:'g'},{l:'NASHVILLE NATIVE',c:'b'}],mine:20,cur:60,tip:20},
   PATRON:{emoji:'💸',type:'THE PATRON',name:'FIRST MOVER',tagline:'Your agent tips early, often, and on instinct. Artists know your wallet. The receipts speak.',traits:[{l:'PATRON ENERGY',c:'y'},{l:'ARTIST FIRST',c:'p'},{l:'RELATIONSHIP BUILDER',c:'g'},{l:'IRL CONNECTOR',c:'b'}],mine:15,cur:25,tip:60},
   COLLECTOR:{emoji:'🏆',type:'THE COLLECTOR',name:'VAULT MODE',tagline:'Your agent watches for collectibles, physical drops, and limited moments. $BUS as treasure map.',traits:[{l:'PHYSICAL REWARDS',c:'y'},{l:'LIMITED EDITIONS',c:'p'},{l:'MERCH HUNTER',c:'g'},{l:'CLOUT ARCHIVE',c:'b'}],mine:30,cur:20,tip:50},
 };
-let currentAgentProfile=null;
-function generateAndRevealAgent(){
-  const bands=[document.getElementById('agentBand1'),document.getElementById('agentBand2'),document.getElementById('agentBand3')].map(el=>el.value.trim()).filter(Boolean);
-  const genres=[document.getElementById('agentGenre1'),document.getElementById('agentGenre2'),document.getElementById('agentGenre3')].map(el=>el.value.trim()).filter(Boolean);
-  if(bands.length<1||genres.length<1){showToast('◈ ENTER AT LEAST\n1 BAND + 1 GENRE','pink');return;}
-  while(bands.length<3) bands.push('');
-  while(genres.length<3) genres.push('');
-  const profile=buildAgentProfile(bands,genres);
-  profile.name=generateAgentName(profile);
-  currentAgentProfile=profile;
-  const arcKey=inferArchetypeFromProfile(profile);
+
+function revealAgent(){
+  const arcKey=getAgentArc();
   const arc=archetypes[arcKey];
-  const lore=`From ${profile.bands.filter(Boolean).join(', ')} + ${profile.genres.filter(Boolean).join(', ')} → ${profile.risk_style} · ${profile.scouting_instinct} · ${profile.trendiness} trend · ${profile.roi_focus} ROI`;
-  document.getElementById('agentEmo').textContent=arc.emoji;
+  const avatarEl=document.getElementById('agentEmo');
+  avatarEl.innerHTML='';
+  if(agentPfpUrl){
+    const img=document.createElement('img');
+    img.src=agentPfpUrl;
+    img.alt='Agent portrait';
+    avatarEl.appendChild(img);
+  } else {
+    avatarEl.textContent=arc.emoji;
+  }
   document.getElementById('agentType').textContent=arc.type;
-  document.getElementById('agentNameEl').textContent=profile.name.toUpperCase();
+  document.getElementById('agentNameEl').textContent=arc.name;
   document.getElementById('agentTagline').textContent=arc.tagline;
-  const loreEl=document.getElementById('agentLore');
-  if(loreEl) loreEl.textContent=lore;
   const tr=document.getElementById('agentTraits');
   tr.innerHTML='';
   arc.traits.forEach(t=>{const el=document.createElement('div');el.className=`trait ${t.c}`;el.textContent=t.l;tr.appendChild(el);});
@@ -1660,8 +1631,32 @@ function generateAndRevealAgent(){
     document.getElementById('sf-cur').style.width=arc.cur+'%';document.getElementById('sv-cur').textContent=arc.cur+'%';
     document.getElementById('sf-tip').style.width=arc.tip+'%';document.getElementById('sv-tip').textContent=arc.tip+'%';
   },300);
-  showToast('◈ AGENT INITIALIZED\n'+profile.name,'green');
+  showToast('◈ AGENT INITIALIZED\n'+arc.name,'green');
 }
+
+(function initAgentPfp(){
+  const input=document.getElementById('agentPfpInput');
+  const zone=document.getElementById('agentPfpZone');
+  const placeholder=document.getElementById('agentPfpPlaceholder');
+  const preview=document.getElementById('agentPfpPreview');
+  if(!input||!zone) return;
+  function onFile(files){
+    const file=files&&files[0];
+    if(!file) return;
+    const ok=/\.(png|jpe?g|gif|svg)$/i.test(file.name)||/image\//.test(file.type);
+    if(!ok){showToast('◈ USE PNG, JPG, GIF OR SVG','pink');return;}
+    if(agentPfpUrl) URL.revokeObjectURL(agentPfpUrl);
+    agentPfpUrl=URL.createObjectURL(file);
+    placeholder.style.display='none';
+    preview.src=agentPfpUrl;
+    preview.style.display='inline';
+  }
+  zone.addEventListener('click',e=>{if(e.target!==input) input.click();});
+  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('on');});
+  zone.addEventListener('dragleave',()=>zone.classList.remove('on'));
+  zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('on');onFile(e.dataTransfer.files);});
+  input.addEventListener('change',()=>onFile(input.files));
+})();
 
 // ══ SCREEN 4: MINING ══
 const TOTAL_BUS=1000;
@@ -1747,32 +1742,12 @@ function playClick(){playTone(800,0.06);}function playSelect(){playTone(1200,0.0
 function playSuccess(){playTone(523,0.12);setTimeout(()=>playTone(659,0.12),100);setTimeout(()=>playTone(784,0.2),200);}
 document.querySelectorAll('.nav-btn,.tab,.q-opt,.qbtn,.s-btn').forEach(b=>b.addEventListener('click',()=>playClick()));
 
-// ══ LEADERBOARD / YEARBOOK ══
-const GENRE_PALETTES={rock:['#8B4513','#DEB887','#CD853F'],blues:['#191970','#4169E1','#87CEEB'],americana:['#D2691E','#F4A460','#8B4513'],country:['#228B22','#9ACD32','#DEB887'],pop:['#FF69B4','#FFB6C1','#FFE4E1'],'classic rock':['#B22222','#FFD700','#2F4F4F'],folk:['#556B2F','#8FBC8F','#DEB887'],soul:['#4B0082','#9370DB','#DDA0DD'],indie:['#2F4F4F','#708090','#E6E6FA']};
-function genreToPalette(genre){const g=(genre||'').toLowerCase();const keys=Object.keys(GENRE_PALETTES).sort((a,b)=>b.length-a.length);for(const k of keys) if(g.includes(k)) return GENRE_PALETTES[k]; return ['#4a4a6a','#8B7B8B','#FFE500'];}
-
-function generatePixelAvatar(agent){
-  const risk=agent.riskNum!=null?agent.riskNum: (agent.risk_style==='Aggressive'?0.85:agent.risk_style==='Cautious'?0.3:0.55);
-  const trendiness=agent.trendNum!=null?agent.trendNum:(agent.cultural>70?0.65:0.45);
-  const palette=genreToPalette(agent.genre);
-  const [primary,secondary,accent]=palette;
-  const hat=risk>0.7?'spike':risk>0.4?'cap':'none';
-  const seed=(agent.name||'').split('').reduce((s,c)=>s+c.charCodeAt(0),0);
-  const rnd=(i,j)=>{const x=((seed*(i+1)*(j+1))%97)/97;return x;};
-  let grid='';
-  for(let row=0;row<16;row++) for(let col=0;col<16;col++){
-    let color='transparent';
-    const t=rnd(row,col);
-    if(row<4){ if(hat==='spike'&&col>=6&&col<=9) color=secondary; else if(hat==='cap'&&row>=2&&col>=4&&col<=11) color=secondary; }
-    else if(row>=4&&row<14){ const body=row>=8; color=body?primary:secondary; if(col<3||col>12) color='transparent'; if(row>=6&&row<=7&&col>=5&&col<=10) color=accent; }
-    else if(row>=14){ if(col>=5&&col<=10) color=secondary; }
-    if(color!=='transparent'&&t>0.92) color=accent;
-    grid+=`<div class="px" style="background:${color}"></div>`;
-  }
-  const wrapClass='pixel-portrait-wrap'+(trendiness>0.6?' glow':'')+(agent.scout_instinct==='First Mover'?' fast':'');
-  return `<div class="${wrapClass}"><div class="pixel-portrait" style="width:64px;height:64px;display:grid;grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(16,1fr);">${grid}</div></div>`;
+// ══ LEADERBOARD ══
+function truncateWallet(name){
+  let h=0; for(let i=0;i<(name||'').length;i++) h=((h<<5)-h)+name.charCodeAt(i)|0;
+  const hex=Math.abs(h).toString(16).padStart(8,'0').slice(-8); return '0x'+hex.slice(0,4)+'...'+hex.slice(-4);
 }
-
+const ARC_LABELS={patrons:'PATRON',miners:'MINER',curators:'CURATOR'};
 const lbAgentTemplates={
   patrons:[
     {name:'Velvet Echo',genre:'Blues',risk_style:'Aggressive',scout_instinct:'First Mover',roi:42,riskAdjusted:38,cultural:88,bands:['Led Zeppelin','The Black Keys'],genres:['Blues','Rock'],s1:'4,280 $BUS',s2:'12 artists',recentWin:1},
@@ -1814,41 +1789,39 @@ function setLbSort(key,btn){
   renderLB();
   playClick();
 }
-function openLbExpand(agent){
-  const sheet=document.getElementById('lbExpandSheet');
-  const portrait=document.getElementById('lbExpandPortrait');
-  portrait.innerHTML=generatePixelAvatar(agent);
-  document.getElementById('lbExpandName').textContent=agent.name.toUpperCase()+(agent.you?' ← YOU':'');
-  document.getElementById('lbExpandTraits').innerHTML=`<b>RISK</b> ${agent.risk_style} · <b>SCOUT</b> ${agent.scout_instinct} · <b>GENRE</b> ${agent.genre}<br><b>ROI</b> ${agent.roi} · <b>RISK-ADJ ROI</b> ${agent.riskAdjusted} · <b>CULTURAL</b> ${agent.cultural}`;
-  document.getElementById('lbExpandBands').innerHTML=`<b>BANDS</b><br>${(agent.bands||[]).length?agent.bands.join(', '):'—'}<br><b>GENRES</b><br>${(agent.genres||[]).length?agent.genres.join(', '):agent.genre||'—'}`;
-  document.getElementById('lbExpandDecisions').innerHTML=`<b>RECENT</b><br>${agent.s1} · ${agent.s2}${agent.recentWin?' · ★ Recent win':''}`;
-  sheet.classList.add('on');
-  playClick();
-}
-function closeLbExpand(){document.getElementById('lbExpandSheet').classList.remove('on');}
 function renderLB(){
-  const t=document.getElementById('lbTable');
-  if(!t) return;
+  const tbody=document.getElementById('lbTableBody');
+  if(!tbody) return;
   let list=lbAgentTemplates[curLB].map((a,i)=>({...a,r:i+1}));
   if(curLbSort==='roi') list.sort((a,b)=>b.roi-a.roi);
   else if(curLbSort==='riskAdjusted') list.sort((a,b)=>b.riskAdjusted-a.riskAdjusted);
   else list.sort((a,b)=>b.cultural-a.cultural);
   list=list.map((a,i)=>({...a,r:i+1}));
+  const arc=ARC_LABELS[curLB];
+  const rankClass=r=>r===1?'gold':r===2?'silver':r===3?'bronze':'other';
+  const roofInches=a=>(a.s1&&String(a.s1).includes('inch'))?a.s1:'—';
+  const busEarned=a=>(a.s1&&String(a.s1).includes('$BUS'))?a.s1:'—';
+  const roiFmt=v=>{const n=Number(v); const s=n>=0?'+'+n:n; return s+'%';};
+  const roiClass=v=>Number(v)>=0?'positive':'negative';
   let htm='';
   list.forEach(agent=>{
-    const tileClass='yearbook-tile'+(agent.you?' you':'');
-    const sparkle=agent.recentWin?'<div class="lb-sparkle">★</div>':'';
-    htm+=`<div class="${tileClass}" onclick="openLbExpand(window.lbAgentByRef['${agent.name.replace(/'/g,"\\'")}'])" data-agent-name="${agent.name}">
-      ${sparkle}
-      ${generatePixelAvatar(agent)}
-      <div class="yt-name">${agent.name}</div>
-      <div class="yt-meta">Genre: <span>${agent.genre}</span><br>Risk: ${agent.risk_style}<br>Scout: ${agent.scout_instinct}</div>
-      <div class="yt-roi">ROI ${agent.roi}</div>
-    </div>`;
+    const r=agent.r;
+    const wallet=truncateWallet(agent.name);
+    const youTag=agent.you?' <span class="lb-you-tag">← YOU</span>':'';
+    const roof=roofInches(agent);
+    const bus=busEarned(agent);
+    const roi=roiFmt(agent.roi);
+    const rowClass=agent.you?'you-row':'';
+    htm+=`<tr class="${rowClass}">
+      <td class="lb-rank ${rankClass(r)}">${r}</td>
+      <td class="lb-wallet">${wallet}${youTag}</td>
+      <td><span class="lb-pill ${arc.toLowerCase()}">${arc}</span></td>
+      <td class="lb-roof">${roof}</td>
+      <td class="lb-bus">${bus}</td>
+      <td class="lb-roi ${roiClass(agent.roi)}">${roi}</td>
+    </tr>`;
   });
-  t.innerHTML=htm;
-  window.lbAgentByRef={};
-  list.forEach(agent=>{window.lbAgentByRef[agent.name]=agent;});
+  tbody.innerHTML=htm;
 }
 function switchLB(type,btn){
   curLB=type;
