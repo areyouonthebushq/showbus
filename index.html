@@ -494,6 +494,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         </div>
         <div class="stat-row"><span class="stat-label">PLOTS SELECTED</span><span class="stat-value hl" id="plotsSel">0</span></div>
         <div class="stat-row"><span class="stat-label">PRICE / PLOT</span><span class="stat-value" id="pricePerPlot">$100.00 USDC</span></div>
+        <div class="stat-row" style="border:none;padding-bottom:0;margin-bottom:4px;"><span class="stat-label">LIVE ETH</span><span class="stat-value" id="ethPriceDisplay" style="font-size:9px;color:rgba(255,255,255,0.5);">—</span></div>
         <div class="stat-row" style="border:none;margin:0;"><span class="stat-label">TOTAL</span><span class="stat-value tot" id="totalEth">0.00 USDC</span></div>
         <button class="buy-btn" id="buyBtn" disabled>▶ CONNECT WALLET<br>TO PURCHASE</button>
         <button class="buy-btn" style="background:transparent;color:#555;border-color:#333;box-shadow:none;margin-top:6px;font-size:7px;" onclick="clearSel()">✕ CLEAR SELECTION</button>
@@ -547,6 +548,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <div>
       <div class="dash-title">◈ SHOWBUS // $BUS STAKING</div>
       <div class="dash-sub">BASE MAINNET // FOUNDER STATUS: ACTIVE</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;letter-spacing:1px;" id="tokStats">—</div>
     </div>
     <div class="wallet-bar">
       <div><div class="wb-addr">CONNECTED: <span>0x7F3a...B92c</span></div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;">DAY ONE FOUNDER ★</div></div>
@@ -1060,8 +1062,25 @@ function getZoneColor(z){
 const SIDES={FRONT:{cols:10,rows:9},BACK:{cols:10,rows:9},LEFT:{cols:37,rows:9},RIGHT:{cols:37,rows:9}};
 const LABELS={FRONT:'▶ FRONT OF BUS (10×9 = 90 PLOTS)',BACK:'▶ BACK OF BUS (10×9 = 90 PLOTS)',LEFT:'▶ LEFT SIDE (37×9 = 333 PLOTS)',RIGHT:'▶ RIGHT SIDE (37×9 = 333 PLOTS)'};
 const PRICE_USD=100;
-const ETH_PRICE_USD=3500; // live price coming later
-const PRICE_ETH=PRICE_USD/ETH_PRICE_USD;
+let ethPriceUsd=3500; // oracle-updated
+function getPriceEthPerPlot(){return PRICE_USD/Math.max(1,ethPriceUsd);}
+
+// ══ ETH PRICE ORACLE ══
+const ETH_ORACLE_URL='https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd';
+const ETH_ORACLE_INTERVAL_MS=120000;
+function fetchEthPrice(){
+  fetch(ETH_ORACLE_URL).then(r=>r.json()).then(data=>{
+    if(data&&data.ethereum&&typeof data.ethereum.usd==='number'){
+      ethPriceUsd=data.ethereum.usd;
+      const el=document.getElementById('ethPriceDisplay');
+      if(el) el.textContent='$'+ethPriceUsd.toLocaleString();
+      updateBuyCheckout();
+    }
+  }).catch(()=>{});
+}
+fetchEthPrice();
+setInterval(fetchEthPrice,ETH_ORACLE_INTERVAL_MS);
+document.getElementById('ethPriceDisplay').textContent='$'+ethPriceUsd.toLocaleString();
 let curSide='FRONT',selPlots=new Set(),checkoutCurrency='usdc';
 const soldSet=new Set(),teamSet=new Set();
 
@@ -1115,11 +1134,10 @@ function clearSel(){selPlots.clear();document.querySelectorAll('.plot.selected')
 function updateBuyCheckout(){
   const n=selPlots.size;
   const totalUsdc=(n*PRICE_USD).toFixed(2);
-  const totalEthAmt=(n*PRICE_ETH).toFixed(4);
+  const priceEth=getPriceEthPerPlot();
+  const totalEthAmt=(n*priceEth).toFixed(4);
   document.getElementById('plotsSel').textContent=n;
-  // price per plot
-  document.getElementById('pricePerPlot').textContent=checkoutCurrency==='usdc'?'$100.00 USDC':`~${PRICE_ETH.toFixed(4)} ETH`;
-  // total
+  document.getElementById('pricePerPlot').textContent=checkoutCurrency==='usdc'?'$100.00 USDC':`~${priceEth.toFixed(4)} ETH`;
   document.getElementById('totalEth').textContent=checkoutCurrency==='usdc'?`${totalUsdc} USDC`:`${totalEthAmt} ETH`;
   const btn=document.getElementById('buyBtn');
   if(n>0){
@@ -1164,7 +1182,7 @@ function switchSide(side,btn){
 document.getElementById('buyBtn').onclick=()=>{
   if(selPlots.size>0){
     const n=selPlots.size;
-    const tot=checkoutCurrency==='usdc'?`$${(n*PRICE_USD).toFixed(2)} USDC`:`${(n*PRICE_ETH).toFixed(4)} ETH`;
+    const tot=checkoutCurrency==='usdc'?`$${(n*PRICE_USD).toFixed(2)} USDC`:`${(n*getPriceEthPerPlot()).toFixed(4)} ETH`;
     showToast(`◈ WALLET CONNECTION\nCOMING APRIL 2026\n${n} PLOTS · ${tot}`,'');
   }
 };
@@ -1258,28 +1276,132 @@ function renderMs(){
 }
 renderMs();
 
-// reward ticker
-let rewardAcc=0,totalEarned=847.2;
-const ratePerSec=(2*10*1.25)/86400;
-setInterval(()=>{
-  rewardAcc+=ratePerSec;totalEarned+=ratePerSec;
-  document.getElementById('pendingBus').textContent=rewardAcc.toFixed(4);
-  document.getElementById('pendingBig').textContent=rewardAcc.toFixed(4);
-  document.getElementById('earnStake').textContent=totalEarned.toFixed(1);
-},1000);
+// ══ MINING ALLOC (used by tokenomics reward calc) ══
+let allocs={pure:0,marcus:0,hollow:0,kezia:0};
 
-function stakeAll(){showToast('⚡ ALL PLOTS STAKED\nMAX EARNINGS ACTIVE','pink');}
-function claimAll(){
-  const v=rewardAcc.toFixed(2);rewardAcc=0;
+// ══ TOKENOMICS ══
+const TOK_MAX_SUPPLY=100_000_000_000;
+const TOK_INITIAL_CIRCULATING=8_000_000_000;
+const TOK_SEASON_0_DAYS=90;
+const TOK_SEASON_0_EMISSION=8_000_000_000;
+const TOK_HALVENING_DAYS=180;
+const TOK_BURN_RATE_AFTER_SEASON_1=0.05;
+const TOK_PURE_POOL_SHARE=0.6;
+const TOK_ARTIST_POOL_SHARE=0.4;
+const TOK_LAUNCH_DATE=new Date('2026-04-01T00:00:00').getTime();
+
+let tokTotalMinted=TOK_INITIAL_CIRCULATING;
+let tokCirculatingSupply=TOK_INITIAL_CIRCULATING;
+let tokPendingReward=0;
+let tokTotalEarnedByUser=847.2;
+let tokLastRewardTime=Date.now();
+
+function getDaysSinceLaunch(){
+  const now=Date.now();
+  return Math.max(0,Math.floor((now-TOK_LAUNCH_DATE)/86400000));
+}
+function getSeasonNumber(day){
+  if(day<TOK_SEASON_0_DAYS) return 0;
+  return 1+Math.floor((day-TOK_SEASON_0_DAYS)/TOK_HALVENING_DAYS);
+}
+function getDailyEmissionTotal(day){
+  if(day<0) return 0;
+  const baseDaily=TOK_SEASON_0_EMISSION/TOK_SEASON_0_DAYS;
+  if(day<TOK_SEASON_0_DAYS) return baseDaily;
+  const halveningIndex=Math.floor((day-TOK_SEASON_0_DAYS)/TOK_HALVENING_DAYS);
+  return baseDaily*Math.pow(0.5,halveningIndex);
+}
+function getCurrentEmissionRate(){
+  const day=getDaysSinceLaunch();
+  return getDailyEmissionTotal(day);
+}
+
+const BOOST_FOUNDER=1.25;
+const SIM_TOTAL_PURE_ALLOC=100000;
+const SIM_TOTAL_ARTIST_ALLOC=40000;
+function getUserPureAllocation(){
+  const plotStakeUnits=2*10*BOOST_FOUNDER;
+  return plotStakeUnits+(allocs.pure||0);
+}
+function getUserArtistAllocation(){
+  return (allocs.marcus||0)+(allocs.hollow||0)+(allocs.kezia||0);
+}
+function getTotalPureAllocation(){ return SIM_TOTAL_PURE_ALLOC+getUserPureAllocation(); }
+function getTotalArtistAllocation(){ return SIM_TOTAL_ARTIST_ALLOC+getUserArtistAllocation(); }
+
+function getUserRewardPerDay(){
+  const day=getDaysSinceLaunch();
+  const dailyTotal=getDailyEmissionTotal(day);
+  if(dailyTotal<=0) return 0;
+  const dailyPure=dailyTotal*TOK_PURE_POOL_SHARE;
+  const dailyArtist=dailyTotal*TOK_ARTIST_POOL_SHARE;
+  const totalPure=getTotalPureAllocation();
+  const totalArtist=getTotalArtistAllocation();
+  let reward=0;
+  if(totalPure>0) reward+=(dailyPure*getUserPureAllocation()*BOOST_FOUNDER)/totalPure;
+  if(totalArtist>0) reward+=(dailyArtist*getUserArtistAllocation()*BOOST_FOUNDER)/totalArtist;
+  return reward;
+}
+function tickTokenomics(){
+  const now=Date.now();
+  const dt=(now-tokLastRewardTime)/1000;
+  tokLastRewardTime=now;
+  const rewardPerSec=getUserRewardPerDay()/86400;
+  const gross=rewardPerSec*dt;
+  const room=Math.max(0,TOK_MAX_SUPPLY-tokTotalMinted);
+  const actual=Math.min(gross,room);
+  tokPendingReward+=actual;
+  tokTotalMinted+=actual;
+  tokCirculatingSupply+=actual;
+  tokTotalEarnedByUser+=actual;
+}
+function claimTokenomics(){
+  const gross=tokPendingReward;
+  tokPendingReward=0;
+  if(gross<=0) return 0;
+  const day=getDaysSinceLaunch();
+  const season=getSeasonNumber(day);
+  const burnRate=season>=1?TOK_BURN_RATE_AFTER_SEASON_1:0;
+  const burn=gross*burnRate;
+  const toUser=gross-burn;
+  tokCirculatingSupply-=burn;
+  const balEl=document.getElementById('busBalance');
+  let bal=parseInt((balEl.textContent||'0').replace(/,/g,''),10)||0;
+  bal+=toUser;
+  balEl.textContent=Math.floor(bal).toLocaleString();
   document.getElementById('pendingBus').textContent='0.0000';
   document.getElementById('pendingBig').textContent='0.0000';
-  let bal=parseInt(document.getElementById('busBalance').textContent.replace(/,/g,''));
-  bal+=parseFloat(v);
-  document.getElementById('busBalance').textContent=Math.floor(bal).toLocaleString();
-  showToast(`◈ ${v} $BUS CLAIMED\nADDED TO WALLET`,'green');
-  const a={type:'earn',time:'NOW',text:`Claimed <strong>${v} $BUS</strong> — added to wallet`};
+  const burnStr=burnRate>0?` (5% burned: ${burn.toFixed(2)} $BUS)`:'';
+  showToast(`◈ ${toUser.toFixed(2)} $BUS CLAIMED\nADDED TO WALLET${burnStr}`,'green');
+  const a={type:'earn',time:'NOW',text:`Claimed <strong>${toUser.toFixed(2)} $BUS</strong> — added to wallet`};
   actItems.unshift(a);renderAct();
+  return toUser;
 }
+
+function updateTokenomicsUI(){
+  const day=getDaysSinceLaunch();
+  const season=getSeasonNumber(day);
+  const daily=getCurrentEmissionRate();
+  const dailyM=(daily/1e6).toFixed(2);
+  const circB=(tokCirculatingSupply/1e9).toFixed(1);
+  const maxB=(TOK_MAX_SUPPLY/1e9).toFixed(0);
+  const tokEl=document.getElementById('tokStats');
+  if(tokEl) tokEl.textContent=`SEASON ${season} · ${dailyM}M $BUS/DAY · CIRC ${circB}B/${maxB}B`;
+  document.getElementById('pendingBus').textContent=tokPendingReward.toFixed(4);
+  document.getElementById('pendingBig').textContent=tokPendingReward.toFixed(4);
+  document.getElementById('earnStake').textContent=tokTotalEarnedByUser.toFixed(1);
+  const ratePerHr=getUserRewardPerDay()*24;
+  const rateEl=document.getElementById('earnRate');
+  if(rateEl) rateEl.textContent='+'+ratePerHr.toFixed(1)+' $BUS/HR';
+}
+setInterval(()=>{
+  tickTokenomics();
+  updateTokenomicsUI();
+},1000);
+updateTokenomicsUI();
+
+function stakeAll(){showToast('⚡ ALL PLOTS STAKED\nMAX EARNINGS ACTIVE','pink');}
+function claimAll(){claimTokenomics();}
 
 // ══ SCREEN 3: AGENT ══
 const answers={};
@@ -1325,7 +1447,6 @@ function revealAgent(){
 }
 
 // ══ SCREEN 4: MINING ══
-const allocs={pure:0,marcus:0,hollow:0,kezia:0};
 const TOTAL_BUS=1000;
 const artistPools={marcus:{match:true,artist:'Marcus Webb'},hollow:{match:true,artist:'The Hollow Kind'},kezia:{match:false,artist:'Kezia Ray'}};
 
