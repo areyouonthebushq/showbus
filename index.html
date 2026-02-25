@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHOWBUS // V4</title>
+<title>SHOWBUS // V5</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -84,7 +84,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
 /* ══ MARQUEE ══ */
 .marquee-strip{background:var(--red);overflow:hidden;white-space:nowrap;padding:7px 0;border-top:2px solid #000;border-bottom:2px solid #000;}
-.marquee-inner{display:inline-block;animation:marquee 22s linear infinite;font-family:'Press Start 2P',monospace;font-size:8px;color:var(--yellow);text-shadow:1px 1px 0 #000;letter-spacing:3px;}
+.marquee-inner{display:inline-block;animation:marquee 10s linear infinite;font-family:'Press Start 2P',monospace;font-size:8px;color:var(--yellow);text-shadow:1px 1px 0 #000;letter-spacing:3px;}
 @keyframes marquee{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
 
 /* ══ SCREEN 1: BUY ══ */
@@ -415,15 +415,14 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 <!-- ══ NAV ══ -->
 <div id="nav">
   <div class="nav-logo">◈ SHOWBUS</div>
-  <button class="nav-btn active" onclick="go('buy',this)">01 BUY A PLOT</button>
-  <button class="nav-btn" onclick="go('stake',this)">02 STAKE + EARN</button>
+  <button class="nav-btn active" onclick="go('buy',this)">01 GET YOUR PLOT</button>
+  <button class="nav-btn" onclick="go('stake',this)">02 EARN $BUS</button>
   <button class="nav-btn" onclick="go('agent',this)">03 YOUR AGENT</button>
-  <button class="nav-btn" onclick="go('mine',this)">04 BACK AN ARTIST</button>
-  <button class="nav-btn" onclick="go('board',this)">05 RANKS</button>
+  <button class="nav-btn" onclick="go('mine',this)">04 ALLOCATE</button>
+  <button class="nav-btn" onclick="go('board',this)">05 LEADERBOARD</button>
   <div class="nav-spacer"></div>
-  <button class="nav-btn" id="navWalletBtn" onclick="toggleWallet()">◈ CONNECT WALLET</button>
-  <button style="font-family:'Press Start 2P',monospace;font-size:6px;padding:6px 10px;background:rgba(155,0,255,0.12);color:#9B00FF;border:1px solid #9B00FF;cursor:pointer;letter-spacing:1px;margin-left:4px;animation:stPulse 2s ease-in-out infinite;" onclick="showToast('◈ DAO VOTE ACTIVE\nROUTE: EAST NASH vs 12 SOUTH\n3 DAYS REMAINING','')">◈ DAO VOTE LIVE</button>
-  <button class="nav-presale" onclick="showToast('◈ DAY ONE PRESALE\nAPRIL 1, 2026\n$100 PER PLOT','green')">◈ DAY ONE PRESALE</button>
+  <button style="font-family:'Press Start 2P',monospace;font-size:6px;padding:6px 10px;background:rgba(155,0,255,0.12);color:#9B00FF;border:1px solid #9B00FF;cursor:pointer;letter-spacing:1px;margin-left:4px;animation:stPulse 2s ease-in-out infinite;" onclick="showToast('◈ VOTE ACTIVE\nROUTE: EAST NASH vs 12 SOUTH\n3 DAYS LEFT','')">◈ VOTE LIVE</button>
+  <button class="nav-presale" onclick="showToast('◈ DAY ONE\nAPRIL 1, 2026\n$100 PER PLOT','green')">◈ DAY ONE</button>
 </div>
 
 <!-- ══════════════════════════════════════
@@ -435,8 +434,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <div style="display:flex;align-items:flex-start;gap:10px;">
       <div style="width:8px;height:8px;border-radius:50%;background:#9B00FF;box-shadow:0 0 8px #9B00FF;animation:stPulse 1.5s infinite;flex-shrink:0;margin-top:2px;"></div>
       <div>
-        <div style="font-family:'Press Start 2P',monospace;font-size:7px;color:#9B00FF;letter-spacing:1px;line-height:1.9;">◈ DAO VOTE OPEN — BUS ROUTE: EAST NASHVILLE vs 12 SOUTH</div>
-        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,255,255,0.22);letter-spacing:1px;margin-top:4px;">3 DAYS LEFT · ALL 846 PLOT HOLDERS VOTE · YOUR STAKE = YOUR VOICE</div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:7px;color:#9B00FF;letter-spacing:1px;line-height:1.9;">◈ VOTE OPEN — BUS ROUTE: EAST NASHVILLE vs 12 SOUTH</div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,255,255,0.22);letter-spacing:1px;margin-top:4px;">3 DAYS LEFT · 846 PLOT HOLDERS VOTE · YOUR STAKE = YOUR VOICE</div>
       </div>
     </div>
     <button onclick="showToast('◈ VOTING OPENS\nAPRIL 1, 2026\nAT PRESALE LAUNCH','')" style="font-family:'Press Start 2P',monospace;font-size:6px;padding:7px 12px;background:#9B00FF;color:#fff;border:none;cursor:pointer;letter-spacing:1px;white-space:nowrap;">VOTE NOW →</button>
@@ -451,17 +450,17 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="ws" style="background:var(--pink)"></div>
       <div class="ws" style="background:var(--purple)"></div>
     </div>
-    <div class="title-sub">BUY PLOTS WITH ETH ON BASE · EACH PLOT IS AN NFT<br>OWN A SECTION · PUT YOUR ART ON THE BUS</div>
+    <div class="title-sub">PUT YOUR MONEY WHERE YOUR EARS ARE</div>
   </div>
 
   <div class="day-one">
     <span class="big">★ DAY ONE CLUB ★</span>
-    PURCHASE BEFORE APRIL 1, 2026 · FOUNDING MEMBER STATUS · PERMANENT ON-CHAIN<br>
+    BUY IN BEFORE APRIL 1, 2026<br>
     <div id="countdown">CALCULATING...</div>
   </div>
 
   <div class="marquee-strip">
-    <div class="marquee-inner">★ THE MOST ALIVE THING ON WHEELS ★ &nbsp;&nbsp;&nbsp; OWN THE BLOCK. LITERALLY. ★ &nbsp;&nbsp;&nbsp; 846 TOTAL PLOTS ★ &nbsp;&nbsp;&nbsp; 846 PLOTS · $84,600 PRIMARY · BASE CHAIN ★ &nbsp;&nbsp;&nbsp; BASE NETWORK · LOW FEES ★ &nbsp;&nbsp;&nbsp; YOUR ART. NASHVILLE STREETS. FOREVER. ★ &nbsp;&nbsp;&nbsp; DAY ONE CLUB — BE FIRST ★ &nbsp;&nbsp;&nbsp; EVERY ERA HAS A STAGE. THIS IS OURS. ★ &nbsp;&nbsp;&nbsp;</div>
+    <div class="marquee-inner">GET ON THE $BUS ★ &nbsp;&nbsp;&nbsp; ARE YOU ON THE $BUS? ★ &nbsp;&nbsp;&nbsp; 846 PLOTS. ONE SEASON. ★ &nbsp;&nbsp;&nbsp; GET ON THE $BUS ★ &nbsp;&nbsp;&nbsp; $BUS ★ &nbsp;&nbsp;&nbsp; ARE YOU EVEN ON THE $BUS? ★ &nbsp;&nbsp;&nbsp;</div>
   </div>
 
   <div class="stats-bar">
@@ -495,27 +494,25 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         </div>
         <div class="stat-row"><span class="stat-label">PLOTS SELECTED</span><span class="stat-value hl" id="plotsSel">0</span></div>
         <div class="stat-row"><span class="stat-label">PRICE / PLOT</span><span class="stat-value" id="pricePerPlot">$100.00 USDC</span></div>
-        <div class="stat-row" style="border:none;padding-bottom:0;margin-bottom:4px;"><span class="stat-label">LIVE ETH</span><span class="stat-value" id="ethPriceDisplay" style="font-size:9px;color:rgba(255,255,255,0.5);">—</span></div>
         <div class="stat-row" style="border:none;margin:0;"><span class="stat-label">TOTAL</span><span class="stat-value tot" id="totalEth">0.00 USDC</span></div>
         <button class="buy-btn" id="buyBtn" disabled>▶ CONNECT WALLET<br>TO PURCHASE</button>
-        <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;" id="buyWalletHint">Connect wallet to buy</div>
         <button class="buy-btn" style="background:transparent;color:#555;border-color:#333;box-shadow:none;margin-top:6px;font-size:7px;" onclick="clearSel()">✕ CLEAR SELECTION</button>
       </div>
       <div style="background:#000;border:2px solid #1a1a1a;padding:12px;margin-bottom:12px;">
-        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#FF6B00;letter-spacing:2px;margin-bottom:10px;">▸ ZONE YIELD RATES</div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#FF6B00;letter-spacing:2px;margin-bottom:10px;">▸ WHAT THIS PLOT EARNS YOU</div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(255,45,155,0.25);background:rgba(255,45,155,0.03);">
           <div style="width:8px;height:8px;background:rgba(255,45,155,0.4);border:1px solid #FF2D9B;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#FF2D9B;letter-spacing:1px;">CAMERA ZONE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;"><span id="zoneRateCamera">—</span> $BUS/day · Stage-facing · Max exposure</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#FF2D9B;letter-spacing:1px;">DRIVER SIDE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+10% staking bonus</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(57,255,20,0.2);background:rgba(57,255,20,0.02);">
           <div style="width:8px;height:8px;background:rgba(57,255,20,0.3);border:1px solid #39FF14;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">STREET LEVEL</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;"><span id="zoneRateStreet">—</span> $BUS/day · Eye-level · High foot traffic</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">BACKSTAGE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+5% staking bonus</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid #111;">
           <div style="width:8px;height:8px;background:#111;border:1px solid #333;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#444;letter-spacing:1px;">ROOFLINE</div><div style="font-size:12px;color:rgba(255,255,255,0.2);margin-top:2px;"><span id="zoneRateRoofline">—</span> $BUS/day · Upper panels</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#444;letter-spacing:1px;">ROOFLINE</div><div style="font-size:12px;color:rgba(255,255,255,0.2);margin-top:2px;">+10% staking bonus · Upper panels</div></div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.18);margin-top:7px;border-top:1px solid #111;padding-top:7px;line-height:1.6;">Rates scale with total stake (60% of daily emission). Unclaimed = burn.<br>Founder +25% · Multi-plot +5%</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.18);margin-top:7px;border-top:1px solid #111;padding-top:7px;line-height:1.6;">Founder staking bonus +25% all zones<br>Multi-plot +5% per additional</div>
       </div>
       <div class="legend-box">
         <div class="legend-title">// LEGEND //</div>
@@ -527,14 +524,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="panel-box" style="border-color:#333;box-shadow:none;">
         <h3 style="color:#555;">► DAY ONE PERKS</h3>
         <div style="font-size:15px;color:#555;line-height:2.2;">
-          ★ FOUNDING MEMBER STATUS<br>
-          ★ ON-CHAIN FOREVER<br>
-          ★ +25% STAKING BONUS<br>
-          ★ NAME IN LAUNCH VIDEO<br>
-          ★ IRL NASHVILLE EVENT<br>
-          ★ DIRECT FOUNDER ACCESS<br>
-          ★ PRESALE PRICING LOCKED<br>
-          ★ DAO VOTING RIGHTS — DAY 1
+          ★ +25% staking bonus
         </div>
       </div>
     </div>
@@ -548,12 +538,11 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   <div class="rainbow"></div>
   <div class="dash-header">
     <div>
-      <div class="dash-title">◈ SHOWBUS // $BUS STAKING</div>
-      <div class="dash-sub">BASE MAINNET // FOUNDER STATUS: ACTIVE</div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;letter-spacing:1px;" id="tokStats">—</div>
+      <div class="dash-title">◈ YOUR PLOTS DON'T SLEEP</div>
+      <div class="dash-sub">base mainnet · 5 plots running · $BUS accumulating right now</div>
     </div>
     <div class="wallet-bar">
-      <div><div class="wb-addr">CONNECTED: <span id="walletAddr">—</span></div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;" id="walletBadge">CONNECT WALLET</div></div>
+      <div><div class="wb-addr">CONNECTED: <span>0x7F3a...B92c</span></div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;">DAY ONE FOUNDER ★</div></div>
       <div><div class="wb-label">$BUS BALANCE</div><div class="wb-bal" id="busBalance">12,847</div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="s-btn g" onclick="stakeAll()">⚡ STAKE ALL</button>
@@ -607,13 +596,13 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
     <!-- staking panel -->
     <div class="sp">
-      <div class="sp-title">⚡ ZONE STAKING RATES (LIVE)</div>
+      <div class="sp-title">⚡ ZONE STAKING RATES</div>
       <div class="sp-body">
         <div style="font-size:14px;color:rgba(255,255,255,0.5);line-height:2.4;">
-          CAMERA ZONE: <span style="color:var(--pink);" id="stakeZoneCamera">—</span><br>
-          STREET LEVEL: <span style="color:#39FF14;" id="stakeZoneStreet">—</span><br>
-          ROOFLINE: <span style="color:rgba(255,255,255,0.35);" id="stakeZoneRoofline">—</span><br>
-          FRONT/BACK: <span style="color:var(--yellow);" id="stakeZoneFront">—</span><br>
+          CAMERA ZONE: <span style="color:var(--pink);">14 $BUS/day</span><br>
+          STREET LEVEL: <span style="color:#39FF14;">10 $BUS/day</span><br>
+          ROOFLINE: <span style="color:rgba(255,255,255,0.35);">8 $BUS/day</span><br>
+          FRONT/BACK: <span style="color:var(--yellow);">14 $BUS/day</span><br>
           FOUNDER BONUS: <span style="color:var(--pink);">+25%</span><br>
           MULTI-PLOT: <span style="color:var(--green);">+5% PER EXTRA</span>
         </div>
@@ -631,12 +620,12 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="sp-title">◈ $BUS EARNINGS BREAKDOWN</div>
       <div class="sp-body">
         <div class="earn-grid">
-          <div class="earn-card y"><div class="earn-title">PLOT STAKING</div><div class="earn-amt" id="earnStake">847.2</div><div class="earn-sub">$BUS EARNED</div><div style="font-size:12px;color:rgba(255,229,0,0.6);margin-top:4px;" id="earnRate">+12.5 $BUS/HR</div></div>
+          <div class="earn-card y"><div class="earn-title">$BUS / DAY</div><div class="earn-amt" id="earnStake">847.2</div><div class="earn-sub">$BUS EARNED</div><div style="font-size:12px;color:rgba(255,229,0,0.6);margin-top:4px;" id="earnRate">+12.5 $BUS/HR</div></div>
           <div class="earn-card p"><div class="earn-title">ROOF INCHES</div><div class="earn-amt">3</div><div class="earn-sub">INCHES OWNED</div><div style="font-size:12px;color:rgba(255,45,155,0.6);margin-top:4px;">NEXT IN 12 DAYS</div></div>
-          <div class="earn-card b"><div class="earn-title">AD REVENUE SHARE</div><div class="earn-amt">0.021</div><div class="earn-sub">ETH EARNED</div><div style="font-size:12px;color:rgba(0,191,255,0.6);margin-top:4px;">FROM 2 EVENTS</div></div>
+          <div class="earn-card b"><div class="earn-title">SPONSOR CUT</div><div class="earn-amt">0.021</div><div class="earn-sub">ETH EARNED</div><div style="font-size:12px;color:rgba(0,191,255,0.6);margin-top:4px;">FROM 2 EVENTS</div></div>
         </div>
         <div style="border-top:1px solid rgba(255,229,0,0.1);margin-top:14px;padding-top:12px;">
-          <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:var(--purple);letter-spacing:1px;text-shadow:0 0 6px var(--purple);margin-bottom:10px;">◈ TEAM BLOCK SPONSOR SLOTS</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:var(--purple);letter-spacing:1px;text-shadow:0 0 6px var(--purple);margin-bottom:10px;">◈ SPONSORS PAY. YOU COLLECT.</div>
           <div class="sponsor-grid">
             <div class="sp-slot on"><div class="sp-slot-lbl">SLOT 01</div><div class="sp-slot-name">PREDATOR AUDIO</div><div class="sp-slot-rev">0.8 ETH/MO</div></div>
             <div class="sp-slot on"><div class="sp-slot-lbl">SLOT 02</div><div class="sp-slot-name">NASHVILLE SC</div><div class="sp-slot-rev">1.2 ETH/MO</div></div>
@@ -650,7 +639,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
     <!-- activity -->
     <div class="sp">
-      <div class="sp-title">◈ LIVE ACTIVITY</div>
+      <div class="sp-title">◈ LIVE FEED</div>
       <div class="sp-body">
         <div class="act-feed" id="actFeed"></div>
       </div>
@@ -658,7 +647,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
     <!-- milestone -->
     <div class="sp">
-      <div class="sp-title">🏆 ROOF MILESTONES</div>
+      <div class="sp-title">🏆 YOUR JOURNEY ON THE BUS</div>
       <div class="sp-body">
         <div class="ms-track" id="msTrack"></div>
       </div>
@@ -687,39 +676,39 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   <div class="agent-wrap">
     <div id="agentQuiz">
       <div class="quiz-title" style="margin-top:20px;">◈ MEET YOUR AGENT ◈</div>
-      <div class="quiz-sub">// 3 questions. your agent does the rest. //</div>
+      <div class="quiz-sub">// 3 questions. then you'll know. //</div>
 
       <div class="q-card" id="q1">
         <div class="q-num">QUESTION 01 / 03</div>
-        <div class="q-text">An artist you've never heard of just dropped their SHOWBUS session. Your gut reaction?</div>
+        <div class="q-text">Unknown artist. just dropped. what do you do?</div>
         <div class="q-opts">
-          <button class="q-opt" onclick="answer(1,'A',this)"><span class="opt-icon">⚡</span><span>Tip them right now. First mover energy.<span class="opt-lbl">PATRON INSTINCT</span></span></button>
-          <button class="q-opt" onclick="answer(1,'B',this)"><span class="opt-icon">👁</span><span>Watch and wait. See if the numbers move.<span class="opt-lbl">DATA FIRST</span></span></button>
-          <button class="q-opt" onclick="answer(1,'C',this)"><span class="opt-icon">⛏</span><span>Ignore it. I'm focused on mining roof inches.<span class="opt-lbl">MINER MINDSET</span></span></button>
-          <button class="q-opt" onclick="answer(1,'D',this)"><span class="opt-icon">🗳</span><span>Vote them up so the community decides.<span class="opt-lbl">CURATOR MODE</span></span></button>
+          <button class="q-opt" onclick="answer(1,'A',this)"><span class="opt-icon">⚡</span><span>tip them right now. you move first or you don't move.<span class="opt-lbl">PATRON INSTINCT</span></span></button>
+          <button class="q-opt" onclick="answer(1,'B',this)"><span class="opt-icon">👁</span><span>wait. let the numbers tell you.<span class="opt-lbl">DATA FIRST</span></span></button>
+          <button class="q-opt" onclick="answer(1,'C',this)"><span class="opt-icon">⛏</span><span>ignore it. roof inches don't care about artists.<span class="opt-lbl">MINER MINDSET</span></span></button>
+          <button class="q-opt" onclick="answer(1,'D',this)"><span class="opt-icon">🗳</span><span>vote them up. let the crowd decide.<span class="opt-lbl">CURATOR MODE</span></span></button>
         </div>
       </div>
       <div class="q-card" id="q2">
         <div class="q-num">QUESTION 02 / 03</div>
-        <div class="q-text">You have 1,000 $BUS. What actually feels right?</div>
+        <div class="q-text">1,000 $BUS. one week. go.</div>
         <div class="q-opts">
-          <button class="q-opt" onclick="answer(2,'A',this)"><span class="opt-icon">🔥</span><span>Burn it all on hashrate. Mine hard this week.<span class="opt-lbl">ALL IN</span></span></button>
-          <button class="q-opt" onclick="answer(2,'B',this)"><span class="opt-icon">🎯</span><span>One mine attempt a day. Consistent, not reckless.<span class="opt-lbl">STEADY GRIND</span></span></button>
-          <button class="q-opt" onclick="answer(2,'C',this)"><span class="opt-icon">💸</span><span>Spread it — some tips, some votes, some mining.<span class="opt-lbl">DIVERSIFY</span></span></button>
-          <button class="q-opt" onclick="answer(2,'D',this)"><span class="opt-icon">🧊</span><span>Save it. Stack until the right moment.<span class="opt-lbl">COLD HANDS</span></span></button>
+          <button class="q-opt" onclick="answer(2,'A',this)"><span class="opt-icon">🔥</span><span>burn it all on hashrate. mine hard this week.<span class="opt-lbl">ALL IN</span></span></button>
+          <button class="q-opt" onclick="answer(2,'B',this)"><span class="opt-icon">🎯</span><span>one mine attempt a day. consistent, not reckless.<span class="opt-lbl">STEADY GRIND</span></span></button>
+          <button class="q-opt" onclick="answer(2,'C',this)"><span class="opt-icon">💸</span><span>spread it — some tips, some votes, some mining.<span class="opt-lbl">DIVERSIFY</span></span></button>
+          <button class="q-opt" onclick="answer(2,'D',this)"><span class="opt-icon">🧊</span><span>save it. stack until the right moment.<span class="opt-lbl">COLD HANDS</span></span></button>
         </div>
       </div>
       <div class="q-card" id="q3">
         <div class="q-num">QUESTION 03 / 03</div>
-        <div class="q-text">Owning a piece of SHOWBUS means what to you?</div>
+        <div class="q-text">Why are you actually here?</div>
         <div class="q-opts">
-          <button class="q-opt" onclick="answer(3,'A',this)"><span class="opt-icon">💰</span><span>Financial stake. Rev share, appreciation, yield.<span class="opt-lbl">INVESTOR BRAIN</span></span></button>
-          <button class="q-opt" onclick="answer(3,'B',this)"><span class="opt-icon">🎸</span><span>Cultural stake. I backed Nashville music early.<span class="opt-lbl">TASTEMAKER</span></span></button>
-          <button class="q-opt" onclick="answer(3,'C',this)"><span class="opt-icon">🌈</span><span>Both equally. Money and meaning.<span class="opt-lbl">WHOLE BRAIN</span></span></button>
-          <button class="q-opt" onclick="answer(3,'D',this)"><span class="opt-icon">🏆</span><span>Bragging rights. I want the receipts on-chain.<span class="opt-lbl">CLOUT MAXIMALIST</span></span></button>
+          <button class="q-opt" onclick="answer(3,'A',this)"><span class="opt-icon">💰</span><span>financial stake. rev share, appreciation, yield.<span class="opt-lbl">INVESTOR BRAIN</span></span></button>
+          <button class="q-opt" onclick="answer(3,'B',this)"><span class="opt-icon">🎸</span><span>cultural stake. I backed Nashville music early.<span class="opt-lbl">TASTEMAKER</span></span></button>
+          <button class="q-opt" onclick="answer(3,'C',this)"><span class="opt-icon">🌈</span><span>both. money and meaning.<span class="opt-lbl">WHOLE BRAIN</span></span></button>
+          <button class="q-opt" onclick="answer(3,'D',this)"><span class="opt-icon">🏆</span><span>receipts. I want proof I was early, on-chain.<span class="opt-lbl">CLOUT MAXIMALIST</span></span></button>
         </div>
       </div>
-      <button class="proceed-btn" id="proceedBtn" onclick="revealAgent()">◈ DEPLOY MY AGENT ◈</button>
+      <button class="proceed-btn" id="proceedBtn" onclick="revealAgent()">◈ SHOW ME MY AGENT ◈</button>
     </div>
 
     <div id="agentReveal">
@@ -742,7 +731,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         <div class="strat-bar-c"><div class="strat-lbl">TIPS / PATRONAGE</div><div class="strat-track"><div class="strat-fill" id="sf-tip" style="background:var(--green);"></div></div><div class="strat-val" id="sv-tip">0%</div></div>
       </div>
       <div style="text-align:center;margin-top:16px;">
-        <button class="activate-btn" onclick="go('mine',document.querySelectorAll('.nav-btn')[3])">◈ ACTIVATE — BACK AN ARTIST ◈</button>
+        <button class="activate-btn" onclick="go('mine',document.querySelectorAll('.nav-btn')[3])">◈ MAKE YOUR FIRST ALLOCATION ◈</button>
       </div>
     </div>
   </div>
@@ -756,8 +745,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   <div class="mining-wrap">
     <div class="mining-header">
       <div>
-        <div class="mining-title">◈ BACK AN ARTIST</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:3px;">// WEEK OF FEB 23 — MAR 1 // CHOOSE YOUR POOLS //</div>
+        <div class="mining-title">◈ ALLOCATE</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:3px;">// WEEK 03 / 12 · 4 DAYS LEFT //</div>
       </div>
       <div class="budget-pill">
         <div><div class="bp-label">WEEKLY BUDGET</div><div class="bp-val" id="totalBus">1,000</div><div style="font-size:11px;color:rgba(255,255,255,0.25);">$BUS AVAILABLE</div></div>
@@ -765,17 +754,11 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       </div>
     </div>
 
-    <!-- HOW IT WORKS - new v3 -->
-    <div style="border:2px solid rgba(57,255,20,0.2);background:rgba(57,255,20,0.02);padding:11px 16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px;">
-      <div style="font-size:22px;flex-shrink:0;">⛏</div>
-      <div style="font-size:16px;color:rgba(255,255,255,0.58);line-height:1.6;"><strong style="color:#39FF14;">Back an artist with $BUS → if their pool wins the week, you mine a roof inch.</strong> Roof inches earn perpetual sponsor revenue. <strong style="font-family:'Press Start 2P',monospace;font-size:8px;color:var(--yellow);">YOU CAN'T REALLY LOSE</strong> — a miss sends your $BUS directly to the artist.</div>
-    </div>
     <!-- agent banner -->
     <div style="display:flex;align-items:center;gap:12px;border:1px solid rgba(178,0,255,0.3);background:rgba(178,0,255,0.03);padding:10px 14px;margin-bottom:14px;">
       <div style="font-size:26px;">🎸</div>
       <div style="flex:1;">
-        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:var(--purple);letter-spacing:1px;margin-bottom:3px;">◈ TASTE PROTOCOL // ACTIVE</div>
-        <div style="font-size:14px;color:rgba(255,255,255,0.5);">Your agent detected <strong style="color:#fff;">2 taste matches</strong> this week — <span style="color:var(--pink);">Marcus Webb</span> (blues/roots, 91% match) and <span style="color:var(--pink);">The Hollow Kind</span> (folk/americana, 78% match).</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.5);">your agent is watching <strong style="color:#fff;">Marcus Webb</strong> and <strong style="color:#fff;">The Hollow Kind</strong> this week.</div>
       </div>
       <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);flex-shrink:0;animation:pulse 1.5s ease-in-out infinite;"></div>
     </div>
@@ -783,16 +766,16 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
     <div class="mining-main">
       <div id="poolsCol">
-        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,255,255,0.25);letter-spacing:3px;margin-bottom:10px;">◈ ACTIVE MINING POOLS THIS WEEK</div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,255,255,0.25);letter-spacing:3px;margin-bottom:10px;">◈ THIS WEEK'S ARTISTS · 4 DAYS LEFT</div>
 
         <!-- pure pool -->
         <div class="pool-card pure" id="pc-pure">
           <div class="pool-head">
             <div class="pool-ico">⛏</div>
             <div class="pool-info">
-              <div class="pool-type">PURE HASHRATE POOL</div>
-              <div class="pool-name">RAW COMPUTE</div>
-              <div class="pool-meta">Standard difficulty // <span class="y">~34% block chance/day</span> // Miss = $BUS burns</div>
+              <div class="pool-type">PURE SPECULATION</div>
+              <div class="pool-name">HIGH RISK / HIGH REWARD</div>
+              <div class="pool-meta">No artist attached // <span class="y">~34% win chance/week</span> // Miss = $BUS burns</div>
             </div>
           </div>
           <div class="pool-alloc">
@@ -809,8 +792,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
             </div>
             <div class="outcome-preview" id="op-pure">
               <div class="op-grid">
-                <div class="op-win"><div class="op-head">✓ BLOCK FOUND</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">Full mining reward in <span class="y">$BUS</span></div></div>
-                <div class="op-miss"><div class="op-head">✗ BLOCK MISSED</div><div class="op-item">$BUS <strong>burns</strong>. Gone.</div><div class="op-item">No artifact. No record.</div></div>
+                <div class="op-win"><div class="op-head">✓ WIN</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">full reward in <span class="y">$BUS</span></div></div>
+                <div class="op-miss"><div class="op-head">✗ MISS</div><div class="op-item">$BUS <strong>burns</strong>. gone.</div><div class="op-item">no artifact. no record.</div></div>
               </div>
             </div>
           </div>
@@ -821,9 +804,9 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
           <div class="pool-head">
             <div class="pool-ico">🎸</div>
             <div class="pool-info">
-              <div class="pool-type">ARTIST POOL // SESSION #8</div>
+              <div class="pool-type">ARTIST SESSION // WEEK 03</div>
               <div class="pool-name">MARCUS WEBB</div>
-              <div class="pool-meta">Blues / American Roots // <span class="p">487 followers</span> // Drops <span class="g">Thursday</span></div>
+              <div class="pool-meta">Blues / American Roots // <span class="p">487 listeners</span> // <span class="y">612 $BUS from 9 wallets this week</span></div>
             </div>
             <div class="taste-badge"><div class="tb-dot"></div>91% MATCH</div>
           </div>
@@ -841,8 +824,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
             </div>
             <div class="outcome-preview" id="op-marcus">
               <div class="op-grid">
-                <div class="op-win"><div class="op-head">✓ BLOCK FOUND</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">Marcus gets <span class="p">+25% artist cut</span></div></div>
-                <div class="op-miss"><div class="op-head">✗ YOU STILL WIN</div><div class="op-item">$BUS → <span class="p">Marcus Webb</span></div><div class="op-item"><span class="g">+15% drip</span> back 30d</div><div class="op-item">Artifact still minted ✓</div></div>
+                <div class="op-win"><div class="op-head">✓ WIN</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">Marcus gets <span class="p">+25% cut</span></div></div>
+                <div class="op-miss"><div class="op-head">✗ MISS — YOU STILL WIN</div><div class="op-item">$BUS → <span class="p">Marcus Webb</span></div><div class="op-item">that's a tip. it's on-chain.</div><div class="op-item">artifact minted ✓</div></div>
               </div>
             </div>
           </div>
@@ -853,9 +836,9 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
           <div class="pool-head">
             <div class="pool-ico">🪕</div>
             <div class="pool-info">
-              <div class="pool-type">ARTIST POOL // SESSION #9</div>
+              <div class="pool-type">ARTIST SESSION // WEEK 03</div>
               <div class="pool-name">THE HOLLOW KIND</div>
-              <div class="pool-meta">Folk / Americana // <span class="p">1.2k followers</span> // Drops <span class="g">Saturday</span></div>
+              <div class="pool-meta">Folk / Americana // <span class="p">1.2k listeners</span> // <span class="y">1,840 $BUS from 14 wallets this week</span></div>
             </div>
             <div class="taste-badge"><div class="tb-dot"></div>78% MATCH</div>
           </div>
@@ -873,8 +856,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
             </div>
             <div class="outcome-preview" id="op-hollow">
               <div class="op-grid">
-                <div class="op-win"><div class="op-head">✓ BLOCK FOUND</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">The Hollow Kind gets <span class="p">+25%</span></div></div>
-                <div class="op-miss"><div class="op-head">✗ YOU STILL WIN</div><div class="op-item">$BUS → <span class="p">The Hollow Kind</span></div><div class="op-item"><span class="g">+15% drip</span> back 30d</div><div class="op-item">Artifact minted ✓</div></div>
+                <div class="op-win"><div class="op-head">✓ WIN</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">The Hollow Kind gets <span class="p">+25%</span></div></div>
+                <div class="op-miss"><div class="op-head">✗ MISS — YOU STILL WIN</div><div class="op-item">$BUS → <span class="p">The Hollow Kind</span></div><div class="op-item">that's a tip. it's on-chain.</div><div class="op-item">artifact minted ✓</div></div>
               </div>
             </div>
           </div>
@@ -885,9 +868,9 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
           <div class="pool-head">
             <div class="pool-ico">🎤</div>
             <div class="pool-info">
-              <div class="pool-type">ARTIST POOL // SESSION #10</div>
+              <div class="pool-type">ARTIST SESSION // WEEK 03</div>
               <div class="pool-name">KEZIA RAY</div>
-              <div class="pool-meta">Pop / R&B // <span class="p">3.4k followers</span> // Drops <span class="g">Sunday</span></div>
+              <div class="pool-meta">Pop / R&B // <span class="p">3.4k listeners</span> // <span class="y">3,240 $BUS from 22 wallets this week</span></div>
             </div>
           </div>
           <div class="pool-alloc">
@@ -904,8 +887,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
             </div>
             <div class="outcome-preview" id="op-kezia">
               <div class="op-grid">
-                <div class="op-win"><div class="op-head">✓ BLOCK FOUND</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">Kezia Ray gets <span class="p">+25%</span></div></div>
-                <div class="op-miss"><div class="op-head">✗ YOU STILL WIN</div><div class="op-item">$BUS → <span class="p">Kezia Ray</span></div><div class="op-item"><span class="g">+15% drip</span> back 30d</div><div class="op-item">No taste bonus (no match)</div></div>
+                <div class="op-win"><div class="op-head">✓ WIN</div><div class="op-item"><strong class="g">+1 Roof Inch</strong> claimed</div><div class="op-item">Kezia Ray gets <span class="p">+25%</span></div></div>
+                <div class="op-miss"><div class="op-head">✗ MISS — YOU STILL WIN</div><div class="op-item">$BUS → <span class="p">Kezia Ray</span></div><div class="op-item">that's a tip. it's on-chain.</div><div class="op-item">no taste bonus (no match)</div></div>
               </div>
             </div>
           </div>
@@ -925,17 +908,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
           </div>
         </div>
 
-        <div class="mp">
-          <div class="mp-title">◈ CONVICTION ARTIFACT</div>
-          <div class="mp-body">
-            <div class="art-zone" id="artZone">
-              <div class="art-empty">ALLOCATE 100+ $BUS TO AN<br>ARTIST POOL TO UNLOCK</div>
-            </div>
-            <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.2);text-align:center;line-height:1.6;" id="artNote"></div>
-          </div>
-        </div>
 
-        <button class="confirm-btn" id="confirmBtn" onclick="confirmMine()">◈ CONFIRM ALLOCATION ◈</button>
+        <button class="confirm-btn" id="confirmBtn" onclick="confirmMine()">◈ COMMIT ◈</button>
       </div>
     </div>
   </div>
@@ -947,8 +921,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 <div class="screen" id="screen-board">
   <div class="rainbow"></div>
   <div style="max-width:900px;margin:0 auto;padding:32px 24px 64px;">
-    <div style="font-family:'Press Start 2P',monospace;font-size:clamp(12px,3vw,20px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink);text-align:center;margin:24px 0 6px;">◈ SHOWBUS RANKS ◈</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:2px;margin-bottom:32px;">// THE COMMUNITY SCOREBOARD // UPDATED LIVE //</div>
+    <div style="font-family:'Press Start 2P',monospace;font-size:clamp(12px,3vw,20px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink);text-align:center;margin:24px 0 6px;">◈ LEADERBOARD ◈</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:2px;margin-bottom:32px;">// who moved first. it's all here. //</div>
     <div style="display:flex;justify-content:center;gap:4px;margin-bottom:24px;" id="lbTabs">
       <button class="tab active" onclick="switchLB('patrons',this)">TOP PATRONS</button>
       <button class="tab" onclick="switchLB('miners',this)">TOP MINERS</button>
@@ -1019,76 +993,6 @@ function go(screen, btn){
   window.scrollTo(0,0);
 }
 
-// ══ WALLET (EIP-1193 / MetaMask, Base) ══
-const BASE_CHAIN_ID=8453;
-const BASE_CHAIN_ID_HEX='0x'+BASE_CHAIN_ID.toString(16);
-let walletAccount=null;
-let walletChainId=null;
-
-function shortAddr(a){if(!a)return '—';return a.slice(0,6)+'...'+a.slice(-4);}
-function updateWalletUI(){
-  const addrEl=document.getElementById('walletAddr');
-  const badgeEl=document.getElementById('walletBadge');
-  const navBtn=document.getElementById('navWalletBtn');
-  const buyBtn=document.getElementById('buyBtn');
-  const hintEl=document.getElementById('buyWalletHint');
-  if(addrEl) addrEl.textContent=walletAccount?shortAddr(walletAccount):'—';
-  if(badgeEl) badgeEl.textContent=walletAccount?(walletChainId===BASE_CHAIN_ID?'DAY ONE FOUNDER ★':'SWITCH TO BASE'):'CONNECT WALLET';
-  if(navBtn){
-    navBtn.textContent=walletAccount?shortAddr(walletAccount):'◈ CONNECT WALLET';
-    navBtn.onclick=walletAccount?disconnectWallet:toggleWallet;
-  }
-  if(hintEl) hintEl.textContent=walletAccount?(walletChainId===BASE_CHAIN_ID?'Ready to purchase on Base':'Switch to Base to buy'):'Connect wallet to buy';
-  const n=document.getElementById('plotsSel')?parseInt(document.getElementById('plotsSel').textContent,10):0;
-  if(buyBtn) buyBtn.disabled=n===0||!walletAccount;
-}
-async function ensureBase(){
-  if(walletChainId===BASE_CHAIN_ID) return true;
-  const ethereum=window.ethereum;
-  if(!ethereum) return false;
-  try{
-    await ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:BASE_CHAIN_ID_HEX}]});
-    walletChainId=BASE_CHAIN_ID;
-    return true;
-  }catch(e){
-    if(e.code===4902){
-      try{
-        await ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:BASE_CHAIN_ID_HEX,chainName:'Base Mainnet',nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},rpcUrls:['https://mainnet.base.org']}]});
-        walletChainId=BASE_CHAIN_ID;
-        return true;
-      }catch(_){}
-    }
-    return false;
-  }
-}
-async function toggleWallet(){
-  const ethereum=window.ethereum;
-  if(!ethereum){showToast('◈ NO WALLET FOUND\nINSTALL METAMASK OR\nANOTHER WEB3 WALLET','pink');return;}
-  if(walletAccount){await ensureBase();updateWalletUI();return;}
-  try{
-    const accounts=await ethereum.request({method:'eth_requestAccounts'});
-    walletChainId=parseInt(await ethereum.request({method:'eth_chainId'}),16);
-    walletAccount=accounts[0]||null;
-    if(walletAccount) await ensureBase();
-    updateWalletUI();
-    if(walletAccount){ if(typeof updateBuyCheckout==='function') updateBuyCheckout(); showToast('◈ WALLET CONNECTED\n'+shortAddr(walletAccount)+'\nBASE MAINNET','green'); }
-  }catch(e){
-    showToast('◈ CONNECTION CANCELLED','pink');
-  }
-}
-function disconnectWallet(){
-  walletAccount=null;
-  walletChainId=null;
-  updateWalletUI();
-  if(typeof updateBuyCheckout==='function') updateBuyCheckout();
-  showToast('◈ WALLET DISCONNECTED','');
-}
-if(window.ethereum){
-  window.ethereum.on('accountsChanged',accounts=>{walletAccount=accounts[0]||null;updateWalletUI();});
-  window.ethereum.on('chainChanged',()=>{window.location.reload();});
-}
-updateWalletUI();
-
 // ══ TOAST ══
 let toastT;
 function showToast(msg,type){
@@ -1121,11 +1025,9 @@ function getZone(side,r,c) {
   return 'roofline';
 }
 function getZoneLabel(z){
-  const r=getZoneRates();
-  const fmt=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(1);
-  if(z==='camera') return 'CAMERA ZONE · '+fmt(r.camera)+' $BUS/DAY';
-  if(z==='street') return 'STREET LEVEL · '+fmt(r.street)+' $BUS/DAY';
-  return 'ROOFLINE · '+fmt(r.roofline)+' $BUS/DAY';
+  if(z==='camera') return 'CAMERA ZONE · 14 $BUS/DAY';
+  if(z==='street') return 'STREET LEVEL · 10 $BUS/DAY';
+  return 'ROOFLINE · 8 $BUS/DAY';
 }
 function getZoneColor(z){
   if(z==='camera') return 'var(--pink)';
@@ -1136,25 +1038,8 @@ function getZoneColor(z){
 const SIDES={FRONT:{cols:10,rows:9},BACK:{cols:10,rows:9},LEFT:{cols:37,rows:9},RIGHT:{cols:37,rows:9}};
 const LABELS={FRONT:'▶ FRONT OF BUS (10×9 = 90 PLOTS)',BACK:'▶ BACK OF BUS (10×9 = 90 PLOTS)',LEFT:'▶ LEFT SIDE (37×9 = 333 PLOTS)',RIGHT:'▶ RIGHT SIDE (37×9 = 333 PLOTS)'};
 const PRICE_USD=100;
-let ethPriceUsd=3500; // oracle-updated
-function getPriceEthPerPlot(){return PRICE_USD/Math.max(1,ethPriceUsd);}
-
-// ══ ETH PRICE ORACLE ══
-const ETH_ORACLE_URL='https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd';
-const ETH_ORACLE_INTERVAL_MS=120000;
-function fetchEthPrice(){
-  fetch(ETH_ORACLE_URL).then(r=>r.json()).then(data=>{
-    if(data&&data.ethereum&&typeof data.ethereum.usd==='number'){
-      ethPriceUsd=data.ethereum.usd;
-      const el=document.getElementById('ethPriceDisplay');
-      if(el) el.textContent='$'+ethPriceUsd.toLocaleString();
-      updateBuyCheckout();
-    }
-  }).catch(()=>{});
-}
-fetchEthPrice();
-setInterval(fetchEthPrice,ETH_ORACLE_INTERVAL_MS);
-document.getElementById('ethPriceDisplay').textContent='$'+ethPriceUsd.toLocaleString();
+const ETH_PRICE_USD=3500; // live price coming later
+const PRICE_ETH=PRICE_USD/ETH_PRICE_USD;
 let curSide='FRONT',selPlots=new Set(),checkoutCurrency='usdc';
 const soldSet=new Set(),teamSet=new Set();
 
@@ -1208,14 +1093,15 @@ function clearSel(){selPlots.clear();document.querySelectorAll('.plot.selected')
 function updateBuyCheckout(){
   const n=selPlots.size;
   const totalUsdc=(n*PRICE_USD).toFixed(2);
-  const priceEth=getPriceEthPerPlot();
-  const totalEthAmt=(n*priceEth).toFixed(4);
+  const totalEthAmt=(n*PRICE_ETH).toFixed(4);
   document.getElementById('plotsSel').textContent=n;
-  document.getElementById('pricePerPlot').textContent=checkoutCurrency==='usdc'?'$100.00 USDC':`~${priceEth.toFixed(4)} ETH`;
+  // price per plot
+  document.getElementById('pricePerPlot').textContent=checkoutCurrency==='usdc'?'$100.00 USDC':`~${PRICE_ETH.toFixed(4)} ETH`;
+  // total
   document.getElementById('totalEth').textContent=checkoutCurrency==='usdc'?`${totalUsdc} USDC`:`${totalEthAmt} ETH`;
   const btn=document.getElementById('buyBtn');
   if(n>0){
-    btn.disabled=!walletAccount;
+    btn.disabled=false;
     btn.textContent=checkoutCurrency==='usdc'?`▶ BUY ${n} PLOT${n>1?'S':''}\n$${totalUsdc} USDC`:`▶ BUY ${n} PLOT${n>1?'S':''}\n${totalEthAmt} ETH`;
   } else {btn.disabled=true;btn.textContent='▶ CONNECT WALLET\nTO PURCHASE';}
 }
@@ -1256,7 +1142,7 @@ function switchSide(side,btn){
 document.getElementById('buyBtn').onclick=()=>{
   if(selPlots.size>0){
     const n=selPlots.size;
-    const tot=checkoutCurrency==='usdc'?`$${(n*PRICE_USD).toFixed(2)} USDC`:`${(n*getPriceEthPerPlot()).toFixed(4)} ETH`;
+    const tot=checkoutCurrency==='usdc'?`$${(n*PRICE_USD).toFixed(2)} USDC`:`${(n*PRICE_ETH).toFixed(4)} ETH`;
     showToast(`◈ WALLET CONNECTION\nCOMING APRIL 2026\n${n} PLOTS · ${tot}`,'');
   }
 };
@@ -1309,11 +1195,11 @@ renderRoof();
 
 // activity
 const actItems=[
-  {type:'stake',time:'2m',text:'<strong>R4-C23 LEFT</strong> staked for <span class="p">⚡ $BUS</span>'},
-  {type:'earn',time:'1h',text:'Claimed <strong>124.5 $BUS</strong> from plot rewards'},
-  {type:'ms',time:'3h',text:'<span class="g">★ MILESTONE</span> — ROOF OWNER unlocked!'},
-  {type:'stake',time:'1d',text:'<strong>0x9Fa2...C4d1</strong> staked 3 plots RIGHT SIDE'},
-  {type:'earn',time:'2d',text:'<strong>0.021 ETH</strong> ad revenue from PREDATOR AUDIO event'},
+  {type:'stake',time:'2m',text:'<strong>R4-C23 LEFT</strong> staked · <span class="p">+$BUS/hr added</span>'},
+  {type:'earn',time:'1h',text:'claimed <strong>124.5 $BUS</strong>. added to wallet.'},
+  {type:'ms',time:'3h',text:'<span class="g">★ ROOF OWNER</span> — first inch claimed. permanent.'},
+  {type:'stake',time:'1d',text:'<strong>0x9Fa2...C4d1</strong> put 2,400 $BUS on Marcus Webb. week 3. still going.'},
+  {type:'earn',time:'2d',text:'<strong>0.021 ETH</strong> sponsor cut · PREDATOR AUDIO event'},
 ];
 function renderAct(){
   const f=document.getElementById('actFeed');
@@ -1329,12 +1215,12 @@ renderAct();
 
 // milestones
 const milestones=[
-  {icon:'🚌',name:'RIDER',desc:'First plot staked',prog:1,req:1,done:true},
-  {icon:'🎸',name:'GROUPIE',desc:'7 days staking streak',prog:7,req:7,done:true},
-  {icon:'⭐',name:'SUPERFAN',desc:'Earn 1,000 $BUS total',prog:847,req:1000,done:false},
-  {icon:'🏠',name:'ROOF OWNER',desc:'Earn first roof inch',prog:3,req:1,done:true},
-  {icon:'🎤',name:'HEADLINER',desc:'3 plots staked 30+ days',prog:2,req:3,done:false},
-  {icon:'🌟',name:'BUS LEGEND',desc:'10 roof inches earned',prog:3,req:10,done:false},
+  {icon:'🚌',name:'RIDER',desc:'first plot in. you\'re on the bus.',prog:1,req:1,done:true},
+  {icon:'🎸',name:'GROUPIE',desc:'7 days straight. still here.',prog:7,req:7,done:true},
+  {icon:'⭐',name:'SUPERFAN',desc:'1,000 $BUS earned. you\'re not dabbling anymore.',prog:847,req:1000,done:false},
+  {icon:'🏠',name:'ROOF OWNER',desc:'first roof inch claimed. this is permanent.',prog:3,req:1,done:true},
+  {icon:'🎤',name:'HEADLINER',desc:'3 plots. 30 days. you decided.',prog:2,req:3,done:false},
+  {icon:'🌟',name:'BUS LEGEND',desc:'10 inches of roof. your name is on this stage.',prog:3,req:10,done:false},
 ];
 function renderMs(){
   const t=document.getElementById('msTrack');
@@ -1350,171 +1236,28 @@ function renderMs(){
 }
 renderMs();
 
-// ══ MINING ALLOC (used by tokenomics reward calc) ══
-let allocs={pure:0,marcus:0,hollow:0,kezia:0};
-
-// ══ TOKENOMICS ══
-const TOK_MAX_SUPPLY=100_000_000_000;
-const TOK_INITIAL_CIRCULATING=8_000_000_000;
-const TOK_SEASON_0_DAYS=90;
-const TOK_SEASON_0_EMISSION=8_000_000_000;
-const TOK_HALVENING_DAYS=180;
-const TOK_BURN_RATE_AFTER_SEASON_1=0.05;
-const TOK_PURE_POOL_SHARE=0.6;
-const TOK_ARTIST_POOL_SHARE=0.4;
-const TOK_LAUNCH_DATE=new Date('2026-04-01T00:00:00').getTime();
-
-let tokTotalMinted=TOK_INITIAL_CIRCULATING;
-let tokCirculatingSupply=TOK_INITIAL_CIRCULATING;
-let tokPendingReward=0;
-let tokTotalEarnedByUser=847.2;
-let tokLastRewardTime=Date.now();
-
-function getDaysSinceLaunch(){
-  const now=Date.now();
-  return Math.max(0,Math.floor((now-TOK_LAUNCH_DATE)/86400000));
-}
-function getSeasonNumber(day){
-  if(day<TOK_SEASON_0_DAYS) return 0;
-  return 1+Math.floor((day-TOK_SEASON_0_DAYS)/TOK_HALVENING_DAYS);
-}
-function getDailyEmissionTotal(day){
-  if(day<0) return 0;
-  const baseDaily=TOK_SEASON_0_EMISSION/TOK_SEASON_0_DAYS;
-  if(day<TOK_SEASON_0_DAYS) return baseDaily;
-  const halveningIndex=Math.floor((day-TOK_SEASON_0_DAYS)/TOK_HALVENING_DAYS);
-  return baseDaily*Math.pow(0.5,halveningIndex);
-}
-function getCurrentEmissionRate(){
-  const day=getDaysSinceLaunch();
-  return getDailyEmissionTotal(day);
-}
-
-const BOOST_FOUNDER=1.25;
-const SIM_TOTAL_PURE_ALLOC=100000;
-const SIM_TOTAL_ARTIST_ALLOC=40000;
-const ZONE_WEIGHTS={camera:14,street:10,roofline:8,frontBack:14};
-
-function getUserPureAllocation(){
-  const plotStakeUnits=2*10*BOOST_FOUNDER;
-  return plotStakeUnits+(allocs.pure||0);
-}
-function getUserArtistAllocation(){
-  return (allocs.marcus||0)+(allocs.hollow||0)+(allocs.kezia||0);
-}
-function getTotalPureAllocation(){ return SIM_TOTAL_PURE_ALLOC+getUserPureAllocation(); }
-function getTotalArtistAllocation(){ return SIM_TOTAL_ARTIST_ALLOC+getUserArtistAllocation(); }
-
-function getDailyDistributedAndBurn(){
-  const day=getDaysSinceLaunch();
-  const E=getDailyEmissionTotal(day);
-  const dailyPure=E*TOK_PURE_POOL_SHARE;
-  const dailyArtist=E*TOK_ARTIST_POOL_SHARE;
-  const totalPure=getTotalPureAllocation();
-  const totalArtist=getTotalArtistAllocation();
-  const distributedPure=totalPure>0?dailyPure:0;
-  const distributedArtist=totalArtist>0?dailyArtist:0;
-  const distributed=distributedPure+distributedArtist;
-  const burn=E-distributed;
-  return {E,distributed,burn,dailyPure,dailyArtist,totalPure,totalArtist};
-}
-
-function getZoneRates(){
-  const {dailyPure,totalPure}=getDailyDistributedAndBurn();
-  if(totalPure<=0) return {camera:0,street:0,roofline:0,frontBack:0,ratePerPoint:0};
-  const ratePerPoint=dailyPure/totalPure;
-  return {
-    camera:ZONE_WEIGHTS.camera*ratePerPoint,
-    street:ZONE_WEIGHTS.street*ratePerPoint,
-    roofline:ZONE_WEIGHTS.roofline*ratePerPoint,
-    frontBack:ZONE_WEIGHTS.frontBack*ratePerPoint,
-    ratePerPoint
-  };
-}
-
-function getUserRewardPerDay(){
-  const {dailyPure,dailyArtist,totalPure,totalArtist}=getDailyDistributedAndBurn();
-  let reward=0;
-  if(totalPure>0) reward+=(dailyPure*getUserPureAllocation()*BOOST_FOUNDER)/totalPure;
-  if(totalArtist>0) reward+=(dailyArtist*getUserArtistAllocation()*BOOST_FOUNDER)/totalArtist;
-  return reward;
-}
-function tickTokenomics(){
-  const now=Date.now();
-  const dt=(now-tokLastRewardTime)/1000;
-  tokLastRewardTime=now;
-  const day=getDaysSinceLaunch();
-  const E=getDailyEmissionTotal(day);
-  if(E<=0) return;
-  const emissionThisTick=E*(dt/86400);
-  const room=Math.max(0,TOK_MAX_SUPPLY-tokTotalMinted);
-  const minted=Math.min(emissionThisTick,room);
-  tokTotalMinted+=minted;
-  const totalPure=getTotalPureAllocation();
-  const totalArtist=getTotalArtistAllocation();
-  const distFrac=(totalPure>0?TOK_PURE_POOL_SHARE:0)+(totalArtist>0?TOK_ARTIST_POOL_SHARE:0);
-  const distributedGlobal=minted*distFrac;
-  const userGets=minted*(getUserRewardPerDay()/E);
-  tokCirculatingSupply+=distributedGlobal;
-  tokPendingReward+=userGets;
-  tokTotalEarnedByUser+=userGets;
-}
-function claimTokenomics(){
-  const gross=tokPendingReward;
-  tokPendingReward=0;
-  if(gross<=0) return 0;
-  const day=getDaysSinceLaunch();
-  const season=getSeasonNumber(day);
-  const burnRate=season>=1?TOK_BURN_RATE_AFTER_SEASON_1:0;
-  const burn=gross*burnRate;
-  const toUser=gross-burn;
-  tokCirculatingSupply-=burn;
-  const balEl=document.getElementById('busBalance');
-  let bal=parseInt((balEl.textContent||'0').replace(/,/g,''),10)||0;
-  bal+=toUser;
-  balEl.textContent=Math.floor(bal).toLocaleString();
-  document.getElementById('pendingBus').textContent='0.0000';
-  document.getElementById('pendingBig').textContent='0.0000';
-  const burnStr=burnRate>0?` (5% burned: ${burn.toFixed(2)} $BUS)`:'';
-  showToast(`◈ ${toUser.toFixed(2)} $BUS CLAIMED\nADDED TO WALLET${burnStr}`,'green');
-  const a={type:'earn',time:'NOW',text:`Claimed <strong>${toUser.toFixed(2)} $BUS</strong> — added to wallet`};
-  actItems.unshift(a);renderAct();
-  return toUser;
-}
-
-function updateTokenomicsUI(){
-  const day=getDaysSinceLaunch();
-  const season=getSeasonNumber(day);
-  const daily=getCurrentEmissionRate();
-  const dailyM=(daily/1e6).toFixed(2);
-  const circB=(tokCirculatingSupply/1e9).toFixed(1);
-  const maxB=(TOK_MAX_SUPPLY/1e9).toFixed(0);
-  const {burn}=getDailyDistributedAndBurn();
-  const burnM=(burn/1e6).toFixed(2);
-  const tokEl=document.getElementById('tokStats');
-  if(tokEl) tokEl.textContent=burn>0?`SEASON ${season} · ${dailyM}M/DAY · ${burnM}M BURN · CIRC ${circB}B/${maxB}B`:`SEASON ${season} · ${dailyM}M $BUS/DAY · CIRC ${circB}B/${maxB}B`;
-  document.getElementById('pendingBus').textContent=tokPendingReward.toFixed(4);
-  document.getElementById('pendingBig').textContent=tokPendingReward.toFixed(4);
-  document.getElementById('earnStake').textContent=tokTotalEarnedByUser.toFixed(1);
-  const ratePerHr=getUserRewardPerDay()*24;
-  const rateEl=document.getElementById('earnRate');
-  if(rateEl) rateEl.textContent='+'+ratePerHr.toFixed(1)+' $BUS/HR';
-  const z=getZoneRates();
-  const fmt=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(1);
-  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(val);};
-  set('zoneRateCamera',z.camera);set('zoneRateStreet',z.street);set('zoneRateRoofline',z.roofline);
-  const sd=(v)=>fmt(v)+' $BUS/day';
-  ['stakeZoneCamera','stakeZoneStreet','stakeZoneRoofline','stakeZoneFront'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=sd([z.camera,z.street,z.roofline,z.frontBack][i]);});
-}
+// reward ticker
+let rewardAcc=0,totalEarned=847.2;
+const ratePerSec=(2*10*1.25)/86400;
 setInterval(()=>{
-  tickTokenomics();
-  updateTokenomicsUI();
+  rewardAcc+=ratePerSec;totalEarned+=ratePerSec;
+  document.getElementById('pendingBus').textContent=rewardAcc.toFixed(4);
+  document.getElementById('pendingBig').textContent=rewardAcc.toFixed(4);
+  document.getElementById('earnStake').textContent=totalEarned.toFixed(1);
 },1000);
-updateTokenomicsUI();
-(function initZoneRates(){const z=getZoneRates();const fmt=v=>v>=1e6?(v/1e6).toFixed(2)+'M':v>=1e3?(v/1e3).toFixed(1)+'K':v.toFixed(1);['zoneRateCamera','zoneRateStreet','zoneRateRoofline'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=fmt([z.camera,z.street,z.roofline][i]);});})();
 
 function stakeAll(){showToast('⚡ ALL PLOTS STAKED\nMAX EARNINGS ACTIVE','pink');}
-function claimAll(){claimTokenomics();}
+function claimAll(){
+  const v=rewardAcc.toFixed(2);rewardAcc=0;
+  document.getElementById('pendingBus').textContent='0.0000';
+  document.getElementById('pendingBig').textContent='0.0000';
+  let bal=parseInt(document.getElementById('busBalance').textContent.replace(/,/g,''));
+  bal+=parseFloat(v);
+  document.getElementById('busBalance').textContent=Math.floor(bal).toLocaleString();
+  showToast(`◈ ${v} $BUS CLAIMED\nADDED TO WALLET`,'green');
+  const a={type:'earn',time:'NOW',text:`Claimed <strong>${v} $BUS</strong> — added to wallet`};
+  actItems.unshift(a);renderAct();
+}
 
 // ══ SCREEN 3: AGENT ══
 const answers={};
@@ -1527,10 +1270,10 @@ function answer(q,choice,btn){
 }
 
 const archetypes={
-  MINER:{emoji:'⛏',type:'THE MINER',name:'BLOCK BREAKER',tagline:'Your agent mines hard. Every $BUS is hashrate. Every hashrate is a roof inch closer.',traits:[{l:'ROOF INCH FOCUSED',c:'y'},{l:'HIGH AGGRESSION',c:'p'},{l:'REVENUE SEEKER',c:'g'},{l:'DAILY MINING',c:'b'}],mine:80,cur:10,tip:10},
-  CURATOR:{emoji:'🎧',type:'THE CURATOR',name:'TASTE PROTOCOL',tagline:'Your agent finds them before anyone else does. It votes, signals, and builds your on-chain taste record.',traits:[{l:'TASTEMAKER',c:'p'},{l:'EARLY SIGNAL',c:'y'},{l:'VOTE HEAVY',c:'g'},{l:'NASHVILLE NATIVE',c:'b'}],mine:20,cur:60,tip:20},
-  PATRON:{emoji:'💸',type:'THE PATRON',name:'FIRST MOVER',tagline:'Your agent tips early, often, and on instinct. Artists know your wallet. The receipts speak.',traits:[{l:'PATRON ENERGY',c:'y'},{l:'ARTIST FIRST',c:'p'},{l:'RELATIONSHIP BUILDER',c:'g'},{l:'IRL CONNECTOR',c:'b'}],mine:15,cur:25,tip:60},
-  COLLECTOR:{emoji:'🏆',type:'THE COLLECTOR',name:'VAULT MODE',tagline:'Your agent watches for collectibles, physical drops, and limited moments. $BUS as treasure map.',traits:[{l:'PHYSICAL REWARDS',c:'y'},{l:'LIMITED EDITIONS',c:'p'},{l:'MERCH HUNTER',c:'g'},{l:'CLOUT ARCHIVE',c:'b'}],mine:30,cur:20,tip:50},
+  MINER:{emoji:'⛏',type:'THE MINER',name:'BLOCK BREAKER',tagline:'mines hard. not here to cheer. here to own.',traits:[{l:'ROOF INCH FOCUSED',c:'y'},{l:'HIGH AGGRESSION',c:'p'},{l:'REVENUE SEEKER',c:'g'},{l:'DAILY MINING',c:'b'}],mine:80,cur:10,tip:10},
+  CURATOR:{emoji:'🎧',type:'THE CURATOR',name:'TASTE PROTOCOL',tagline:'finds them before the labels do. your vote is your receipts.',traits:[{l:'TASTEMAKER',c:'p'},{l:'EARLY SIGNAL',c:'y'},{l:'VOTE HEAVY',c:'g'},{l:'NASHVILLE NATIVE',c:'b'}],mine:20,cur:60,tip:20},
+  PATRON:{emoji:'💸',type:'THE PATRON',name:'FIRST MOVER',tagline:'Artists know your wallet. The receipts speak.',traits:[{l:'PATRON ENERGY',c:'y'},{l:'ARTIST FIRST',c:'p'},{l:'RELATIONSHIP BUILDER',c:'g'},{l:'IRL CONNECTOR',c:'b'}],mine:15,cur:25,tip:60},
+  COLLECTOR:{emoji:'🏆',type:'THE COLLECTOR',name:'VAULT MODE',tagline:'hunts the physical. the vinyl ships. your name is in the wax.',traits:[{l:'PHYSICAL REWARDS',c:'y'},{l:'LIMITED EDITIONS',c:'p'},{l:'MERCH HUNTER',c:'g'},{l:'CLOUT ARCHIVE',c:'b'}],mine:30,cur:20,tip:50},
 };
 function getArc(){
   const a=answers;
@@ -1560,6 +1303,7 @@ function revealAgent(){
 }
 
 // ══ SCREEN 4: MINING ══
+const allocs={pure:0,marcus:0,hollow:0,kezia:0};
 const TOTAL_BUS=1000;
 const artistPools={marcus:{match:true,artist:'Marcus Webb'},hollow:{match:true,artist:'The Hollow Kind'},kezia:{match:false,artist:'Kezia Ray'}};
 
@@ -1598,23 +1342,7 @@ function renderMining(){
   else document.getElementById('confirmBtn').classList.remove('vis');
 }
 
-function renderArtifact(key,amt){
-  const zone=document.getElementById('artZone');
-  const note=document.getElementById('artNote');
-  if(!key||amt<100){
-    zone.classList.remove('on');
-    zone.innerHTML='<div class="art-empty">ALLOCATE 100+ $BUS TO AN<br>ARTIST POOL TO UNLOCK</div>';
-    note.textContent='';return;
-  }
-  const pool=artistPools[key];
-  zone.classList.add('on');
-  let icon,tier,tierColor,name,desc;
-  if(amt<500){icon='📌';tier='THE BUTTON';tierColor='var(--yellow)';name=pool.artist+' // Edition Button';desc='Physical pin mailed quarterly.\nWearable proof of taste.';}
-  else if(amt<1000){icon='🎬';tier='THE CLIP';tierColor='var(--pink)';name=pool.artist+' // Session Clip NFT';desc='30-second on-chain video artifact.\nLimited edition. You own this moment.';}
-  else{icon='🖼';tier='THE PRINT';tierColor='var(--green)';name=pool.artist+' // Limited Print';desc='Physical limited-edition photo print.\nYour name in the metadata.';}
-  zone.innerHTML=`<div class="art-icon">${icon}</div><div class="art-tier" style="color:${tierColor};text-shadow:0 0 6px ${tierColor};">${tier}</div><div class="art-name">${name}</div><div class="art-desc">${desc.replace(/\n/g,'<br>')}</div>`;
-  note.innerHTML=pool.match?`<span style="color:var(--pink);">TASTE MATCH</span> — difficulty reduced.<br>Miss = $BUS flows to ${pool.artist}. Artifact still minted.`:`No taste match — standard difficulty.`;
-}
+function renderArtifact(key,amt){ /* conviction artifact removed */ }
 
 function confirmMine(){
   const total=Object.values(allocs).reduce((s,v)=>s+v,0);
@@ -1645,7 +1373,7 @@ document.querySelectorAll('.nav-btn,.tab,.q-opt,.qbtn,.s-btn').forEach(b=>b.addE
 
 // ══ LEADERBOARD ══
 const lbData={patrons:[{r:1,a:'0xA3f1...9D2c',b:'FOUNDER',s1:'4,280 $BUS',s2:'12 artists'},{r:2,a:'0x7F3a...B92c',b:'FOUNDER',s1:'3,847 $BUS',s2:'9 artists',you:1},{r:3,a:'0xB8d2...4E1a',b:'PATRON',s1:'2,950 $BUS',s2:'8 artists'},{r:4,a:'0xC1e4...7F3b',b:'',s1:'2,100 $BUS',s2:'6 artists'},{r:5,a:'0xD9a7...2C8d',b:'FOUNDER',s1:'1,840 $BUS',s2:'5 artists'},{r:6,a:'0xE3b5...1A4f',b:'',s1:'1,620 $BUS',s2:'4 artists'},{r:7,a:'0xF2c8...8D5e',b:'PATRON',s1:'1,450 $BUS',s2:'4 artists'},{r:8,a:'0x4A1d...6B2c',b:'',s1:'1,200 $BUS',s2:'3 artists'}],miners:[{r:1,a:'0xD9a7...2C8d',b:'FOUNDER',s1:'18 inches',s2:'5.0% roof'},{r:2,a:'0xA3f1...9D2c',b:'FOUNDER',s1:'14 inches',s2:'3.9% roof'},{r:3,a:'0x7F3a...B92c',b:'FOUNDER',s1:'3 inches',s2:'0.8% roof',you:1},{r:4,a:'0xB8d2...4E1a',b:'PATRON',s1:'2 inches',s2:'0.6% roof'},{r:5,a:'0xE3b5...1A4f',b:'',s1:'2 inches',s2:'0.6% roof'},{r:6,a:'0xC1e4...7F3b',b:'',s1:'1 inch',s2:'0.3% roof'},{r:7,a:'0xF2c8...8D5e',b:'PATRON',s1:'1 inch',s2:'0.3% roof'},{r:8,a:'0x4A1d...6B2c',b:'',s1:'0 inches',s2:'0.0% roof'}],curators:[{r:1,a:'0xB8d2...4E1a',b:'PATRON',s1:'24 votes',s2:'89% acc'},{r:2,a:'0x7F3a...B92c',b:'FOUNDER',s1:'18 votes',s2:'78% acc',you:1},{r:3,a:'0xA3f1...9D2c',b:'FOUNDER',s1:'15 votes',s2:'72% acc'},{r:4,a:'0xC1e4...7F3b',b:'',s1:'12 votes',s2:'68% acc'},{r:5,a:'0xF2c8...8D5e',b:'PATRON',s1:'10 votes',s2:'65% acc'},{r:6,a:'0xD9a7...2C8d',b:'FOUNDER',s1:'8 votes',s2:'62% acc'},{r:7,a:'0xE3b5...1A4f',b:'',s1:'6 votes',s2:'60% acc'},{r:8,a:'0x4A1d...6B2c',b:'',s1:'4 votes',s2:'55% acc'}]};
-let curLB='patrons';const lbH={patrons:['RANK','WALLET','TIPPED','ARTISTS'],miners:['RANK','WALLET','INCHES','SHARE'],curators:['RANK','WALLET','VOTES','ACCURACY']};
+let curLB='patrons';const lbH={patrons:['RANK','WALLET','TIPPED','ARTISTS'],miners:['RANK','WALLET','INCHES','SHARE'],curators:['RANK','WALLET','VOTES','WIN RATE']};
 function renderLB(){const t=document.getElementById('lbTable');if(!t)return;const d=lbData[curLB],h=lbH[curLB],rc=['','var(--yellow)','var(--pink)','var(--blue)'];let htm='<div style="display:grid;grid-template-columns:50px 1fr 110px 110px;padding:12px 18px;font-family:\'Press Start 2P\',monospace;font-size:6px;color:rgba(255,255,255,0.2);letter-spacing:1px;border-bottom:1px solid rgba(255,229,0,0.12);background:rgba(255,229,0,0.02);">'+h.map(x=>'<div>'+x+'</div>').join('')+'</div>';d.forEach(x=>{const bg=x.you?'background:rgba(255,229,0,0.04);border-left:2px solid var(--yellow);':'';const c=rc[x.r]||'rgba(255,255,255,0.4)';const badge=x.b?'<span style="font-family:\'Press Start 2P\',monospace;font-size:4px;padding:2px 5px;border:1px solid '+(x.b==='FOUNDER'?'rgba(255,229,0,0.4);color:var(--yellow)':'rgba(255,45,155,0.4);color:var(--pink)')+';letter-spacing:1px;margin-left:6px;">'+x.b+'</span>':'';const you=x.you?'<span style="color:var(--yellow);font-family:\'Press Start 2P\',monospace;font-size:5px;margin-left:6px;">← YOU</span>':'';htm+='<div style="display:grid;grid-template-columns:50px 1fr 110px 110px;align-items:center;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s;'+bg+'"><div style="font-family:\'Press Start 2P\',monospace;font-size:'+(x.r<=3?18-x.r*2:12)+'px;color:'+c+';">'+x.r+'</div><div style="font-size:13px;">'+x.a+badge+you+'</div><div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:rgba(255,255,255,0.4);text-align:right;">'+x.s1+'</div><div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:rgba(255,255,255,0.4);text-align:right;">'+x.s2+'</div></div>';});t.innerHTML=htm;}
 function switchLB(type,btn){curLB=type;document.querySelectorAll('#lbTabs .tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderLB();playClick();}
 renderLB();
