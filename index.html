@@ -252,14 +252,6 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .q-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--yellow),var(--green));background-size:200% 100%;animation:slide 3s linear infinite;}
 .q-num{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--pink);margin-bottom:10px;letter-spacing:2px;}
 .q-text{font-size:21px;color:#fff;margin-bottom:18px;line-height:1.4;}
-.agent-input{width:100%;margin-bottom:8px;padding:10px 12px;font-size:16px;font-family:'VT323',monospace;color:#fff;background:rgba(0,0,0,0.3);border:1px solid rgba(255,229,0,0.25);outline:none;}
-.agent-input::placeholder{color:rgba(255,255,255,0.25);}
-.agent-input:focus{border-color:var(--yellow);box-shadow:0 0 10px rgba(255,229,0,0.2);}
-.agent-pfp-zone{display:block;min-height:100px;border:2px dashed rgba(255,229,0,0.3);background:rgba(255,229,0,0.04);padding:20px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;margin-top:12px;position:relative;}
-.agent-pfp-zone:hover,.agent-pfp-zone.on{border-color:var(--yellow);background:rgba(255,229,0,0.08);}
-.agent-pfp-placeholder{font-size:13px;color:rgba(255,255,255,0.4);}
-.agent-pfp-preview{max-width:80px;max-height:80px;width:auto;height:auto;object-fit:contain;margin-top:8px;border:2px solid var(--border);}
-.agent-avatar img{width:100%;height:100%;object-fit:cover;display:block;}
 .q-opts{display:flex;flex-direction:column;gap:8px;}
 .q-opt{border:1px solid rgba(255,255,255,0.1);background:transparent;padding:12px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;font-size:17px;color:rgba(255,255,255,0.65);transition:all 0.12s;font-family:'VT323',monospace;}
 .q-opt:hover{border-color:rgba(255,229,0,0.4);color:var(--yellow);background:rgba(255,229,0,0.04);transform:translateX(4px);}
@@ -276,7 +268,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .agent-card-wrap{border:2px solid var(--yellow);background:var(--panel);box-shadow:8px 8px 0 var(--pink),0 0 30px rgba(255,229,0,0.2);margin-bottom:20px;overflow:hidden;animation:cardIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275);}
 @keyframes cardIn{from{transform:scale(0.8) rotate(-2deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
 .agent-card-body{padding:24px;display:grid;grid-template-columns:100px 1fr;gap:20px;align-items:start;}
-.agent-avatar{width:100px;height:100px;border:2px solid var(--yellow);background:rgba(255,229,0,0.05);display:flex;align-items:center;justify-content:center;font-size:48px;animation:avPulse 2s ease-in-out infinite;overflow:hidden;}
+.agent-avatar{width:100px;height:100px;border:2px solid var(--yellow);background:rgba(255,229,0,0.05);display:flex;align-items:center;justify-content:center;font-size:48px;animation:avPulse 2s ease-in-out infinite;}
 @keyframes avPulse{0%,100%{box-shadow:0 0 8px var(--yellow)}50%{box-shadow:0 0 24px var(--yellow),0 0 40px rgba(255,229,0,0.3)}}
 .agent-type{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--pink);letter-spacing:2px;margin-bottom:5px;}
 .agent-name{font-family:'Press Start 2P',monospace;font-size:clamp(12px,2.5vw,19px);color:var(--yellow);text-shadow:2px 2px 0 var(--pink);margin-bottom:8px;line-height:1.4;}
@@ -411,33 +403,6 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .plot.zone-camera{background:#0d0008 !important;border-color:#3a002a !important;}
 .plot.zone-camera:hover{border-color:var(--pink) !important;box-shadow:0 0 8px var(--pink) !important;}
 .plot.zone-street:hover{border-color:#39FF14 !important;box-shadow:0 0 6px #39FF14 !important;}
-
-/* ══ LEADERBOARD TABLE ══ */
-.lb-sort{display:flex;justify-content:center;gap:4px;margin-bottom:16px;flex-wrap:wrap;}
-.lb-sort .tab{font-size:7px;padding:6px 10px;}
-.lb-table-wrap{width:100%;overflow-x:auto;}
-.lb-table{width:100%;border-collapse:collapse;}
-.lb-table th{font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,229,0,0.4);letter-spacing:2px;text-align:left;padding:10px 12px;white-space:nowrap;}
-.lb-table td{font-family:'VT323',monospace;font-size:18px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.lb-table tbody tr:hover{background:rgba(255,255,255,0.03);}
-.lb-table tbody tr.you-row{background:rgba(255,229,0,0.04);}
-.lb-table .lb-rank{font-weight:bold;}
-.lb-table .lb-rank.gold{color:#FFD700;}
-.lb-table .lb-rank.silver{color:#C0C0C0;}
-.lb-table .lb-rank.bronze{color:#CD7F32;}
-.lb-table .lb-rank.other{color:rgba(255,255,255,0.5);}
-.lb-table .lb-wallet{font-family:monospace;font-size:16px;}
-.lb-table .lb-you-tag{color:var(--yellow);font-size:14px;margin-left:6px;}
-.lb-table .lb-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-family:'Press Start 2P',monospace;font-size:5px;letter-spacing:1px;}
-.lb-table .lb-pill.miner{background:rgba(255,229,0,0.2);color:var(--yellow);}
-.lb-table .lb-pill.curator{background:rgba(255,105,180,0.2);color:var(--pink);}
-.lb-table .lb-pill.patron{background:rgba(0,255,65,0.2);color:var(--green);}
-.lb-table .lb-pill.collector{background:rgba(0,191,255,0.2);color:#00BFFF;}
-.lb-table .lb-roof{color:var(--pink);}
-.lb-table .lb-bus{color:var(--yellow);}
-.lb-table .lb-roi{font-family:'Press Start 2P',monospace;font-size:7px;}
-.lb-table .lb-roi.positive{color:var(--green);}
-.lb-table .lb-roi.negative{color:var(--red);}
 </style>
 </head>
 <body>
@@ -724,48 +689,37 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="quiz-title" style="margin-top:20px;">◈ MEET YOUR AGENT ◈</div>
       <div class="quiz-sub">// 3 questions. your agent does the rest. //</div>
 
-      <div class="q-card" id="aq1">
+      <div class="q-card" id="q1">
         <div class="q-num">QUESTION 01 / 03</div>
         <div class="q-text">An artist you've never heard of just dropped their SHOWBUS session. Your gut reaction?</div>
         <div class="q-opts">
-          <button type="button" class="q-opt" onclick="agentAnswer(1,'A',this)"><span class="opt-icon">💸</span><span>Tip them now.<span class="opt-lbl">PATRON</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(1,'B',this)"><span class="opt-icon">👁</span><span>Watch the numbers.<span class="opt-lbl">MINER</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(1,'C',this)"><span class="opt-icon">🗳</span><span>Vote them up.<span class="opt-lbl">CURATOR</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(1,'D',this)"><span class="opt-icon">💎</span><span>Save my $BUS.<span class="opt-lbl">COLLECTOR</span></span></button>
+          <button class="q-opt" onclick="answer(1,'A',this)"><span class="opt-icon">⚡</span><span>Tip them right now. First mover energy.<span class="opt-lbl">PATRON INSTINCT</span></span></button>
+          <button class="q-opt" onclick="answer(1,'B',this)"><span class="opt-icon">👁</span><span>Watch and wait. See if the numbers move.<span class="opt-lbl">DATA FIRST</span></span></button>
+          <button class="q-opt" onclick="answer(1,'C',this)"><span class="opt-icon">⛏</span><span>Ignore it. I'm focused on mining roof inches.<span class="opt-lbl">MINER MINDSET</span></span></button>
+          <button class="q-opt" onclick="answer(1,'D',this)"><span class="opt-icon">🗳</span><span>Vote them up so the community decides.<span class="opt-lbl">CURATOR MODE</span></span></button>
         </div>
       </div>
-      <div class="q-card" id="aq2">
+      <div class="q-card" id="q2">
         <div class="q-num">QUESTION 02 / 03</div>
-        <div class="q-text">You have 1,000 $BUS. What feels right?</div>
+        <div class="q-text">You have 1,000 $BUS. What actually feels right?</div>
         <div class="q-opts">
-          <button type="button" class="q-opt" onclick="agentAnswer(2,'A',this)"><span class="opt-icon">🔥</span><span>All in on one artist.<span class="opt-lbl">PATRON</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(2,'B',this)"><span class="opt-icon">⚖</span><span>Split evenly across pools.<span class="opt-lbl">MINER</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(2,'C',this)"><span class="opt-icon">🎯</span><span>Hold and wait for the right signal.<span class="opt-lbl">CURATOR</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(2,'D',this)"><span class="opt-icon">🏆</span><span>Stack artifacts and merch.<span class="opt-lbl">COLLECTOR</span></span></button>
+          <button class="q-opt" onclick="answer(2,'A',this)"><span class="opt-icon">🔥</span><span>Burn it all on hashrate. Mine hard this week.<span class="opt-lbl">ALL IN</span></span></button>
+          <button class="q-opt" onclick="answer(2,'B',this)"><span class="opt-icon">🎯</span><span>One mine attempt a day. Consistent, not reckless.<span class="opt-lbl">STEADY GRIND</span></span></button>
+          <button class="q-opt" onclick="answer(2,'C',this)"><span class="opt-icon">💸</span><span>Spread it — some tips, some votes, some mining.<span class="opt-lbl">DIVERSIFY</span></span></button>
+          <button class="q-opt" onclick="answer(2,'D',this)"><span class="opt-icon">🧊</span><span>Save it. Stack until the right moment.<span class="opt-lbl">COLD HANDS</span></span></button>
         </div>
       </div>
-      <div class="q-card" id="aq3">
+      <div class="q-card" id="q3">
         <div class="q-num">QUESTION 03 / 03</div>
-        <div class="q-text">Owning SHOWBUS means what to you?</div>
+        <div class="q-text">Owning a piece of SHOWBUS means what to you?</div>
         <div class="q-opts">
-          <button type="button" class="q-opt" onclick="agentAnswer(3,'A',this)"><span class="opt-icon">💰</span><span>Revenue share and yield.<span class="opt-lbl">MINER</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(3,'B',this)"><span class="opt-icon">🎸</span><span>I backed Nashville music early.<span class="opt-lbl">CURATOR</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(3,'C',this)"><span class="opt-icon">🌈</span><span>Both equally.<span class="opt-lbl">PATRON</span></span></button>
-          <button type="button" class="q-opt" onclick="agentAnswer(3,'D',this)"><span class="opt-icon">📜</span><span>Bragging rights on-chain.<span class="opt-lbl">COLLECTOR</span></span></button>
+          <button class="q-opt" onclick="answer(3,'A',this)"><span class="opt-icon">💰</span><span>Financial stake. Rev share, appreciation, yield.<span class="opt-lbl">INVESTOR BRAIN</span></span></button>
+          <button class="q-opt" onclick="answer(3,'B',this)"><span class="opt-icon">🎸</span><span>Cultural stake. I backed Nashville music early.<span class="opt-lbl">TASTEMAKER</span></span></button>
+          <button class="q-opt" onclick="answer(3,'C',this)"><span class="opt-icon">🌈</span><span>Both equally. Money and meaning.<span class="opt-lbl">WHOLE BRAIN</span></span></button>
+          <button class="q-opt" onclick="answer(3,'D',this)"><span class="opt-icon">🏆</span><span>Bragging rights. I want the receipts on-chain.<span class="opt-lbl">CLOUT MAXIMALIST</span></span></button>
         </div>
       </div>
-
-      <div class="q-card" style="margin-bottom:16px;">
-        <div class="q-num">AGENT PORTRAIT</div>
-        <div class="q-text">Drag your pfp or logo here — or click to upload. Shows as your agent avatar.</div>
-        <label class="agent-pfp-zone" id="agentPfpZone">
-          <input type="file" id="agentPfpInput" accept=".png,.jpg,.jpeg,.gif,.svg" style="display:none">
-          <span class="agent-pfp-placeholder" id="agentPfpPlaceholder">PNG, JPG, GIF, SVG</span>
-          <img id="agentPfpPreview" class="agent-pfp-preview" alt="" style="display:none">
-        </label>
-      </div>
-
-      <button class="proceed-btn" id="proceedBtn" onclick="revealAgent()" style="display:none;">◈ DEPLOY MY AGENT ◈</button>
+      <button class="proceed-btn" id="proceedBtn" onclick="revealAgent()">◈ DEPLOY MY AGENT ◈</button>
     </div>
 
     <div id="agentReveal">
@@ -989,28 +943,18 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
 <button style="position:fixed;bottom:20px;right:20px;z-index:9500;width:36px;height:36px;border:1px solid var(--border);background:var(--surface);color:rgba(255,255,255,0.4);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;" id="soundToggle" onclick="toggleSound()">🔇</button>
 
-<!-- SCREEN 5: LEADERBOARD / YEARBOOK -->
+<!-- SCREEN 5: LEADERBOARD -->
 <div class="screen" id="screen-board">
   <div class="rainbow"></div>
-  <div style="max-width:960px;margin:0 auto;padding:32px 24px 64px;">
-    <div style="font-family:'Press Start 2P',monospace;font-size:clamp(12px,3vw,20px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink);text-align:center;margin:24px 0 6px;">◈ SHOWBUS YEARBOOK ◈</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:2px;margin-bottom:20px;">// AGENT PORTRAITS · CLICK TO EXPAND //</div>
-    <div style="display:flex;justify-content:center;gap:4px;margin-bottom:14px;" id="lbTabs">
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px 64px;">
+    <div style="font-family:'Press Start 2P',monospace;font-size:clamp(12px,3vw,20px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink);text-align:center;margin:24px 0 6px;">◈ SHOWBUS RANKS ◈</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:2px;margin-bottom:32px;">// THE COMMUNITY SCOREBOARD // UPDATED LIVE //</div>
+    <div style="display:flex;justify-content:center;gap:4px;margin-bottom:24px;" id="lbTabs">
       <button class="tab active" onclick="switchLB('patrons',this)">TOP PATRONS</button>
       <button class="tab" onclick="switchLB('miners',this)">TOP MINERS</button>
       <button class="tab" onclick="switchLB('curators',this)">TOP CURATORS</button>
     </div>
-    <div class="lb-sort" id="lbSort">
-      <button type="button" class="tab active" onclick="setLbSort('roi',this)">SORT: ROI</button>
-      <button type="button" class="tab" onclick="setLbSort('riskAdjusted',this)">SORT: RISK-ADJ</button>
-      <button type="button" class="tab" onclick="setLbSort('cultural',this)">SORT: CULTURAL</button>
-    </div>
-    <div class="lb-table-wrap">
-      <table class="lb-table" id="lbTable">
-        <thead><tr><th>RANK</th><th>WALLET</th><th>ARCHETYPE</th><th>ROOF INCHES</th><th>$BUS EARNED</th><th>WEEK ROI</th></tr></thead>
-        <tbody id="lbTableBody"></tbody>
-      </table>
-    </div>
+    <div id="lbTable" style="width:100%;border:1px solid var(--border);background:var(--surface);"></div>
   </div>
 </div>
 
@@ -1573,29 +1517,13 @@ function stakeAll(){showToast('⚡ ALL PLOTS STAKED\nMAX EARNINGS ACTIVE','pink'
 function claimAll(){claimTokenomics();}
 
 // ══ SCREEN 3: AGENT ══
-const agentAnswers={};
-let agentPfpUrl=null;
-
-function agentAnswer(q,choice,btn){
+const answers={};
+function answer(q,choice,btn){
   btn.closest('.q-opts').querySelectorAll('.q-opt').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
-  document.getElementById('aq'+q).classList.add('answered');
-  agentAnswers[q]=choice;
-  const proceedBtn=document.getElementById('proceedBtn');
-  if(proceedBtn&&Object.keys(agentAnswers).length===3){proceedBtn.style.display='block';proceedBtn.classList.add('vis');}
-}
-
-function getAgentArc(){
-  const a=agentAnswers;
-  const q1Map={A:'PATRON',B:'MINER',C:'CURATOR',D:'COLLECTOR'};
-  const q2Map={A:'PATRON',B:'MINER',C:'CURATOR',D:'COLLECTOR'};
-  const q3Map={A:'MINER',B:'CURATOR',C:'PATRON',D:'COLLECTOR'};
-  const arcs=[q1Map[a[1]],q2Map[a[2]],q3Map[a[3]]].filter(Boolean);
-  const counts={PATRON:0,MINER:0,CURATOR:0,COLLECTOR:0};
-  arcs.forEach(arc=>{counts[arc]=(counts[arc]||0)+1;});
-  let max=0,best='CURATOR';
-  Object.entries(counts).forEach(([k,v])=>{if(v>max){max=v;best=k;}else if(v===max)best='CURATOR';});
-  return best;
+  btn.closest('.q-card').classList.add('answered');
+  answers[q]=choice;
+  if(Object.keys(answers).length===3) document.getElementById('proceedBtn').classList.add('vis');
 }
 
 const archetypes={
@@ -1604,20 +1532,17 @@ const archetypes={
   PATRON:{emoji:'💸',type:'THE PATRON',name:'FIRST MOVER',tagline:'Your agent tips early, often, and on instinct. Artists know your wallet. The receipts speak.',traits:[{l:'PATRON ENERGY',c:'y'},{l:'ARTIST FIRST',c:'p'},{l:'RELATIONSHIP BUILDER',c:'g'},{l:'IRL CONNECTOR',c:'b'}],mine:15,cur:25,tip:60},
   COLLECTOR:{emoji:'🏆',type:'THE COLLECTOR',name:'VAULT MODE',tagline:'Your agent watches for collectibles, physical drops, and limited moments. $BUS as treasure map.',traits:[{l:'PHYSICAL REWARDS',c:'y'},{l:'LIMITED EDITIONS',c:'p'},{l:'MERCH HUNTER',c:'g'},{l:'CLOUT ARCHIVE',c:'b'}],mine:30,cur:20,tip:50},
 };
-
+function getArc(){
+  const a=answers;
+  if(a[1]==='C'||a[2]==='A') return 'MINER';
+  if(a[1]==='A'||(a[2]==='C'&&a[3]==='B')) return 'PATRON';
+  if(a[1]==='D'||a[3]==='B') return 'CURATOR';
+  if(a[3]==='D'||a[2]==='D') return 'COLLECTOR';
+  return 'CURATOR';
+}
 function revealAgent(){
-  const arcKey=getAgentArc();
-  const arc=archetypes[arcKey];
-  const avatarEl=document.getElementById('agentEmo');
-  avatarEl.innerHTML='';
-  if(agentPfpUrl){
-    const img=document.createElement('img');
-    img.src=agentPfpUrl;
-    img.alt='Agent portrait';
-    avatarEl.appendChild(img);
-  } else {
-    avatarEl.textContent=arc.emoji;
-  }
+  const arc=archetypes[getArc()];
+  document.getElementById('agentEmo').textContent=arc.emoji;
   document.getElementById('agentType').textContent=arc.type;
   document.getElementById('agentNameEl').textContent=arc.name;
   document.getElementById('agentTagline').textContent=arc.tagline;
@@ -1633,30 +1558,6 @@ function revealAgent(){
   },300);
   showToast('◈ AGENT INITIALIZED\n'+arc.name,'green');
 }
-
-(function initAgentPfp(){
-  const input=document.getElementById('agentPfpInput');
-  const zone=document.getElementById('agentPfpZone');
-  const placeholder=document.getElementById('agentPfpPlaceholder');
-  const preview=document.getElementById('agentPfpPreview');
-  if(!input||!zone) return;
-  function onFile(files){
-    const file=files&&files[0];
-    if(!file) return;
-    const ok=/\.(png|jpe?g|gif|svg)$/i.test(file.name)||/image\//.test(file.type);
-    if(!ok){showToast('◈ USE PNG, JPG, GIF OR SVG','pink');return;}
-    if(agentPfpUrl) URL.revokeObjectURL(agentPfpUrl);
-    agentPfpUrl=URL.createObjectURL(file);
-    placeholder.style.display='none';
-    preview.src=agentPfpUrl;
-    preview.style.display='inline';
-  }
-  zone.addEventListener('click',e=>{if(e.target!==input) input.click();});
-  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('on');});
-  zone.addEventListener('dragleave',()=>zone.classList.remove('on'));
-  zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('on');onFile(e.dataTransfer.files);});
-  input.addEventListener('change',()=>onFile(input.files));
-})();
 
 // ══ SCREEN 4: MINING ══
 const TOTAL_BUS=1000;
@@ -1743,93 +1644,10 @@ function playSuccess(){playTone(523,0.12);setTimeout(()=>playTone(659,0.12),100)
 document.querySelectorAll('.nav-btn,.tab,.q-opt,.qbtn,.s-btn').forEach(b=>b.addEventListener('click',()=>playClick()));
 
 // ══ LEADERBOARD ══
-function truncateWallet(name){
-  let h=0; for(let i=0;i<(name||'').length;i++) h=((h<<5)-h)+name.charCodeAt(i)|0;
-  const hex=Math.abs(h).toString(16).padStart(8,'0').slice(-8); return '0x'+hex.slice(0,4)+'...'+hex.slice(-4);
-}
-const ARC_LABELS={patrons:'PATRON',miners:'MINER',curators:'CURATOR'};
-const lbAgentTemplates={
-  patrons:[
-    {name:'Velvet Echo',genre:'Blues',risk_style:'Aggressive',scout_instinct:'First Mover',roi:42,riskAdjusted:38,cultural:88,bands:['Led Zeppelin','The Black Keys'],genres:['Blues','Rock'],s1:'4,280 $BUS',s2:'12 artists',recentWin:1},
-    {name:'Dusty Strings',genre:'Americana',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:35,riskAdjusted:34,cultural:72,bands:['Fleetwood Mac','Chris Stapleton'],genres:['Classic Rock','Americana'],s1:'3,847 $BUS',s2:'9 artists',you:1,recentWin:1},
-    {name:'Iron Pulse',genre:'Classic Rock',risk_style:'Aggressive',scout_instinct:'First Mover',roi:31,riskAdjusted:28,cultural:65,s1:'2,950 $BUS',s2:'8 artists'},
-    {name:'Steady Tone',genre:'Rock',risk_style:'Cautious',scout_instinct:'Data First',roi:28,riskAdjusted:30,cultural:45,s1:'2,100 $BUS',s2:'6 artists'},
-    {name:'Midnight Circuit',genre:'Blues',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:26,riskAdjusted:26,cultural:58,s1:'1,840 $BUS',s2:'5 artists',recentWin:1},
-    {name:'Rust Signal',genre:'Country',risk_style:'Cautious',scout_instinct:'Data First',roi:22,riskAdjusted:24,cultural:42,s1:'1,620 $BUS',s2:'4 artists'},
-    {name:'Wild Echo',genre:'Americana',risk_style:'Aggressive',scout_instinct:'First Mover',roi:20,riskAdjusted:18,cultural:55,s1:'1,450 $BUS',s2:'4 artists'},
-    {name:'Steel Protocol',genre:'Rock',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:18,riskAdjusted:19,cultural:48,s1:'1,200 $BUS',s2:'3 artists'}
-  ],
-  miners:[
-    {name:'Block Breaker',genre:'Rock',risk_style:'Aggressive',scout_instinct:'Data First',roi:40,riskAdjusted:35,cultural:30,s1:'18 inches',s2:'5.0% roof',recentWin:1},
-    {name:'Hash Vault',genre:'Blues',risk_style:'Aggressive',scout_instinct:'Data First',roi:38,riskAdjusted:34,cultural:28,s1:'14 inches',s2:'3.9% roof'},
-    {name:'Dusty Strings',genre:'Americana',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:32,riskAdjusted:32,cultural:72,s1:'3 inches',s2:'0.8% roof',you:1},
-    {name:'Roof Miner',genre:'Country',risk_style:'Moderate',scout_instinct:'Data First',roi:28,riskAdjusted:28,cultural:25,s1:'2 inches',s2:'0.6% roof'},
-    {name:'Pure Grind',genre:'Rock',risk_style:'Cautious',scout_instinct:'Data First',roi:25,riskAdjusted:26,cultural:22,s1:'2 inches',s2:'0.6% roof',recentWin:1},
-    {name:'Inch Hunter',genre:'Americana',risk_style:'Aggressive',scout_instinct:'First Mover',roi:22,riskAdjusted:20,cultural:35,s1:'1 inch',s2:'0.3% roof'},
-    {name:'Steady Pick',genre:'Blues',risk_style:'Cautious',scout_instinct:'Data First',roi:20,riskAdjusted:21,cultural:20,s1:'1 inch',s2:'0.3% roof'},
-    {name:'Chain Link',genre:'Rock',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:18,riskAdjusted:19,cultural:28,s1:'0 inches',s2:'0.0% roof'}
-  ],
-  curators:[
-    {name:'Taste Protocol',genre:'Pop',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:28,riskAdjusted:27,cultural:92,s1:'24 votes',s2:'89% acc',recentWin:1},
-    {name:'Dusty Strings',genre:'Americana',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:26,riskAdjusted:26,cultural:72,s1:'18 votes',s2:'78% acc',you:1},
-    {name:'Early Signal',genre:'Indie',risk_style:'Aggressive',scout_instinct:'First Mover',roi:24,riskAdjusted:22,cultural:85,s1:'15 votes',s2:'72% acc'},
-    {name:'Vote Heavy',genre:'Soul',risk_style:'Cautious',scout_instinct:'Data First',roi:22,riskAdjusted:23,cultural:68,s1:'12 votes',s2:'68% acc'},
-    {name:'Curator Mode',genre:'Folk',risk_style:'Moderate',scout_instinct:'Scout-heavy',roi:20,riskAdjusted:20,cultural:78,s1:'10 votes',s2:'65% acc',recentWin:1},
-    {name:'Nashville Native',genre:'Country',risk_style:'Cautious',scout_instinct:'Data First',roi:18,riskAdjusted:19,cultural:62,s1:'8 votes',s2:'62% acc'},
-    {name:'Tastemaker',genre:'Blues',risk_style:'Aggressive',scout_instinct:'First Mover',roi:16,riskAdjusted:15,cultural:70,s1:'6 votes',s2:'60% acc'},
-    {name:'Data First',genre:'Rock',risk_style:'Cautious',scout_instinct:'Data First',roi:14,riskAdjusted:16,cultural:45,s1:'4 votes',s2:'55% acc'}
-  ]
-};
-
-let curLB='patrons',curLbSort='roi';
-function setLbSort(key,btn){
-  curLbSort=key;
-  document.querySelectorAll('#lbSort .tab').forEach(t=>t.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  renderLB();
-  playClick();
-}
-function renderLB(){
-  const tbody=document.getElementById('lbTableBody');
-  if(!tbody) return;
-  let list=lbAgentTemplates[curLB].map((a,i)=>({...a,r:i+1}));
-  if(curLbSort==='roi') list.sort((a,b)=>b.roi-a.roi);
-  else if(curLbSort==='riskAdjusted') list.sort((a,b)=>b.riskAdjusted-a.riskAdjusted);
-  else list.sort((a,b)=>b.cultural-a.cultural);
-  list=list.map((a,i)=>({...a,r:i+1}));
-  const arc=ARC_LABELS[curLB];
-  const rankClass=r=>r===1?'gold':r===2?'silver':r===3?'bronze':'other';
-  const roofInches=a=>(a.s1&&String(a.s1).includes('inch'))?a.s1:'—';
-  const busEarned=a=>(a.s1&&String(a.s1).includes('$BUS'))?a.s1:'—';
-  const roiFmt=v=>{const n=Number(v); const s=n>=0?'+'+n:n; return s+'%';};
-  const roiClass=v=>Number(v)>=0?'positive':'negative';
-  let htm='';
-  list.forEach(agent=>{
-    const r=agent.r;
-    const wallet=truncateWallet(agent.name);
-    const youTag=agent.you?' <span class="lb-you-tag">← YOU</span>':'';
-    const roof=roofInches(agent);
-    const bus=busEarned(agent);
-    const roi=roiFmt(agent.roi);
-    const rowClass=agent.you?'you-row':'';
-    htm+=`<tr class="${rowClass}">
-      <td class="lb-rank ${rankClass(r)}">${r}</td>
-      <td class="lb-wallet">${wallet}${youTag}</td>
-      <td><span class="lb-pill ${arc.toLowerCase()}">${arc}</span></td>
-      <td class="lb-roof">${roof}</td>
-      <td class="lb-bus">${bus}</td>
-      <td class="lb-roi ${roiClass(agent.roi)}">${roi}</td>
-    </tr>`;
-  });
-  tbody.innerHTML=htm;
-}
-function switchLB(type,btn){
-  curLB=type;
-  document.querySelectorAll('#lbTabs .tab').forEach(t=>t.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  renderLB();
-  playClick();
-}
+const lbData={patrons:[{r:1,a:'0xA3f1...9D2c',b:'FOUNDER',s1:'4,280 $BUS',s2:'12 artists'},{r:2,a:'0x7F3a...B92c',b:'FOUNDER',s1:'3,847 $BUS',s2:'9 artists',you:1},{r:3,a:'0xB8d2...4E1a',b:'PATRON',s1:'2,950 $BUS',s2:'8 artists'},{r:4,a:'0xC1e4...7F3b',b:'',s1:'2,100 $BUS',s2:'6 artists'},{r:5,a:'0xD9a7...2C8d',b:'FOUNDER',s1:'1,840 $BUS',s2:'5 artists'},{r:6,a:'0xE3b5...1A4f',b:'',s1:'1,620 $BUS',s2:'4 artists'},{r:7,a:'0xF2c8...8D5e',b:'PATRON',s1:'1,450 $BUS',s2:'4 artists'},{r:8,a:'0x4A1d...6B2c',b:'',s1:'1,200 $BUS',s2:'3 artists'}],miners:[{r:1,a:'0xD9a7...2C8d',b:'FOUNDER',s1:'18 inches',s2:'5.0% roof'},{r:2,a:'0xA3f1...9D2c',b:'FOUNDER',s1:'14 inches',s2:'3.9% roof'},{r:3,a:'0x7F3a...B92c',b:'FOUNDER',s1:'3 inches',s2:'0.8% roof',you:1},{r:4,a:'0xB8d2...4E1a',b:'PATRON',s1:'2 inches',s2:'0.6% roof'},{r:5,a:'0xE3b5...1A4f',b:'',s1:'2 inches',s2:'0.6% roof'},{r:6,a:'0xC1e4...7F3b',b:'',s1:'1 inch',s2:'0.3% roof'},{r:7,a:'0xF2c8...8D5e',b:'PATRON',s1:'1 inch',s2:'0.3% roof'},{r:8,a:'0x4A1d...6B2c',b:'',s1:'0 inches',s2:'0.0% roof'}],curators:[{r:1,a:'0xB8d2...4E1a',b:'PATRON',s1:'24 votes',s2:'89% acc'},{r:2,a:'0x7F3a...B92c',b:'FOUNDER',s1:'18 votes',s2:'78% acc',you:1},{r:3,a:'0xA3f1...9D2c',b:'FOUNDER',s1:'15 votes',s2:'72% acc'},{r:4,a:'0xC1e4...7F3b',b:'',s1:'12 votes',s2:'68% acc'},{r:5,a:'0xF2c8...8D5e',b:'PATRON',s1:'10 votes',s2:'65% acc'},{r:6,a:'0xD9a7...2C8d',b:'FOUNDER',s1:'8 votes',s2:'62% acc'},{r:7,a:'0xE3b5...1A4f',b:'',s1:'6 votes',s2:'60% acc'},{r:8,a:'0x4A1d...6B2c',b:'',s1:'4 votes',s2:'55% acc'}]};
+let curLB='patrons';const lbH={patrons:['RANK','WALLET','TIPPED','ARTISTS'],miners:['RANK','WALLET','INCHES','SHARE'],curators:['RANK','WALLET','VOTES','ACCURACY']};
+function renderLB(){const t=document.getElementById('lbTable');if(!t)return;const d=lbData[curLB],h=lbH[curLB],rc=['','var(--yellow)','var(--pink)','var(--blue)'];let htm='<div style="display:grid;grid-template-columns:50px 1fr 110px 110px;padding:12px 18px;font-family:\'Press Start 2P\',monospace;font-size:6px;color:rgba(255,255,255,0.2);letter-spacing:1px;border-bottom:1px solid rgba(255,229,0,0.12);background:rgba(255,229,0,0.02);">'+h.map(x=>'<div>'+x+'</div>').join('')+'</div>';d.forEach(x=>{const bg=x.you?'background:rgba(255,229,0,0.04);border-left:2px solid var(--yellow);':'';const c=rc[x.r]||'rgba(255,255,255,0.4)';const badge=x.b?'<span style="font-family:\'Press Start 2P\',monospace;font-size:4px;padding:2px 5px;border:1px solid '+(x.b==='FOUNDER'?'rgba(255,229,0,0.4);color:var(--yellow)':'rgba(255,45,155,0.4);color:var(--pink)')+';letter-spacing:1px;margin-left:6px;">'+x.b+'</span>':'';const you=x.you?'<span style="color:var(--yellow);font-family:\'Press Start 2P\',monospace;font-size:5px;margin-left:6px;">← YOU</span>':'';htm+='<div style="display:grid;grid-template-columns:50px 1fr 110px 110px;align-items:center;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.15s;'+bg+'"><div style="font-family:\'Press Start 2P\',monospace;font-size:'+(x.r<=3?18-x.r*2:12)+'px;color:'+c+';">'+x.r+'</div><div style="font-size:13px;">'+x.a+badge+you+'</div><div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:rgba(255,255,255,0.4);text-align:right;">'+x.s1+'</div><div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:rgba(255,255,255,0.4);text-align:right;">'+x.s2+'</div></div>';});t.innerHTML=htm;}
+function switchLB(type,btn){curLB=type;document.querySelectorAll('#lbTabs .tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderLB();playClick();}
 renderLB();
 </script>
 </body>
