@@ -20,7 +20,7 @@
   --border: rgba(255,229,0,0.12);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:#E8E4D8;font-family:'Space Mono','VT323',monospace;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);color:#E8E4D8;font-family:'VT323',monospace;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased;}
 @media(hover:hover){body{cursor:none;}}
 @media(hover:none){#cursor{display:none !important;}}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);pointer-events:none;z-index:9000;}
@@ -93,7 +93,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 @keyframes glitch{0%,90%,100%{text-shadow:4px 4px 0 var(--red),8px 8px 0 var(--yellow),-2px -2px 0 var(--blue)}92%{text-shadow:-4px 4px 0 var(--pink),8px -4px 0 var(--blue),2px 2px 0 var(--yellow);transform:translate(2px,-1px)}94%{text-shadow:4px 4px 0 var(--red),8px 8px 0 var(--yellow);transform:translate(-1px,1px)}}
 .warhol-stripes{display:flex;gap:3px;justify-content:center;margin:14px auto;max-width:500px;}
 .ws{flex:1;height:5px;}
-.title-sub{font-size:clamp(14px,2.5vw,20px);color:var(--yellow);letter-spacing:2px;text-shadow:1px 1px 0 var(--orange);}
+.title-sub{font-family:'VT323',monospace;font-size:clamp(14px,2.5vw,20px);color:var(--yellow);letter-spacing:2px;text-shadow:1px 1px 0 var(--orange);}
 
 /* day one banner */
 .day-one{
@@ -104,13 +104,13 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   border:3px solid #000;box-shadow:5px 5px 0 var(--red),7px 7px 0 #000;
   line-height:1.8;
 }
-.day-one .big{font-size:12px;color:var(--red);text-shadow:1px 1px 0 #000;animation:blink 1s step-end infinite;display:block;margin-bottom:8px;}
+.day-one .big{font-family:'VT323',monospace;font-size:12px;color:var(--red);text-shadow:1px 1px 0 #000;animation:blink 1s step-end infinite;display:block;margin-bottom:8px;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-#countdown{font-size:16px;color:#0044FF;letter-spacing:2px;margin-top:6px;}
+#countdown{font-family:'VT323',monospace;font-size:16px;color:#0044FF;letter-spacing:2px;margin-top:6px;}
 
 /* stats bar */
 .stats-bar{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;padding:0 20px 14px;}
-.stat-pill{background:#000;border:2px solid #333;padding:6px 14px;font-size:18px;color:#666;letter-spacing:1px;}
+.stat-pill{font-family:'VT323',monospace;background:#000;border:2px solid #333;padding:6px 14px;font-size:18px;color:#666;letter-spacing:1px;}
 .stat-pill span{color:var(--blue);font-family:'Press Start 2P',monospace;font-size:9px;}
 
 /* tabs */
@@ -138,8 +138,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .panel-box{background:#000;border:3px solid #fff;box-shadow:5px 5px 0 var(--pink);padding:18px;margin-bottom:14px;}
 .panel-box h3{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--blue);letter-spacing:2px;margin-bottom:14px;border-bottom:2px solid #222;padding-bottom:8px;}
 .stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #1a1a1a;}
-.stat-label{font-size:17px;color:#888;}
-.stat-value{font-family:'Press Start 2P',monospace;font-size:10px;}
+.stat-label{font-family:'VT323',monospace;font-size:17px;color:#888;}
+.stat-value{font-family:'VT323',monospace;font-size:10px;}
 .stat-value.hl{color:var(--yellow);text-shadow:0 0 8px var(--yellow);font-size:15px;}
 .stat-value.tot{color:var(--green);text-shadow:0 0 8px var(--green);font-size:17px;}
 .buy-btn{display:block;width:100%;background:var(--yellow);color:#000;border:3px solid #000;font-family:'Press Start 2P',monospace;font-size:8px;padding:12px 8px;cursor:pointer;text-align:center;box-shadow:3px 3px 0 var(--red);line-height:1.8;margin-top:14px;}
@@ -149,14 +149,14 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .legend-title{font-family:'Press Start 2P',monospace;font-size:6px;color:#555;letter-spacing:2px;margin-bottom:10px;}
 .legend-item{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .ldot{width:10px;height:10px;border:1px solid;}
-.legend-text{font-size:15px;color:#666;}
+.legend-text{font-family:'VT323',monospace;font-size:15px;color:#666;}
 
 /* ══ SCREEN 2: STAKING ══ */
 .dash-header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 0;flex-wrap:wrap;gap:12px;}
 .dash-title{font-family:'Press Start 2P',monospace;font-size:clamp(12px,3vw,22px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink),0 0 20px var(--yellow);}
-.dash-sub{font-size:14px;color:rgba(255,255,255,0.3);margin-top:4px;letter-spacing:1px;}
+.dash-sub{font-family:'VT323',monospace;font-size:14px;color:rgba(255,255,255,0.3);margin-top:4px;letter-spacing:1px;}
 .wallet-bar{display:flex;align-items:center;gap:12px;border:1px solid rgba(255,229,0,0.3);background:rgba(255,229,0,0.04);padding:10px 16px;flex-wrap:wrap;}
-.wb-addr{font-size:14px;color:rgba(255,255,255,0.4);}
+.wb-addr{font-family:'VT323',monospace;font-size:14px;color:rgba(255,255,255,0.4);}
 .wb-addr span{color:var(--yellow);}
 .wb-bal{font-size:32px;color:var(--yellow);text-shadow:0 0 10px var(--yellow);}
 .wb-label{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--yellow);}
@@ -176,11 +176,11 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .earn-card.y .earn-title{color:var(--yellow);}
 .earn-card.p .earn-title{color:var(--pink);}
 .earn-card.b .earn-title{color:var(--blue);}
-.earn-amt{font-size:26px;line-height:1;}
+.earn-amt{font-family:'VT323',monospace;font-size:26px;line-height:1;}
 .earn-card.y .earn-amt{color:var(--yellow);}
 .earn-card.p .earn-amt{color:var(--pink);}
 .earn-card.b .earn-amt{color:var(--blue);}
-.earn-sub{font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px;}
+.earn-sub{font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px;}
 
 /* plot mini grid */
 .mini-plot-grid{display:grid;gap:2px;margin-bottom:8px;}
@@ -208,12 +208,12 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
 /* activity */
 .act-feed{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto;}
-.act-item{display:flex;gap:8px;font-size:13px;padding:5px 8px;border-left:2px solid;}
+.act-item{display:flex;gap:8px;font-family:'VT323',monospace;font-size:13px;padding:5px 8px;border-left:2px solid;}
 .act-item.stake{border-color:var(--pink);}
 .act-item.earn{border-color:var(--yellow);}
 .act-item.ms{border-color:var(--green);}
-.act-time{color:rgba(255,255,255,0.25);font-size:11px;flex-shrink:0;}
-.act-text{color:rgba(255,255,255,0.7);line-height:1.4;}
+.act-time{font-family:'VT323',monospace;color:rgba(255,255,255,0.25);font-size:11px;flex-shrink:0;}
+.act-text{font-family:'VT323',monospace;color:rgba(255,255,255,0.7);line-height:1.4;}
 .act-text strong{color:var(--yellow);}
 .act-text .p{color:var(--pink);}
 .act-text .g{color:var(--green);}
@@ -224,8 +224,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .sp-slot:hover{border-color:var(--purple);background:rgba(155,0,255,0.1);}
 .sp-slot.on{border-style:solid;border-color:var(--purple);}
 .sp-slot-lbl{font-family:'Press Start 2P',monospace;font-size:4px;color:rgba(155,0,255,0.6);margin-bottom:3px;}
-.sp-slot-name{font-size:13px;color:var(--purple);}
-.sp-slot-rev{font-size:11px;color:rgba(255,255,255,0.3);}
+.sp-slot-name{font-family:'VT323',monospace;font-size:13px;color:var(--purple);}
+.sp-slot-rev{font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.3);}
 
 /* milestone */
 .ms-track{display:flex;flex-direction:column;gap:8px;}
@@ -237,8 +237,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .ms-info{flex:1;}
 .ms-name{font-family:'Press Start 2P',monospace;font-size:5px;color:var(--yellow);margin-bottom:3px;letter-spacing:1px;}
 .ms-item.done .ms-name{color:var(--green);}
-.ms-desc{font-size:11px;color:rgba(255,255,255,0.4);}
-.ms-req{font-size:11px;flex-shrink:0;}
+.ms-desc{font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.4);}
+.ms-req{font-family:'VT323',monospace;font-size:11px;flex-shrink:0;}
 .ms-item.done .ms-req{color:var(--green);}
 .ms-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--yellow));transition:width 0.5s;}
 
@@ -246,12 +246,12 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .agent-wrap{max-width:700px;margin:0 auto;padding:28px 20px 60px;}
 .quiz-title{font-family:'Press Start 2P',monospace;font-size:clamp(14px,3vw,24px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink);text-align:center;margin-bottom:6px;animation:tilt 4s ease-in-out infinite;}
 @keyframes tilt{0%,100%{transform:rotate(-0.8deg)}50%{transform:rotate(0.8deg)}}
-.quiz-sub{font-size:17px;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:2px;margin-bottom:28px;}
+.quiz-sub{font-family:'VT323',monospace;font-size:17px;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:2px;margin-bottom:28px;}
 .q-card{border:1px solid rgba(255,229,0,0.2);background:rgba(255,229,0,0.02);padding:24px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color 0.3s;}
 .q-card.answered{border-color:rgba(255,229,0,0.45);}
 .q-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--yellow),var(--green));background-size:200% 100%;animation:slide 3s linear infinite;}
 .q-num{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--pink);margin-bottom:10px;letter-spacing:2px;}
-.q-text{font-size:21px;color:#fff;margin-bottom:18px;line-height:1.4;}
+.q-text{font-family:'VT323',monospace;font-size:21px;color:#fff;margin-bottom:18px;line-height:1.4;}
 .q-opts{display:flex;flex-direction:column;gap:8px;}
 .q-opt{border:1px solid rgba(255,255,255,0.1);background:transparent;padding:12px 14px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;font-size:17px;color:rgba(255,255,255,0.65);transition:all 0.12s;font-family:'VT323',monospace;}
 .q-opt:hover{border-color:rgba(255,229,0,0.4);color:var(--yellow);background:rgba(255,229,0,0.04);transform:translateX(4px);}
@@ -272,7 +272,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 @keyframes avPulse{0%,100%{box-shadow:0 0 8px var(--yellow)}50%{box-shadow:0 0 24px var(--yellow),0 0 40px rgba(255,229,0,0.3)}}
 .agent-type{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--pink);letter-spacing:2px;margin-bottom:5px;}
 .agent-name{font-family:'Press Start 2P',monospace;font-size:clamp(12px,2.5vw,19px);color:var(--yellow);text-shadow:2px 2px 0 var(--pink);margin-bottom:8px;line-height:1.4;}
-.agent-tagline{font-size:17px;color:rgba(255,255,255,0.65);margin-bottom:12px;line-height:1.5;}
+.agent-tagline{font-family:'VT323',monospace;font-size:17px;color:rgba(255,255,255,0.65);margin-bottom:12px;line-height:1.5;}
 .traits{display:flex;flex-wrap:wrap;gap:5px;}
 .trait{font-family:'Press Start 2P',monospace;font-size:5px;padding:3px 7px;border:1px solid;letter-spacing:1px;}
 .trait.y{color:var(--yellow);border-color:var(--yellow);background:rgba(255,229,0,0.07);}
@@ -284,7 +284,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .strat-lbl{font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:6px;}
 .strat-track{height:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);overflow:hidden;margin-bottom:3px;}
 .strat-fill{height:100%;width:0%;transition:width 1s cubic-bezier(0.25,1,0.5,1);}
-.strat-val{font-size:12px;color:rgba(255,255,255,0.4);text-align:right;}
+.strat-val{font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.4);text-align:right;}
 .activate-btn{font-family:'Press Start 2P',monospace;font-size:8px;color:#000;background:var(--yellow);border:none;padding:14px 32px;cursor:pointer;letter-spacing:2px;box-shadow:4px 4px 0 var(--pink);display:block;margin:0 auto;}
 .activate-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--pink);}
 
@@ -294,7 +294,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .mining-title{font-family:'Press Start 2P',monospace;font-size:clamp(9px,2vw,14px);color:var(--yellow);text-shadow:2px 2px 0 var(--pink);letter-spacing:2px;}
 .budget-pill{display:flex;gap:16px;border:1px solid rgba(255,229,0,0.3);background:rgba(255,229,0,0.03);padding:8px 16px;}
 .bp-label{font-family:'Press Start 2P',monospace;font-size:5px;color:rgba(255,229,0,0.5);letter-spacing:2px;}
-.bp-val{font-size:32px;color:var(--yellow);text-shadow:0 0 10px var(--yellow);line-height:1;}
+.bp-val{font-family:'VT323',monospace;font-size:32px;color:var(--yellow);text-shadow:0 0 10px var(--yellow);line-height:1;}
 .mining-main{display:grid;grid-template-columns:1fr 300px;gap:12px;}
 .pool-card{border:1px solid;background:var(--panel);margin-bottom:10px;position:relative;overflow:hidden;transition:box-shadow 0.2s;}
 .pool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--yellow),var(--green),var(--blue));background-size:200% 100%;animation:slide 3s linear infinite;}
@@ -308,8 +308,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .pool-type{font-family:'Press Start 2P',monospace;font-size:5px;letter-spacing:2px;margin-bottom:3px;}
 .pool-card.pure .pool-type{color:var(--yellow);}
 .pool-card.artist .pool-type{color:var(--pink);}
-.pool-name{font-size:20px;color:#fff;margin-bottom:2px;}
-.pool-meta{font-size:12px;color:rgba(255,255,255,0.35);}
+.pool-name{font-family:'VT323',monospace;font-size:20px;color:#fff;margin-bottom:2px;}
+.pool-meta{font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.35);}
 .pool-meta .y{color:var(--yellow);}
 .pool-meta .p{color:var(--pink);}
 .pool-meta .g{color:var(--green);}
@@ -322,7 +322,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .alloc-slider{flex:1;-webkit-appearance:none;height:5px;outline:none;border:none;background:rgba(255,255,255,0.06);cursor:pointer;}
 .pool-card.pure .alloc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--yellow);box-shadow:0 0 8px var(--yellow);cursor:pointer;}
 .pool-card.artist .alloc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--pink);box-shadow:0 0 8px var(--pink);cursor:pointer;}
-.alloc-val{font-size:20px;width:80px;text-align:right;flex-shrink:0;}
+.alloc-val{font-family:'VT323',monospace;font-size:20px;width:80px;text-align:right;flex-shrink:0;}
 .pool-card.pure .alloc-val{color:var(--yellow);}
 .pool-card.artist .alloc-val{color:var(--pink);}
 .qbtns{display:flex;gap:4px;flex-wrap:wrap;}
@@ -337,7 +337,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .op-head{font-family:'Press Start 2P',monospace;font-size:4px;letter-spacing:1px;margin-bottom:5px;padding:3px 5px;border:1px solid;}
 .op-win .op-head{color:var(--green);border-color:rgba(57,255,20,0.3);background:rgba(57,255,20,0.05);}
 .op-miss .op-head{color:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);}
-.op-item{font-size:12px;color:rgba(255,255,255,0.5);padding:2px 0;display:flex;align-items:flex-start;gap:4px;line-height:1.4;}
+.op-item{font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.5);padding:2px 0;display:flex;align-items:flex-start;gap:4px;line-height:1.4;}
 .op-item::before{content:'▸';color:var(--yellow);flex-shrink:0;font-size:9px;margin-top:1px;}
 .op-item strong{color:#fff;}
 .op-item .g{color:var(--green);}
@@ -357,15 +357,15 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .bb-fill-y{background:var(--yellow);box-shadow:0 0 5px var(--yellow);}
 .bb-fill-p{background:var(--pink);box-shadow:0 0 5px var(--pink);}
 .bb-fill-g{background:var(--green);box-shadow:0 0 5px var(--green);}
-.bb-val{font-size:14px;color:rgba(255,255,255,0.5);width:55px;text-align:right;flex-shrink:0;}
+.bb-val{font-family:'VT323',monospace;font-size:14px;color:rgba(255,255,255,0.5);width:55px;text-align:right;flex-shrink:0;}
 .art-zone{min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed rgba(255,229,0,0.2);background:rgba(255,229,0,0.02);gap:6px;transition:all 0.3s;padding:12px;text-align:center;}
 .art-zone.on{border-color:var(--pink);background:rgba(255,45,155,0.04);box-shadow:0 0 12px rgba(255,45,155,0.1);}
 .art-icon{font-size:36px;animation:artBob 2s ease-in-out infinite;}
 @keyframes artBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .art-tier{font-family:'Press Start 2P',monospace;font-size:6px;letter-spacing:2px;}
-.art-name{font-size:17px;color:#fff;margin-top:2px;}
-.art-desc{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;margin-top:3px;}
-.art-empty{font-size:13px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+.art-name{font-family:'VT323',monospace;font-size:17px;color:#fff;margin-top:2px;}
+.art-desc{font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;margin-top:3px;}
+.art-empty{font-family:'VT323',monospace;font-size:13px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
 .confirm-btn{width:100%;font-family:'Press Start 2P',monospace;font-size:7px;color:#000;background:var(--yellow);border:none;cursor:pointer;padding:14px;letter-spacing:2px;box-shadow:3px 3px 0 var(--pink);display:none;margin-top:4px;}
 .confirm-btn.vis{display:block;animation:popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);}
 .confirm-btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--pink);}
@@ -435,7 +435,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div style="width:8px;height:8px;border-radius:50%;background:#9B00FF;box-shadow:0 0 8px #9B00FF;animation:stPulse 1.5s infinite;flex-shrink:0;margin-top:2px;"></div>
       <div>
         <div style="font-family:'Press Start 2P',monospace;font-size:7px;color:#9B00FF;letter-spacing:1px;line-height:1.9;">◈ VOTE OPEN — BUS ROUTE: EAST NASHVILLE vs 12 SOUTH</div>
-        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:rgba(255,255,255,0.22);letter-spacing:1px;margin-top:4px;">3 DAYS LEFT · 846 PLOT HOLDERS VOTE · YOUR STAKE = YOUR VOICE</div>
+        <div style="font-family:'VT323',monospace;font-size:6px;color:rgba(255,255,255,0.22);letter-spacing:1px;margin-top:4px;">3 DAYS LEFT · 846 PLOT HOLDERS VOTE · YOUR STAKE = YOUR VOICE</div>
       </div>
     </div>
     <button onclick="showToast('◈ VOTING OPENS\nAPRIL 1, 2026\nAT PRESALE LAUNCH','')" style="font-family:'Press Start 2P',monospace;font-size:6px;padding:7px 12px;background:#9B00FF;color:#fff;border:none;cursor:pointer;letter-spacing:1px;white-space:nowrap;">VOTE NOW →</button>
@@ -502,17 +502,17 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#FF6B00;letter-spacing:2px;margin-bottom:10px;">▸ WHAT THIS PLOT EARNS YOU</div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(255,45,155,0.25);background:rgba(255,45,155,0.03);">
           <div style="width:8px;height:8px;background:rgba(255,45,155,0.4);border:1px solid #FF2D9B;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#FF2D9B;letter-spacing:1px;">DRIVER SIDE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+10% staking bonus</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#FF2D9B;letter-spacing:1px;">DRIVER SIDE</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+10% staking bonus</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(57,255,20,0.2);background:rgba(57,255,20,0.02);">
           <div style="width:8px;height:8px;background:rgba(57,255,20,0.3);border:1px solid #39FF14;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">BACKSTAGE</div><div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+5% staking bonus</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">BACKSTAGE</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+5% staking bonus</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid #111;">
           <div style="width:8px;height:8px;background:#111;border:1px solid #333;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#444;letter-spacing:1px;">ROOFLINE</div><div style="font-size:12px;color:rgba(255,255,255,0.2);margin-top:2px;">+10% staking bonus · Upper panels</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#444;letter-spacing:1px;">ROOFLINE</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.2);margin-top:2px;">+10% staking bonus · Upper panels</div></div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.18);margin-top:7px;border-top:1px solid #111;padding-top:7px;line-height:1.6;">Founder staking bonus +25% all zones<br>Multi-plot +5% per additional</div>
+        <div style="font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.18);margin-top:7px;border-top:1px solid #111;padding-top:7px;line-height:1.6;">Founder staking bonus +25% all zones<br>Multi-plot +5% per additional</div>
       </div>
       <div class="legend-box">
         <div class="legend-title">// LEGEND //</div>
@@ -523,7 +523,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       </div>
       <div class="panel-box" style="border-color:#333;box-shadow:none;">
         <h3 style="color:#555;">► DAY ONE PERKS</h3>
-        <div style="font-size:15px;color:#555;line-height:2.2;">
+        <div style="font-family:'VT323',monospace;font-size:15px;color:#555;line-height:2.2;">
           ★ +25% staking bonus
         </div>
       </div>
@@ -542,7 +542,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="dash-sub">base mainnet · 5 plots running · $BUS accumulating right now</div>
     </div>
     <div class="wallet-bar">
-      <div><div class="wb-addr">CONNECTED: <span>0x7F3a...B92c</span></div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;">DAY ONE FOUNDER ★</div></div>
+      <div><div class="wb-addr">CONNECTED: <span>0x7F3a...B92c</span></div><div style="font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;">DAY ONE FOUNDER ★</div></div>
       <div><div class="wb-label">$BUS BALANCE</div><div class="wb-bal" id="busBalance">12,847</div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="s-btn g" onclick="stakeAll()">⚡ STAKE ALL</button>
@@ -553,7 +553,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
   <!-- mini ticker in stake -->
   <div style="overflow:hidden;border-top:1px solid rgba(255,229,0,0.1);border-bottom:1px solid rgba(255,229,0,0.1);padding:5px 0;margin:14px 0 0;background:rgba(255,229,0,0.02);">
-    <div style="display:inline-flex;gap:40px;animation:ticker2 18s linear infinite;white-space:nowrap;font-size:13px;">
+    <div style="font-family:'VT323',monospace;display:inline-flex;gap:40px;animation:ticker2 18s linear infinite;white-space:nowrap;font-size:13px;">
       <span style="color:rgba(255,229,0,0.6);">$BUS <span style="color:var(--green);">+12.4%</span></span>
       <span style="color:rgba(255,229,0,0.6);">PLOTS STAKED <span style="color:var(--green);">847</span></span>
       <span style="color:rgba(255,229,0,0.6);">ROOF INCHES EARNED <span style="color:var(--pink);">142/360</span></span>
@@ -580,7 +580,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
           <button class="s-btn y" style="font-size:5px;" onclick="switchStakeView('BACK',this)">BACK</button>
         </div>
         <div style="overflow-x:auto;"><div class="mini-plot-grid" id="stakeGrid"></div></div>
-        <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;font-size:13px;">
+        <div style="font-family:'VT323',monospace;display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;font-size:13px;">
           <span style="color:rgba(255,255,255,0.4);">OWNED: <span style="color:var(--green);">5</span></span>
           <span style="color:rgba(255,255,255,0.4);">STAKING: <span style="color:var(--pink);">2</span></span>
           <span style="color:rgba(255,255,255,0.4);">TEAM: <span style="color:var(--purple);">33</span></span>
@@ -598,7 +598,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <div class="sp">
       <div class="sp-title">⚡ ZONE STAKING RATES</div>
       <div class="sp-body">
-        <div style="font-size:14px;color:rgba(255,255,255,0.5);line-height:2.4;">
+        <div style="font-family:'VT323',monospace;font-size:14px;color:rgba(255,255,255,0.5);line-height:2.4;">
           CAMERA ZONE: <span style="color:var(--pink);">14 $BUS/day</span><br>
           STREET LEVEL: <span style="color:#39FF14;">10 $BUS/day</span><br>
           ROOFLINE: <span style="color:rgba(255,255,255,0.35);">8 $BUS/day</span><br>
@@ -608,8 +608,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         </div>
         <div style="border-top:1px solid rgba(255,229,0,0.1);margin:12px 0;padding-top:12px;">
           <div class="sp-title" style="padding:0;border:none;background:none;margin-bottom:8px;">PENDING REWARDS</div>
-          <div style="font-size:36px;color:var(--yellow);text-shadow:0 0 12px var(--yellow);" id="pendingBig">0.0000</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.25);margin-bottom:10px;">$BUS UNCLAIMED</div>
+          <div style="font-family:'VT323',monospace;font-size:36px;color:var(--yellow);text-shadow:0 0 12px var(--yellow);" id="pendingBig">0.0000</div>
+          <div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.25);margin-bottom:10px;">$BUS UNCLAIMED</div>
           <button class="s-btn g" style="width:100%;font-size:5px;padding:10px;" onclick="claimAll()">◈ CLAIM $BUS</button>
         </div>
       </div>
@@ -620,9 +620,9 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="sp-title">◈ $BUS EARNINGS BREAKDOWN</div>
       <div class="sp-body">
         <div class="earn-grid">
-          <div class="earn-card y"><div class="earn-title">$BUS / DAY</div><div class="earn-amt" id="earnStake">847.2</div><div class="earn-sub">$BUS EARNED</div><div style="font-size:12px;color:rgba(255,229,0,0.6);margin-top:4px;" id="earnRate">+12.5 $BUS/HR</div></div>
-          <div class="earn-card p"><div class="earn-title">ROOF INCHES</div><div class="earn-amt">3</div><div class="earn-sub">INCHES OWNED</div><div style="font-size:12px;color:rgba(255,45,155,0.6);margin-top:4px;">NEXT IN 12 DAYS</div></div>
-          <div class="earn-card b"><div class="earn-title">SPONSOR CUT</div><div class="earn-amt">0.021</div><div class="earn-sub">ETH EARNED</div><div style="font-size:12px;color:rgba(0,191,255,0.6);margin-top:4px;">FROM 2 EVENTS</div></div>
+          <div class="earn-card y"><div class="earn-title">$BUS / DAY</div><div class="earn-amt" id="earnStake">847.2</div><div class="earn-sub">$BUS EARNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,229,0,0.6);margin-top:4px;" id="earnRate">+12.5 $BUS/HR</div></div>
+          <div class="earn-card p"><div class="earn-title">ROOF INCHES</div><div class="earn-amt">3</div><div class="earn-sub">INCHES OWNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,45,155,0.6);margin-top:4px;">NEXT IN 12 DAYS</div></div>
+          <div class="earn-card b"><div class="earn-title">SPONSOR CUT</div><div class="earn-amt">0.021</div><div class="earn-sub">ETH EARNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(0,191,255,0.6);margin-top:4px;">FROM 2 EVENTS</div></div>
         </div>
         <div style="border-top:1px solid rgba(255,229,0,0.1);margin-top:14px;padding-top:12px;">
           <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:var(--purple);letter-spacing:1px;text-shadow:0 0 6px var(--purple);margin-bottom:10px;">◈ SPONSORS PAY. YOU COLLECT.</div>
@@ -661,8 +661,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         <div style="overflow-x:auto;display:flex;justify-content:center;">
           <div class="roof-grid" id="roofGrid"></div>
         </div>
-        <div style="font-size:16px;color:rgba(255,255,255,0.45);margin-top:8px;">YOU OWN <span style="color:var(--pink);font-size:20px;">3</span> ROOF INCHES OF 360 TOTAL</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.25);margin-top:4px;">EACH INCH = 0.28% OF ALL SPONSOR REVENUE</div>
+        <div style="font-family:'VT323',monospace;font-size:16px;color:rgba(255,255,255,0.45);margin-top:8px;">YOU OWN <span style="color:var(--pink);font-size:20px;">3</span> ROOF INCHES OF 360 TOTAL</div>
+        <div style="font-family:'VT323',monospace;font-size:13px;color:rgba(255,255,255,0.25);margin-top:4px;">EACH INCH = 0.28% OF ALL SPONSOR REVENUE</div>
       </div>
     </div>
   </div>
@@ -746,11 +746,11 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <div class="mining-header">
       <div>
         <div class="mining-title">◈ ALLOCATE</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:3px;">// WEEK 03 / 12 · 4 DAYS LEFT //</div>
+        <div style="font-family:'VT323',monospace;font-size:13px;color:rgba(255,255,255,0.3);margin-top:3px;">// WEEK 03 / 12 · 4 DAYS LEFT //</div>
       </div>
       <div class="budget-pill">
-        <div><div class="bp-label">WEEKLY BUDGET</div><div class="bp-val" id="totalBus">1,000</div><div style="font-size:11px;color:rgba(255,255,255,0.25);">$BUS AVAILABLE</div></div>
-        <div style="border-left:1px solid rgba(255,229,0,0.2);padding-left:14px;"><div class="bp-label">UNALLOCATED</div><div class="bp-val" style="font-size:24px;" id="remBus">1,000</div><div style="font-size:11px;color:rgba(255,255,255,0.25);">$BUS REMAINING</div></div>
+        <div><div class="bp-label">WEEKLY BUDGET</div><div class="bp-val" id="totalBus">1,000</div><div style="font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.25);">$BUS AVAILABLE</div></div>
+        <div style="border-left:1px solid rgba(255,229,0,0.2);padding-left:14px;"><div class="bp-label">UNALLOCATED</div><div class="bp-val" style="font-size:24px;" id="remBus">1,000</div><div style="font-family:'VT323',monospace;font-size:11px;color:rgba(255,255,255,0.25);">$BUS REMAINING</div></div>
       </div>
     </div>
 
@@ -758,7 +758,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <div style="display:flex;align-items:center;gap:12px;border:1px solid rgba(178,0,255,0.3);background:rgba(178,0,255,0.03);padding:10px 14px;margin-bottom:14px;">
       <div style="font-size:26px;">🎸</div>
       <div style="flex:1;">
-        <div style="font-size:14px;color:rgba(255,255,255,0.5);">your agent is watching <strong style="color:#fff;">Marcus Webb</strong> and <strong style="color:#fff;">The Hollow Kind</strong> this week.</div>
+        <div style="font-family:'VT323',monospace;font-size:14px;color:rgba(255,255,255,0.5);">your agent is watching <strong style="color:#fff;">Marcus Webb</strong> and <strong style="color:#fff;">The Hollow Kind</strong> this week.</div>
       </div>
       <div style="width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);flex-shrink:0;animation:pulse 1.5s ease-in-out infinite;"></div>
     </div>
@@ -922,7 +922,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
   <div class="rainbow"></div>
   <div style="max-width:900px;margin:0 auto;padding:32px 24px 64px;">
     <div style="font-family:'Press Start 2P',monospace;font-size:clamp(12px,3vw,20px);color:var(--yellow);text-shadow:3px 3px 0 var(--pink);text-align:center;margin:24px 0 6px;">◈ LEADERBOARD ◈</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:2px;margin-bottom:32px;">// who moved first. it's all here. //</div>
+    <div style="font-family:'VT323',monospace;font-size:13px;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:2px;margin-bottom:32px;">// who moved first. it's all here. //</div>
     <div style="display:flex;justify-content:center;gap:4px;margin-bottom:24px;" id="lbTabs">
       <button class="tab active" onclick="switchLB('patrons',this)">TOP PATRONS</button>
       <button class="tab" onclick="switchLB('miners',this)">TOP MINERS</button>
