@@ -506,7 +506,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid rgba(57,255,20,0.2);background:rgba(57,255,20,0.02);">
           <div style="width:8px;height:8px;background:rgba(57,255,20,0.3);border:1px solid #39FF14;flex-shrink:0;margin-top:2px;"></div>
-          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">BACKSTAGE</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+5% staking bonus</div></div>
+          <div><div style="font-family:'Press Start 2P',monospace;font-size:5px;color:#39FF14;letter-spacing:1px;">PASSENGER SIDE</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;">+5% staking bonus</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;padding:5px;border:1px solid #111;">
           <div style="width:8px;height:8px;background:#111;border:1px solid #333;flex-shrink:0;margin-top:2px;"></div>
@@ -599,10 +599,10 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="sp-title">⚡ ZONE STAKING RATES</div>
       <div class="sp-body">
         <div style="font-family:'VT323',monospace;font-size:14px;color:rgba(255,255,255,0.5);line-height:2.4;">
-          CAMERA ZONE: <span style="color:var(--pink);">14 $BUS/day</span><br>
-          STREET LEVEL: <span style="color:#39FF14;">10 $BUS/day</span><br>
+          DRIVER SIDE: <span style="color:var(--pink);">14000 $BUS/day</span><br>
+          PASSENGER SIDE: <span style="color:#39FF14;">10000 $BUS/day</span><br>
           ROOFLINE: <span style="color:rgba(255,255,255,0.35);">8 $BUS/day</span><br>
-          FRONT/BACK: <span style="color:var(--yellow);">14 $BUS/day</span><br>
+          FRONT · BACK: <span style="color:var(--yellow);">8000 $BUS/day</span><br>
           FOUNDER BONUS: <span style="color:var(--pink);">+25%</span><br>
           MULTI-PLOT: <span style="color:var(--green);">+5% PER EXTRA</span>
         </div>
@@ -620,7 +620,7 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div class="sp-title">◈ $BUS EARNINGS BREAKDOWN</div>
       <div class="sp-body">
         <div class="earn-grid">
-          <div class="earn-card y"><div class="earn-title">$BUS / DAY</div><div class="earn-amt" id="earnStake">847.2</div><div class="earn-sub">$BUS EARNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,229,0,0.6);margin-top:4px;" id="earnRate">+12.5 $BUS/HR</div></div>
+          <div class="earn-card y"><div class="earn-title">$BUS / DAY</div><div class="earn-amt" id="earnStake">847.2</div><div class="earn-sub">$BUS EARNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,229,0,0.6);margin-top:4px;" id="earnRate">+1 $BUS / 6 SEC</div></div>
           <div class="earn-card p"><div class="earn-title">ROOF INCHES</div><div class="earn-amt">3</div><div class="earn-sub">INCHES OWNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(255,45,155,0.6);margin-top:4px;">NEXT IN 12 DAYS</div></div>
           <div class="earn-card b"><div class="earn-title">SPONSOR CUT</div><div class="earn-amt">0.021</div><div class="earn-sub">ETH EARNED</div><div style="font-family:'VT323',monospace;font-size:12px;color:rgba(0,191,255,0.6);margin-top:4px;">FROM 2 EVENTS</div></div>
         </div>
@@ -1236,9 +1236,9 @@ function renderMs(){
 }
 renderMs();
 
-// reward ticker
+// reward ticker — 1 $BUS approximately every 6 seconds
 let rewardAcc=0,totalEarned=847.2;
-const ratePerSec=(2*10*1.25)/86400;
+const ratePerSec=1/6;
 setInterval(()=>{
   rewardAcc+=ratePerSec;totalEarned+=ratePerSec;
   document.getElementById('pendingBus').textContent=rewardAcc.toFixed(4);
